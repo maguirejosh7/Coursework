@@ -1,0 +1,97 @@
+Script started on Thu 13 Mar 2014 08:18:00 PM EDT
+jlm54@hollerith:~/214/projects/05/ada$ cat roots.adb
+-- roots.cpp computes the roots of a quadratic equation 
+--
+-- Input: three terms of quadratic equation ( y = ax^2 + bx + c )
+-- PRE: a > 0, (b^2 - 4ac) != negative
+-- Output: x = root1, x = root2
+--
+-- Begun by: Dr. Adams, for CS 214 at Calvin College.
+-- Completed by:Joshua Maguire
+-- Date:3/13/14
+------------------------------------------------------------------
+
+with Ada.Text_IO, Ada.Float_Text_IO, Ada.Numerics.Elementary_Functions; 
+use  Ada.Text_IO, Ada.Float_Text_IO, Ada.Numerics.Elementary_Functions;
+
+
+procedure roots is
+rootA, rootB, rootC, root1, root2, arg : Float;
+	
+-- quadraticRoots cmputes the roots of a quadratic equation
+-- Input: three terms of quadratic equation ( y = ax^2 + bx + c )
+-- PRE: a > 0, (b^2 - 4ac) != negative
+-- Output: x = root1, x = root2
+procedure quadraticRoots( a, b, c: in Float; root1, root2: in out float) is
+begin
+	if (a /= 0.0) then
+	arg := b**2 - 4.0 * A * c;--b^2 - 4ac
+		if(arg >= 0.0) then
+		root1:= (-b + Sqrt(arg))/(2.0*a);--(-b + sqrt(arg))/2a
+		root2:= (-b - Sqrt(arg))/(2.0*a);--(-b - sqrt(arg))/2a 
+		return;
+		else 
+		Put("*** quadraticRoots(): b^2 - 4ac is negative!");
+		root1 := 0.0; root2 := 0.0;
+		return;
+		end if;
+	else 
+	Put("\n*** QuadraticRoots(): a is zero!");
+	root1 := 0.0; root2 := 0.0;
+	return;
+	end if;	
+end quadraticRoots;
+ 
+
+begin
+	Put("Enter first term for quadratic equation:");Get(rootA);--get first root
+	Put("Second:");Get(rootB);--second..
+	Put("Third:");Get(rootC);--third..
+	quadraticRoots(rootA,rootB,rootC,root1,root2);
+	if (root1 /= 0.0 and root2 /= 0.0) then 
+	Put("x = ");Put(root1);New_Line;Put("x = ");Put(root2);--Put result
+	end if;
+end roots;
+jlm54@hollerith:~/214/projects/05/ada$ gnatmake roots.adb
+gcc-4.6 -c roots.adb
+roots.adb:48:42: warning: "root1" may be referenced before it has a value
+roots.adb:48:48: warning: "root2" may be referenced before it has a value
+gnatbind -x roots.ali
+gnatlink roots.ali
+jlm54@hollerith:~/214/projects/05/ada$ ./roots
+Enter first term for quadratic equation:1
+Second:4
+Third:4
+x = -2.00000E+00
+x = -2.00000E+00
+jlm54@hollerith:~/214/projects/05/ada$ ./roots
+Enter first term for quadratic equation:1
+Second:5
+Third:6
+x = -2.00000E+00
+x = -3.00000E+00
+jlm54@hollerith:~/214/projects/05/ada$ ./roots
+Enter first term for quadratic equation:-1
+Second:-1
+Third:5
+x = -2.79129E+00
+x =  1.79129E+00
+jlm54@hollerith:~/214/projects/05/ada$ ./roots
+Enter first term for quadratic equation:2
+Second:5
+Third:3
+x = -1.00000E+00
+x = -1.50000E+00
+jlm54@hollerith:~/214/projects/05/ada$ ./roots
+Enter first term for quadratic equation:0
+Second:2
+Third:2
+\n*** QuadraticRoots(): a is zero!
+jlm54@hollerith:~/214/projects/05/ada$ ./roots
+Enter first term for quadratic equation:-2
+Second:-2
+Third:-2
+*** quadraticRoots(): b^2 - 4ac is negative!
+jlm54@hollerith:~/214/projects/05/ada$ exit
+
+Script done on Thu 13 Mar 2014 08:19:22 PM EDT

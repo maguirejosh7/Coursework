@@ -1,0 +1,81 @@
+V "GNAT Lib v2013"
+M P W=b
+A -mtune=generic
+A -march=pentiumpro
+P SS ZX
+
+RN
+RV NO_IO
+RV NO_DEFAULT_INITIALIZATION
+RV SPARK
+
+U birds%b		birds.adb		3f97b27a NE OO SU
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W bird_package%s	bird_package.adb	bird_package.ali
+W duck_package%s	duck_package.adb	duck_package.ali
+W goose_package%s	goose_package.adb	goose_package.ali
+W owl_package%s		owl_package.adb		owl_package.ali
+
+D ada.ads		20130417131022 3ffc8e18
+D a-except.ads		20130417131018 10fcae55
+D a-finali.ads		20130417131020 52ecdc1b
+D a-ioexce.ads		20130417131020 8b9de6cd
+D a-stream.ads		20130417131020 2ca4ee37
+D a-tags.ads		20130417131022 6c0509d0
+D a-textio.ads		20130417131022 386df5d4
+D a-unccon.ads		20130417131022 f9eb8f06
+D a-uncdea.ads		20130417131022 f15a5ed1
+D bird_package.ads	20140502140450 c278ef0e
+D birds.adb		20140502140450 2138411c
+D duck_package.ads	20140502140450 947436f6
+D goose_package.ads	20140502140450 f7afc371
+D interfac.ads		20130417131026 cb4a8015
+D i-cstrea.ads		20130417131026 8128536b
+D owl_package.ads	20140502140450 87611c3b
+D system.ads		20130417131036 5fc8ae56
+D s-crtl.ads		20130417131028 dfcfca61
+D s-exctab.ads		20130417131028 66e51330
+D s-ficobl.ads		20130417131028 55a71d43
+D s-finmas.ads		20130417131028 b95bb341
+D s-finroo.ads		20130417131028 4ff27390
+D s-parame.ads		20130417131032 b6e20cc0
+D s-pooglo.ads		20130417131032 542f33d0
+D s-secsta.ads		20130417131032 eea35a36
+D s-soflin.ads		20130417131032 24c8153c
+D s-stache.ads		20130417131032 596fc1b4
+D s-stalib.ads		20130417131032 f78bcf95
+D s-stoele.ads		20130417131032 facd7d98
+D s-stoele.adb		20130417131032 afc5dc80
+D s-stopoo.ads		20130417131032 7b8fbeee
+D s-string.ads		20130417131032 46b01415
+D s-ststop.ads		20130417131032 ee472be4
+D s-traent.ads		20130417131032 5221ee41
+D s-unstyp.ads		20130417131034 6ae15c76
+D s-wchcon.ads		20130417131034 bfeb2e3d
+X 1 ada.ads
+16K9*Ada 19e8 11|8r6 9r5
+X 7 a-textio.ads
+49K13*Text_IO 471e16 11|8w10 9r9
+166U14*New_Line 11|21s14 24s14 27s14 30s14 32s2
+X 10 bird_package.ads
+8K9*Bird_Package 55e17 11|8w19 9r18
+10R6*Bird_Type 52e17 11|14r10
+17U15*Init 11|20s2 23s2 26s2 29s2
+46U19*Put 11|21s2 24s2 27s2 30s2
+X 11 birds.adb
+12U11*Birds 12b11 33l5 33t10
+14r2 Bird1{10|10R6} 20m7 21r6
+15r2 Bird2{12|13R6} 23m7 24r6
+16r2 Bird3{13|13R7} 26m7 27r6
+17r2 Bird4{16|13R6} 29m7 30r6
+X 12 duck_package.ads
+11K9*Duck_Package 11|8w33 9r32 12|39e17
+13R6*Duck_Type<10|10R6> 11|15r10 12|36e21
+X 13 goose_package.ads
+11K9*Goose_Package 11|8w47 9r46 13|39e18
+13R7*Goose_Type<10|10R6> 11|16r10 13|37e21
+X 16 owl_package.ads
+11K9*Owl_Package 11|8w62 9r61 16|38e16
+13R6*Owl_type<10|10R6> 11|17r10 16|36e27
+

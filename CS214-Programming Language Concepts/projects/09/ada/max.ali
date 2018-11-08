@@ -1,0 +1,82 @@
+V "GNAT Lib v2013"
+M P W=b
+A -gnatwa
+A -Wall
+A -mtune=generic
+A -march=pentiumpro
+P ZX
+
+RN
+RV NO_IO
+RV NO_DEFAULT_INITIALIZATION
+RV SPARK
+
+U max%b			max.adb			8cef34c6 NE OO SU
+W ada%s			ada.ads			ada.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W list_package%s	list_package.adb	list_package.ali
+
+D ada.ads		20130417131022 3ffc8e18
+D a-except.ads		20130417131018 10fcae55
+D a-finali.ads		20130417131020 52ecdc1b
+D a-inteio.ads		20130417131020 f64b89a4
+D a-ioexce.ads		20130417131020 8b9de6cd
+D a-stream.ads		20130417131020 2ca4ee37
+D a-tags.ads		20130417131022 6c0509d0
+D a-textio.ads		20130417131022 386df5d4
+D a-tiinio.ads		20130417131022 aa04e5d6
+D a-unccon.ads		20130417131022 f9eb8f06
+D interfac.ads		20130417131026 cb4a8015
+D i-cstrea.ads		20130417131026 8128536b
+D list_package.ads	20140425004132 92219396
+D max.adb		20140425004732 d0e8db20
+D system.ads		20130417131036 5fc8ae56
+D s-crtl.ads		20130417131028 dfcfca61
+D s-exctab.ads		20130417131028 66e51330
+D s-ficobl.ads		20130417131028 55a71d43
+D s-finmas.ads		20130417131028 b95bb341
+D s-finroo.ads		20130417131028 4ff27390
+D s-parame.ads		20130417131032 b6e20cc0
+D s-pooglo.ads		20130417131032 542f33d0
+D s-soflin.ads		20130417131032 24c8153c
+D s-stache.ads		20130417131032 596fc1b4
+D s-stalib.ads		20130417131032 f78bcf95
+D s-stoele.ads		20130417131032 facd7d98
+D s-stoele.adb		20130417131032 afc5dc80
+D s-stopoo.ads		20130417131032 7b8fbeee
+D s-traent.ads		20130417131032 5221ee41
+D s-unstyp.ads		20130417131034 6ae15c76
+D s-wchcon.ads		20130417131034 bfeb2e3d
+X 1 ada.ads
+16K9*Ada 19e8 14|8r6 8r19 9r5 9r18
+X 4 a-inteio.ads
+18K13*Integer_Text_IO[9|45] 14|8w23 9r22
+X 8 a-textio.ads
+49K13*Text_IO 471e16 14|8w10 9r9
+166U14*New_Line 14|39s15 40s15 41s15 43s63 44s63 45s63 54s29 55s29 56s29
+. 57s29
+242U14*Put 14|43s3 44s3 45s3
+X 9 a-tiinio.ads
+65U14*Put 14|43s44[4|18] 44s44[4|18] 45s44[4|18] 54s3[4|18] 55s3[4|18] 56s3[4|18]
+. 57s3[4|18]
+X 13 list_package.ads
+8K9*List_Package 94e17 14|8w40 9r39
+11R8*List 92e19 14|13r32
+20U13*Init 14|16s3 17s3 18s3 19s3
+43U13*Append 14|21s3 22s3 23s3 24s3 25s3 27s3 28s3 29s3 30s3 31s3 33s3 34s3
+. 35s3 36s3 37s3 48s3 49s3 50s3 51s3 52s3
+52U13*Put 14|39s3 40s3 41s3
+60V12*Max{integer} 14|43s49 44s49 45s49
+71V12*search{integer} 14|54s9 55s9 56s9 57s9
+X 14 max.adb
+11U11*Max 11b11 59l5 59t8
+13r3 List1{13|11R8} 16m8 21m14 21r14 22m14 22r14 23m14 23r14 24m14 24r14
+. 25m14 25r14 39r7 43r53 54r16
+13r10 List2{13|11R8} 17m8 27m14 27r14 28m14 28r14 29m14 29r14 30m14 30r14
+. 31m14 31r14 40r7 44r53 55r16
+13r17 List3{13|11R8} 18m8 33m14 33r14 34m14 34r14 35m14 35r14 36m14 36r14
+. 37m14 37r14 41r7 45r53 56r16
+13r24 List4{13|11R8} 19m8 48m14 48r14 49m14 49r14 50m14 50r14 51m14 51r14
+. 52m14 52r14 57r16
+

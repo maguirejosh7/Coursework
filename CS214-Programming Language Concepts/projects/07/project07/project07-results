@@ -1,0 +1,754 @@
+Script started on Thu 10 Apr 2014 09:37:14 PM EDT
+jlm54@cray:~/214/labs/07-project/c++$ cc[Kat namer.cpp
+/* namer.cpp implements and tests class Name.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Joshua Maguire
+ * Date:4/10/14
+ */
+
+#include <iostream>        // istream, ostream
+#include <fstream>
+#include <string>          // string
+#include <cassert>         // assert()
+using namespace std;
+
+class Name
+{
+ public:                          // interface functions
+	Name(const string & first, const string & middle, const string & last);
+	string getFirst() const;
+	string getMiddle() const;
+	string getLast() const;
+	string getFullName() const;
+	void print(ostream & out);
+	void readName(istream & in);
+	string lfmi() const;
+	void setFirst(const string & aFirst);
+	void setMiddle(const string & aMiddle);
+	void setLast(const string & aLast);
+ private:
+   string myFirst,
+          myMiddle,
+          myLast;
+};
+
+
+/**************************************************
+* Name constructs a name from three strings.      *
+* Receive: first, middle and last, three strings. *
+* Return: the triplet (first middle last).        *
+***************************************************/
+
+Name::Name(const string & first, const string & middle, const string & last)
+{
+   myFirst = first;
+   myMiddle = middle;
+   myLast = last;
+}
+
+/***************************************************
+ * getFirst() extracts the first name of a Name object. *
+ * Return: myFirst.                                *
+ ***************************************************/
+
+string Name::getFirst() const
+ {
+   return myFirst;
+ }
+
+/*****************************************************
+ * getMiddle() extracts the middle name of a Name object. *
+ * Return: myMiddle.                                 *
+ *****************************************************/
+
+string Name::getMiddle() const
+{
+	return myMiddle;
+}
+
+/**************************************************
+ * getLast() extracts the last name of a Name object.  *
+ * Return: myLast.                                *
+ **************************************************/
+
+string Name::getLast() const
+{
+	return myLast;
+}
+/***************************************************
+ * getFullName() returns a full name in F-M-L order.    *
+ * Return: myFirst, myMiddle, myLast.              *
+ ***************************************************/
+
+string Name::getFullName() const
+{
+   return myFirst + ' ' + myMiddle + ' ' + myLast;
+}
+
+/****************************************************
+ * print() displays a Name object.                    *
+ * Receive: out, the name of a stream.              *
+ * Output: the strings in theName to buffer.        *
+ * POST: out contains myFirst, myMiddle and myLast. *
+ ****************************************************/
+
+void Name::print(ostream & out)
+{
+   out << getFullName();
+}
+
+/****************************************************
+ * these three methods are mutator functions for
+ * first, middle and last names. 
+ * Recieve: aFirst/middle/last, a const string
+ * Return:
+ ***************************************************/
+  void Name::setFirst(const string & aFirst) {
+      myFirst = aFirst;
+   }
+   void Name::setMiddle(const string & aMiddle) {
+      myMiddle = aMiddle;
+   }
+   void Name::setLast(const string & aLast) {
+      myLast = aLast;
+   }
+
+/****************************************************
+ * lfmi function, for a given Name, returns a 
+ * string giving its Last-First-MiddleInitial form.
+ * Recieve: a first, middle or last name
+ * Return: string in Last-First-MiddleInitial form
+ ***************************************************/
+   string Name::lfmi() const {
+      return myLast + ", " + myFirst + " " + myMiddle[0] + ".";
+   }
+
+
+/****************************************************
+ * readName function reads in first, middle and 
+ * last names via keyboard.
+ ***************************************************/
+  void Name::readName(istream & in) {
+      in >> myFirst >> myMiddle >> myLast;
+   }
+
+/******************************************
+ * a simple driver to test our Name type. *
+ ******************************************/
+int main()
+{
+  
+  Name aName("John", "Paul", "Jones");
+  ifstream testFile;
+  testFile.open ("Tests.txt");
+  assert( aName.getFirst() == "John" );
+  assert( aName.getMiddle() == "Paul" );
+  assert( aName.getLast() == "Jones" );
+  assert( aName.getFullName() == "John Paul Jones" );
+  aName.print(cout);  cout << endl;
+  /////////////////////tests 2////////////////
+  aName.setFirst("Tom");
+  aName.setMiddle("Lee");
+  aName.setLast("Mcgilly");
+  assert( aName.getFullName() == "Tom Lee Mcgilly" );
+  aName.print(cout);  cout << endl;
+  aName.readName(testFile);
+  aName.print(cout);  cout << endl;
+  cout << aName.lfmi() << endl;
+  cout << "\n\nAll tests passed! " << endl;
+} 
+
+jlm54@cray:~/214/labs/07-project/c++$ g++ namer.cpp -Wall -o namer
+jlm54@cray:~/214/labs/07-project/c++$ ./namer
+John Paul Jones
+Tom Lee Mcgilly
+Ann Bee Chill
+Chill, Ann B.
+
+
+All tests passed! 
+jlm54@cray:~/214/labs/07-project/c++$ exit
+
+Script done on Thu 10 Apr 2014 09:37:35 PM EDT
+Script started on Thu 10 Apr 2014 10:31:43 PM EDT
+jlm54@cray:~/214/labs/07-project/ada$ cat namer.adb
+-- namer.adb "test-drives" the Name type.
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Joshua Maguire
+-- Date:4/8/14
+----------------------------------------------
+
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure namer is
+
+  NAME_SIZE : constant Integer := 8;
+
+  type Name is 
+  	record
+  		MyFirst, MyMiddle, MyLast : String(1..NAME_SIZE);
+  	end record;
+
+  aName : Name ;
+
+
+  ----------------------------------------------
+  -- Init initializes a Name variable          -
+  -- Receive: theName, the Name variable;      -
+  --          First, the first name;           -
+  --          Middle, the middle name;         -
+  --          Last, the last name.             -
+  -- Return: theName, its fields set to First, -
+  --               Middle, and Last.           -
+  ----------------------------------------------
+
+   procedure Init (TheName : out Name; First, Middle, Last : in String) is
+   begin
+    TheName.MyFirst := First;
+    TheName.MyMiddle := Middle;
+    TheName.MyLast := Last;
+   end Init;
+
+  ----------------------------------------------
+  -- getFirst(Name) retrieves Name.myFirst        -
+  -- Receive: theName, a Name.                 -
+  -- PRE: theName has been initialized.        -
+  -- Return: theName.myFirst.                  -
+  ----------------------------------------------
+
+  function getFirst(TheName : in Name) return String is
+   begin
+      return TheName.MyFirst;
+   end getFirst;
+
+
+ function getMiddle(TheName : in Name) return String is
+   begin
+      return TheName.MyMiddle;
+   end getMiddle;
+   
+   
+   function getLast(TheName : in Name) return String is
+   begin
+      return TheName.MyLast;
+   end getLast;
+
+
+  -----------------------------------------------
+  -- getFullName(Name) retrieves Name as a String  -
+  -- Receive: theName, a Name.                  -
+  -- PRE: theName has been initialized.         -
+  -- Return: a String representation of theName -
+  -----------------------------------------------
+
+function getFullName(TheName : in Name) return String is
+begin
+  return TheName.MyFirst & " " & TheName.MyMiddle & " " & TheName.MyLast;
+end getFullName;
+
+  ----------------------------------------------
+  -- Put(Name) displays a Name value.          -
+  -- PRE: theName has been initialized.        -
+  -- Receive: theName, a Name.                 -
+  -- Output: theName, to the screen.           -
+  ----------------------------------------------
+
+procedure Put(TheName: in Name) is
+  begin
+    Put(getFullName(TheName));
+  end Put;
+ 
+
+-----------------------------------------------------
+ -- these three methods are mutator functions for
+ -- first, middle and last names. 
+ -- Recieve: aFirst/middle/last, a const string
+ -- Return:
+ -----------------------------------------------------
+ procedure setFirst (TheName: out Name ; aFirst: in String) is
+ 	begin
+ 		TheName.MyFirst := aFirst;
+ 	end setFirst;
+ procedure setMiddle (TheName: out Name ; aMiddle: in String) is
+ 	begin
+ 		TheName.MyMiddle := aMiddle;
+ 	end setMiddle;
+ procedure setLast (TheName: out Name ; aLast: in String) is
+ 	begin
+ 		TheName.MyLast := aLast;
+ 	end setLast;
+
+ ---------------------------------------------------
+ -- lfmi function, for a given Name, returns a 
+ -- string giving its Last-First-MiddleInitial form.
+ -- Recieve: a first, middle or last name
+ -- Return: string in Last-First-MiddleInitial form
+ ----------------------------------------------------
+ 	function lfmi (TheName: Name) return string is
+ 		begin
+ 			return TheName.myLast &" "& TheName.myFirst &" "& TheName.myMiddle(1..1);
+ 		end lfmi;
+ 
+ ----------------------------------------------------
+ -- readName function reads in first, middle and 
+ -- last names via keyboard.
+ ----------------------------------------------------
+  procedure readName (TheName: out Name) is
+  	tempName: string(1..NAME_SIZE) := "        ";--make sure tempName is already filled with spaces...just incase
+  	Last : Integer:=NAME_SIZE;
+  	begin
+  		get_line(tempName, Last);--get_line 
+  		setFirst(TheName, tempName);
+  		get_line(tempName, Last);
+  		setMiddle(TheName, tempName);
+  		get_line(tempName, Last);
+  		setLast(TheName, tempName);
+  	end readName;
+ 
+ 
+  
+begin 
+   Init(aName, "John    ", "Paul    ", "Jones   ");
+
+   pragma Assert( getFirst(aName) = "John    ", "getFirst() failed");
+   pragma Assert( getMiddle(aName) = "Paul    ", "getMiddle() failed");
+   pragma Assert( getLast(aName) = "Jones   ", "getLast() failed");
+   pragma Assert( getFullName(aName) = "John     Paul     Jones   ", 
+                    "getFullName() failed");
+
+  Put(aName); New_line;
+  ---------test 2------testing mutators------
+  setFirst(aName, "Billy   ");
+  pragma Assert( getFirst(aName) = "Billy   ", "setFirst() failed");
+  setMiddle(aName, "Tanner  ");
+  pragma Assert( getMiddle(aName) = "Tanner  ", "setFirst() failed");
+  setLast(aName, "Mcgilly ");
+  pragma Assert( getLast(aName) = "Mcgilly ", "setFirst() failed");
+  pragma Assert( lfmi(aName) = "Mcgilly  Billy    T", "lfmi() failed");
+  Put("For testing reasons, please induvidually enter the name ''Andy Bob Chapplen'' :");
+  readName(aName);
+  pragma Assert( getFullName(aName) = "Andy     Bob      Chapplen", "readName() failed!");
+  Put(aName);New_line;
+  -----------------
+  
+  Put("All tests passed!"); New_line;
+
+end namer;
+
+jlm54@cray:~/214/labs/07-project/ada$ gnatmake namer.adb
+gcc-4.6 -c namer.adb
+gnatbind -x namer.ali
+gnatlink namer.ali
+jlm54@cray:~/214/labs/07-project/ada$ ./namer
+John     Paul     Jones   
+For testing reasons, please induvidually enter the name ''Andy Bob Chapplen'' :Andy
+Bob
+Chapplen
+Andy     Boby     Chapplen
+All tests passed!
+jlm54@cray:~/214/labs/07-project/ada$ exit
+
+Script done on Thu 10 Apr 2014 10:32:49 PM EDT
+;;; namer.el simulates and tests an e-LISP Name type.
+;;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;;; Completed by:Joshua Maguire
+;;; Date:04/11/14
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Name constructs a name from three strings.      ;;
+;;; Receive: first, middle and last, three strings. ;;
+;;; Return: the triplet (first middle last).        ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun Name(first middle last)
+  (list first middle last)
+)
+Name
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFirst extracts the first name of a name object.;
+;;; Receive: theName, a Name.                       
+;;; Return: the first string in theName.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getFirst(theName)
+  (car theName)
+)
+getFirst
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getMiddle extracts the middle name of a name object.
+;;; Receive: theName, a Name.                      
+;;; Return: the second string in theName.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getMiddle (theName)
+  (car (cdr theName))
+)
+getMiddle
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getLast extracts the last name of a name object.
+;;; Receive: theName, a Name.                    
+;;; Return: the third string in theName.       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getLast (theName)
+  (car (cdr (cdr  theName)))
+)
+getLast
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFullName returns a full name in F-M-L order. 
+;;; Return: myFirst, myMiddle, myLast.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getFullName(theName)
+  (concat (getFirst theName)
+          " "
+	  (getMiddle theName)
+	  " "
+	  (getLast theName))
+)
+getFullName
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; printName displays a name object.         
+;;; Receive: theName, a Name,                 
+;;;          buffer, the name of a buffer.   
+;;; Output: the strings in theName to buffer. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun printName(theName theBuffer)
+  (princ (getFullName theName) theBuffer)
+  theName
+)
+printName
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; these three methods are mutator functions for
+;; first, middle and last names. 
+;; Recieve: aFirst/middle/last, a const string
+;; Return:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun setFirst(theName aFirst)
+  (setf (car theName) aFirst)
+)
+setFirst
+
+
+(defun setMiddle(theName aMiddle)
+  (setf (car (cdr theName)) aMiddle)
+)
+setMiddle
+
+
+(defun setLast(theName aLast)
+  (setf  (car (cdr (cdr  theName))) aLast)
+)
+setLast
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ; lfmi function, for a given Name, returns a 
+ ; string giving its Last-First-MiddleInitial form.
+ ; Recieve: a first, middle or last name
+ ; Return: string in Last-First-MiddleInitial form
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun lfmi (theName)
+  (concat (getLast theName) " " (getFirst theName) " " (substring (getMiddle theName) 0 1))
+;(list (car (cdr (cdr  theName))) (car theName) (subseq (car (cdr theName)) 0))
+)
+lfmi
+
+
+
+(defun readName (aName)
+  (setf aName (list (string(read-from-minibuffer)) (string(read-from-minibuffer))(string(read-from-minibuffer)) ))
+)
+readName
+
+
+
+
+;  setf
+;etl
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; A simple driver for our Name functions. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(progn
+  (require 'cl)                              ; assert
+  (setq aName (Name "John" "Paul" "Jones"))  ; build a Name
+  (assert (equal (getFirst aName) "John" ))  ; test it
+  (assert (equal (getMiddle aName) "Paul" ))
+  (assert (equal (getLast aName) "Jones" ))
+  (assert (equal (getFullName aName) "John Paul Jones" ))
+  (setq buf (get-buffer "namer.el"))         ; buf = this buffer
+  (assert (eq (printName aName buf) aName) ) ; output
+  (terpri buf)                               ; newline
+;;;;;;;;;;;;project tests;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (setFirst aName "Hampster")
+  (assert (equal (getFirst aName) "Hampster" ))  ; test it
+  (setMiddle aName "Lee")
+  (assert (equal (getMiddle aName) "Lee"))
+  (setLast aName "Mister")
+  (assert (equal (getLast aName) "Mister"))
+  (princ (lfmi aName))
+  (assert (equal (lfmi aName) "Mister Hampster L"))
+  (terpri buf)     
+ ; (readName aName)
+
+  (princ "All tests passed!")                ; feedback
+  (terpri buf))      ; newline
+
+
+John Paul Jones
+Mister Hampster L
+All tests passed!
+t
+;;; namer.el simulates and tests an e-LISP Name type.
+;;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;;; Completed by:Joshua Maguire
+;;; Date:04/11/14
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Name constructs a name from three strings.      ;;
+;;; Receive: first, middle and last, three strings. ;;
+;;; Return: the triplet (first middle last).        ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun Name(first middle last)
+  (list first middle last)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFirst extracts the first name of a name object.;
+;;; Receive: theName, a Name.                       
+;;; Return: the first string in theName.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getFirst(theName)
+  (car theName)
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getMiddle extracts the middle name of a name object.
+;;; Receive: theName, a Name.                      
+;;; Return: the second string in theName.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getMiddle (theName)
+  (car (cdr theName))
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getLast extracts the last name of a name object.
+;;; Receive: theName, a Name.                    
+;;; Return: the third string in theName.       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getLast (theName)
+  (car (cdr (cdr  theName)))
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFullName returns a full name in F-M-L order. 
+;;; Return: myFirst, myMiddle, myLast.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getFullName(theName)
+  (concat (getFirst theName)
+          " "
+	  (getMiddle theName)
+	  " "
+	  (getLast theName))
+)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; printName displays a name object.         
+;;; Receive: theName, a Name,                 
+;;;          buffer, the name of a buffer.   
+;;; Output: the strings in theName to buffer. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun printName(theName theBuffer)
+  (princ (getFullName theName) theBuffer)
+  theName
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; these three methods are mutator functions for
+;; first, middle and last names. 
+;; Recieve: aFirst/middle/last, a const string
+;; Return:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun setFirst(theName aFirst)
+  (setf (car theName) aFirst)
+)
+
+(defun setMiddle(theName aMiddle)
+  (setf (car (cdr theName)) aMiddle)
+)
+
+(defun setLast(theName aLast)
+  (setf  (car (cdr (cdr  theName))) aLast)
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ; lfmi function, for a given Name, returns a 
+ ; string giving its Last-First-MiddleInitial form.
+ ; Recieve: a first, middle or last name
+ ; Return: string in Last-First-MiddleInitial form
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun lfmi (theName)
+  (concat (getLast theName) " " (getFirst theName) " " (substring (getMiddle theName) 0 1))
+;(list (car (cdr (cdr  theName))) (car theName) (subseq (car (cdr theName)) 0))
+)
+
+
+(defun readName (aName)
+  (setf aName (list (string(read-from-minibuffer)) (string(read-from-minibuffer))(string(read-from-minibuffer)) ))
+)
+
+
+
+;  setf
+;etl
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; A simple driver for our Name functions. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(progn
+  (require 'cl)                              ; assert
+  (setq aName (Name "John" "Paul" "Jones"))  ; build a Name
+  (assert (equal (getFirst aName) "John" ))  ; test it
+  (assert (equal (getMiddle aName) "Paul" ))
+  (assert (equal (getLast aName) "Jones" ))
+  (assert (equal (getFullName aName) "John Paul Jones" ))
+  (setq buf (get-buffer "namer.el"))         ; buf = this buffer
+  (assert (eq (printName aName buf) aName) ) ; output
+  (terpri buf)                               ; newline
+;;;;;;;;;;;;project tests;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (setFirst aName "Hampster")
+  (assert (equal (getFirst aName) "Hampster" ))  ; test it
+  (setMiddle aName "Lee")
+  (assert (equal (getMiddle aName) "Lee"))
+  (setLast aName "Mister")
+  (assert (equal (getLast aName) "Mister"))
+  (princ (lfmi aName))
+  (assert (equal (lfmi aName) "Mister Hampster L"))
+  (terpri buf)     
+ ; (readName aName)
+
+  (princ "All tests passed!")                ; feedback
+  (terpri buf))      ; newline
+
+Script started on Thu 10 Apr 2014 11:07:20 PM EDT
+jlm54@cray:~/214/labs/07-project/ruby$ cat namer.rb
+# namer.rb tests class Name and its operations
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Joshua Maguire
+# Date: 4/10/14
+####################################################
+
+require 'test/unit/assertions'   # needed for assert
+include Test::Unit::Assertions
+
+class Name
+	def initialize(first, middle, last)
+		@first, @middle, @last = first, middle, last
+		#@fullName = @first+" "+@middle+" "+@last
+		#@prints = puts(@fullName)
+	end
+	attr_reader :first, :middle, :last
+	
+	
+	#Name.fullName concatinates together the first, middle, and last names in the Name class and returns them.
+	def fullName
+		 return @first+" "+@middle+" "+@last
+	end
+	
+	##Name.Print prints(puts) Name.fullName and returns it also.
+	def print
+		puts fullName
+		fullName#returned
+	end
+	
+	#Name.setFirst/Middle/Last are mutator methods, recieve a string, sets it equal to Name.First/Middle/Last...
+	def setFirst(first)
+		@first = first
+	end
+	def setMiddle(middle)
+		@middle=middle
+	end
+	def setLast(last)
+		@last=last
+	end
+		
+ ####################################################
+ # lfmi function, for a given Name, returns a 
+ # string giving its Last-First-MiddleInitial form.
+ # Recieve: a first, middle or last name
+ # Return: string in Last-First-MiddleInitial form
+ ####################################################
+	def lfmi
+		return @last+" "+@first+" "+@middle[0]
+	end
+	
+	#####################################################
+ # readName function reads in first, middle and 
+ # last names via keyboard.
+ ######################################################
+  def readName
+  	@first=gets.chomp.to_s
+  	@middle=gets.chomp.to_s
+  	@last=gets.chomp.to_s
+  end
+	
+end # of namer class
+
+
+
+def testName
+   name = Name.new("John", "Paul", "Jones")
+
+   assert name.first == "John", "first failed"
+   assert name.middle == "Paul", "middle failed"
+   assert name.last == "Jones", "last failed"
+   assert name.fullName == "John Paul Jones", "fullName failed"
+   assert name.print == "John Paul Jones", "print failed"
+   ####### project tests########
+   assert name.setFirst("Bill") == "Bill", "setFirst() failed!"
+   assert name.setMiddle("Happy") == "Happy", "setMiddle() failed!"
+   assert name.setLast("Tanker") == "Tanker", "setLast() failed!"
+   assert name.lfmi == "Tanker Bill H","lfmi() failed!"
+   puts(name.lfmi)
+	 puts("Enter \"Andrew Ben Carper\" on seperate lines:");
+	 name.readName
+   name.print
+	 assert name.fullName == "Andrew Ben Carper","readName() failed!"
+   print "All tests passed!\n"
+end
+
+testName
+
+jlm54@cray:~/214/labs/07-project/ruby$ ruby namer.rb
+John Paul Jones
+Tanker Bill H
+Enter "Andrew Ben Carper" on seperate lines:
+Andrew
+Ben
+Carper
+Andrew Ben Carper
+All tests passed!
+jlm54@cray:~/214/labs/07-project/ruby$ exit
+
+Script done on Thu 10 Apr 2014 11:07:39 PM EDT

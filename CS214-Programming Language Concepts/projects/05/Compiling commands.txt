@@ -1,0 +1,20 @@
+c++
+-build:    g++ SourceFileName.cpp -Wall -o BinaryFileName
+
+ada
+-gnatmake circle_area
+
+elisp
+-xemacs &
+	-Ctrl-x b for scratch buffer
+	-Ctrl-j to test function
+	-M-x [program/funct name]
+	-Ctrl-x Ctrl-w saves
+	-Ctrl-h f for help, then type name of function to documentation
+	-M-x lisp-interaction-mode
+
+1 4 4 = -2,-2
+1 5 6 = -2,-3
+2 5 3 = -1,-1.5
+0 2 2 = error a is zero
+-2 -3 -4 = error thing is negative

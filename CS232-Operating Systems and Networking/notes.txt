@@ -1,0 +1,13 @@
+script scriptname 
+
+cat file.txt
+
+ctrl d
+
+submit:
+ cp -r proj1 (file one up from where your at) /home/cs/232/current/jlm54
+
+ls -l /home/cs/232/current/jlm54/proj1  (to check it went through)
+
+g++ *.cpp 
+g++ [filename.ext] -o name

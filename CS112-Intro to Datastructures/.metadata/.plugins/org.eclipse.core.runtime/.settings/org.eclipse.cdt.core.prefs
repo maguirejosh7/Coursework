@@ -1,0 +1,8 @@
+eclipse.preferences.version=1
+environment/workspace=
+environment/workspace/CYGWIN/delimiter=;
+environment/workspace/CYGWIN/operation=append
+environment/workspace/CYGWIN/value=nodosfilewarning
+environment/workspace/append=true
+environment/workspace/appendContributed=true
+org.eclipse.cdt.core.showSourceFilesInBinaries=true

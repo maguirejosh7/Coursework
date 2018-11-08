@@ -1,0 +1,436 @@
+
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS214\214\code\10\ada>cat bird
+s.adb
+      0 [main] cat 3324 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointe
+r.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+-- birds.adb tests our Birds type
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College
+-- Completed by: Joshua Maguire
+-- Date: 5/2/14
+-----------------------------------------------------
+
+with Ada.Text_IO, Bird_Package, Duck_Package, Goose_Package, Owl_Package;
+use Ada.Text_IO, Bird_Package, Duck_Package, Goose_Package, Owl_Package;
+
+
+procedure Birds is
+
+ Bird1 : Bird_Type;       -- base class
+ Bird2 : Duck_Type;       -- derived class 1
+ Bird3 : Goose_Type;      -- derived class 2
+ Bird4 : Owl_Type;        -- derived class 3
+
+begin
+ Init(Bird1, "Tweety");
+ Put(Bird1); New_Line;
+
+ Init(Bird2, "Donald");
+ Put(Bird2); New_Line;
+
+ Init(Bird3, "Mother");
+ Put(Bird3); New_Line;
+
+ Init(Bird4, "Woodsy");
+ Put(Bird4); New_Line;
+
+ New_Line;
+end Birds;
+
+
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS214\214\code\10\ada>cat bird
+_package.adb bird_package.ads
+      1 [main] cat 4172 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointe
+r.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+-- bird_package.adb gives Bird-related definitions
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by: Joshua Maguire
+-- Date: 5/2/14
+---------------------------------------------------
+
+with Ada.Text_IO;
+use Ada.Text_IO;
+
+package body Bird_Package is
+
+
+ ----------------------------------------------------
+ -- initialization                                  -
+ -- Receive: A_Bird, a Bird_Type;                   -
+ --          Name, a String                         -
+ -- Return: a Bird_Type in which My_Name = Name.    -
+ ----------------------------------------------------
+   procedure Init(A_Bird : out Bird_Type; Name : in String) is
+   begin
+    A_Bird.My_Name := Name;
+   end Init;
+ ----------------------------------------------------
+ -- Name accessor                                   -
+ -- Receive: A_Bird, a Bird_Type.                   -
+ -- Return: A_Bird.My_Name.                         -
+ ----------------------------------------------------
+   function Name(A_Bird : in Bird_Type) return String is
+   begin
+    return A_Bird.My_Name;
+   end Name;
+ ----------------------------------------------------
+ -- A Bird's Call                                   -
+ -- Receive: A_Bird, a Bird_Type.                   -
+ -- Return: a default bird-call ("Squawk!").        -
+ ----------------------------------------------------
+   function Call(A_Bird : in Bird_Type) return String is
+   begin
+    return "Squawwwwwwk!";
+   end Call;
+ ----------------------------------------------------
+ -- Determine type of a Bird (for derived types)    -
+ -- Receive: A_Bird, a Bird_Type.                   -
+ -- Return: "Bird".                                 -
+ ----------------------------------------------------
+   function Type_Name(A_Bird : in Bird_Type) return String is
+   begin
+    return "Bird";
+   end Type_Name;
+ ----------------------------------------------------
+ -- Output a Bird                                   -
+ -- Receive: A_Bird, a Bird or subclass of Bird.    -
+ -- Output: Everything known about A_Bird           -
+ ----------------------------------------------------
+   procedure Put(A_Bird : in Bird_Type'Class) is
+   --procedure Put(A_Bird : in Bird_Type) is
+   begin
+    Put( Name(A_Bird) );
+    Put( ' ' );
+    Put( Type_Name(A_Bird) );
+    Put( " says " );
+    Put( Call(A_Bird) );
+   end Put;
+
+
+end Bird_Package;
+
+-- bird_package.ads gives Bird-related declarations
+--
+-- Begun by: Dr. Adams, for CS 214 at Calvin College.
+-- Completed by: Joshua Maguire
+-- Date: 5/2/14
+---------------------------------------------------
+
+package Bird_Package is
+
+type Bird_Type is tagged private;
+ ----------------------------------------------------
+ -- initialization                                  -
+ -- Receive: A_Bird, a Bird_Type;                   -
+ --          Name, a String                         -
+ -- Return: a Bird_Type whose My_Name = Name.       -
+ ----------------------------------------------------
+    procedure Init(A_Bird : out Bird_Type; Name : in String);
+
+ ----------------------------------------------------
+ -- Name accessor                                   -
+ -- Receive: A_Bird, a Bird_Type.                   -
+ -- Return: A_Bird.My_Name.                         -
+ ----------------------------------------------------
+    function  Name(A_Bird : in Bird_Type) return String;
+
+ ----------------------------------------------------
+ -- A Bird's Call                                   -
+ -- Receive: A_Bird, a Bird_Type.                   -
+ -- Return: a default bird-call ("Squawk!").        -
+ ----------------------------------------------------
+    function  Call(A_Bird : in Bird_Type) return String;
+
+ ----------------------------------------------------
+ -- Determine type of a Bird (for derived types)    -
+ -- Receive: A_Bird, a Bird_Type.                   -
+ -- Return: "Bird".                                 -
+ ----------------------------------------------------
+    function  Type_Name(A_Bird : in Bird_Type) return String;
+
+ ----------------------------------------------------
+ -- Output a Bird                                   -
+ -- Receive: A_Bird, a Bird or subclass of Bird.    -
+ -- Output: Everything known about A_Bird           -
+ ----------------------------------------------------
+    --procedure Put(A_Bird : in Bird_Type);
+        procedure Put(A_Bird : in Bird_Type'Class);
+
+private
+ type Bird_Type is
+      tagged record
+        My_Name : String(1..6);
+      end record;
+
+
+end Bird_Package;
+
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS214\214\code\10\ada>cat duck
+_package.adb duck_package.ads
+      1 [main] cat 5644 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointe
+r.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+-- duck_package.adb gives Duck-related definitions
+--  by over-riding Bird-related definitions.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by: Joshua Maguire
+-- Date: 5/2/14
+---------------------------------------------------
+
+with Ada.Text_IO;
+use Ada.Text_IO;
+
+package body Duck_Package is
+
+ ----------------------------------------------------
+ -- A Duck's Call (Over-rides Bird.Call())          -
+ -- Receive: A_Duck, a Duck_Type.                   -
+ -- Return: "Quack!"                                -
+ ----------------------------------------------------
+   function Call(A_Duck : in Duck_Type) return String is
+   begin
+    return "Quack!";
+   end Call;
+ ------------------------------------------------------------
+ -- Determine type of a Duck (Over-rides Bird.Type_Name()) -
+ -- Receive: A_Duck, a Duck_Type.                          -
+ -- Return: "Duck".                                        -
+ -----------------------------------------------------------
+   function Type_Name(A_Duck : in Duck_Type) return String is
+   begin
+    return "Duck";
+   end Type_Name;
+
+
+end Duck_Package;
+-- duck_package.ads gives Duck-related declarations,
+--
+--  and derives Duck from Bird.
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by: Joshua Maguire
+-- Date: 5/2/14
+---------------------------------------------------
+
+with Bird_Package; use Bird_Package;
+
+package Duck_Package is
+
+type Duck_Type is new Bird_Type with private;
+
+ ----------------------------------------------------
+ -- A Duck's Call (Over-rides Bird.Call())          -
+ -- Receive: A_Duck, a Duck_Type.                   -
+ -- Return: "Quack!"                                -
+ ----------------------------------------------------
+  function  Call(A_Duck : in Duck_Type) return String;
+
+ ------------------------------------------------------------
+ -- Determine type of a Duck (Over-rides Bird.Type_Name()) -
+ -- Receive: A_Duck, a Duck_Type.                          -
+ -- Return: "Duck".                                        -
+ -----------------------------------------------------------
+
+function  Type_Name(A_Duck : in Duck_Type) return String;
+
+
+
+private
+     type Duck_Type is new Bird_Type with
+          record
+            null;
+          end record;
+
+
+end Duck_Package;
+
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS214\214\code\10\ada>cat goos
+e_package.adb goose_package.ads
+      1 [main] cat 3660 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointe
+r.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+-- goose_package.adb gives Goose-related definitions
+--  by over-riding Bird-related definitions.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by: Joshua Maguire
+-- Date: 5/2/14
+---------------------------------------------------
+
+package body Goose_Package is
+
+ ----------------------------------------------------
+ -- A Goose's Call (Over-rides Bird.Call())         -
+ -- Receive: A_Goose, a Goose_Type.                 -
+ -- Return: "Honk!"                                 -
+ ----------------------------------------------------
+
+    function Call(A_Goose : in Goose_Type) return String is
+    begin
+     return "Honk!";
+    end Call;
+
+ -----------------------------------------------------
+ -- Determine type of a Goose                        -
+ -- (Over-rides Bird.Type_Name())                    -
+ -- Receive: A_Goose, a Goose_Type.                  -
+ -- Return: "Goose".                                 -
+ -----------------------------------------------------
+
+    function Type_Name(A_Goose : in Goose_Type) return String is
+    begin
+     return "Goose";
+    end Type_Name;
+
+end Goose_Package;
+-- goose_package.ads gives Goose-related declarations,
+--
+--  and derives Goose from Bird.
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by: Joshua Maguire
+-- Date: 5/2/14
+---------------------------------------------------
+
+with Bird_Package; use Bird_Package;
+
+package Goose_Package is
+
+ type Goose_Type is new Bird_Type with private;
+
+
+ ----------------------------------------------------
+ -- A Goose's Call (Over-rides Bird.Call())         -
+ -- Receive: A_Goose, a Goose.                      -
+ -- Return: "Honk!"                                 -
+ ----------------------------------------------------
+    function  Call(A_Goose : in Goose_Type) return String;
+
+
+ -----------------------------------------------------
+ -- Determine type of a Goose                        -
+ -- (Over-rides Bird.Type_Name())                    -
+ -- Receive: A_Goose, a Goose.                       -
+ -- Return: "Goose".                                 -
+ -----------------------------------------------------
+    function  Type_Name(A_Goose : in Goose_Type) return String;
+
+
+private
+     type Goose_Type is new Bird_Type with
+          record
+            null;
+          end record;
+
+end Goose_Package;
+
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS214\214\code\10\ada>cat owl_
+package.adb owl_package.ads
+      1 [main] cat 4156 find_fast_cwd: WARNING: Couldn't compute FAST_CWD pointe
+r.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+-- owl_package.adb gives Owl-related definitions
+--  by over-riding Bird-related definitions.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by: Joshua Maguire
+-- Date: 5/2/14
+---------------------------------------------------
+
+with Ada.Text_IO;
+use Ada.Text_IO;
+
+package body Owl_Package is
+
+
+ ----------------------------------------------------
+ -- A Owl's Call (Over-rides Bird.Call())           -
+ -- Receive: An_Owl, an Owl_Type.                   -
+ -- Return: "Whoo!"                                 -
+ ----------------------------------------------------
+function Call (A_Owl: in Owl_Type) return String is
+begin
+        return "Whoo-hoo!";
+end Call;
+
+ -----------------------------------------------------
+ -- Determine type of a Owl                          -
+ -- (Over-rides Bird.Type_Name())                    -
+ -- Receive: An_Owl, an Owl_Type.                    -
+ -- Return: "Owl".                                   -
+ -----------------------------------------------------
+function Type_Name(A_Owl:in Owl_Type) return String is
+begin
+        return "Owl";
+end Type_Name;
+
+end Owl_Package;
+-- owl_package.ads gives Owl-related declarations,
+--  and derives Owl from Bird.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by: Joshua Maguire
+-- Date: 5/2/14
+---------------------------------------------------
+
+with Bird_Package; use Bird_Package;
+
+package Owl_Package is
+
+type Owl_type is new Bird_Type with private;
+
+
+ ----------------------------------------------------
+ -- A Owl's Call (Over-rides Bird.Call())           -
+ -- Receive: An_Owl, an Owl_Type.                   -
+ -- Return: "Whoo!"                                 -
+ ----------------------------------------------------
+function Call (A_Owl: in Owl_Type) return String;
+ -----------------------------------------------------
+ -- Determine type of a Owl                          -
+ -- (Over-rides Bird.Type_Name())                    -
+ -- Receive: An_Owl, an Owl_Type.                    -
+ -- Return: "Owl".                                   -
+ -----------------------------------------------------
+function Type_Name(A_Owl:in Owl_Type) return String;
+
+
+
+private
+        type Owl_Type is new Bird_Type with
+                record
+                        null;
+                end record;
+
+end Owl_Package;
+
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS214\214\code\10\ada>make cle
+an
+      1 [main] make 5144 find_fast_cwd: WARNING: Couldn't compute FAST_CWD point
+er.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+/bin/rm -f birds *~ *# *.o *.ali *.c
+
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS214\214\code\10\ada>make
+      1 [main] make 5160 find_fast_cwd: WARNING: Couldn't compute FAST_CWD point
+er.  Please report this problem to
+the public mailing list cygwin@cygwin.com
+C:/GNAT/2013/bin/gcc -c  birds.adb
+C:/GNAT/2013/bin/gcc -c  bird_package.adb
+C:/GNAT/2013/bin/gcc -c  duck_package.adb
+C:/GNAT/2013/bin/gcc -c  goose_package.adb
+C:/GNAT/2013/bin/gcc -c  owl_package.adb
+C:/GNAT/2013/bin/gnatbind birds.ali
+C:/GNAT/2013/bin/gnatlink birds.ali
+
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS214\214\code\10\ada>birds.ex
+e
+Tweety Bird says Squawwwwwwk!
+Donald Duck says Quack!
+Mother Goose says Honk!
+Woodsy Owl says Whoo-hoo!
+
+
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS214\214\code\10\ada>

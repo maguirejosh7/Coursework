@@ -1,0 +1,11 @@
+;;lab10.el excercises
+;;by Joshua Maguire
+;;5/4/14
+
+(lambda (x) (+ x x))
+(lambda (x) (+ x x))
+
+((lambda (x) (+ x x)) 17)
+34
+
+(lambda (w x y z) 

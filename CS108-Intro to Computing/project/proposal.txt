@@ -1,0 +1,3 @@
+I'm going to make an arcade spaceship game with enemies that come in waves. At the end of each wave you can upgrade your ship and the enemies come
+in bigger quantities. They also get weapon upgrades. The upgrade menu will have lots of buttons for upgrading the ship.
+The background will look like its moving but it will just be *stars* that are moving down the screen.

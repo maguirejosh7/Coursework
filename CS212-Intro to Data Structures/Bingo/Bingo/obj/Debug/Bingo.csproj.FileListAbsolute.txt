@@ -1,0 +1,17 @@
+c:\users\joshua\documents\visual studio 2012\Projects\Bingo\Bingo\bin\Debug\Bingo.exe.config
+C:\Users\Joshua\documents\visual studio 2012\Projects\Bingo\Bingo\obj\Debug\Bingo.csprojResolveAssemblyReference.cache
+C:\Users\Joshua\documents\visual studio 2012\Projects\Bingo\Bingo\bin\Debug\Bingo.exe
+C:\Users\Joshua\documents\visual studio 2012\Projects\Bingo\Bingo\bin\Debug\Bingo.pdb
+C:\Users\Joshua\documents\visual studio 2012\Projects\Bingo\Bingo\obj\Debug\Bingo.exe
+C:\Users\Joshua\documents\visual studio 2012\Projects\Bingo\Bingo\obj\Debug\Bingo.pdb
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS212\Bingo\Bingo\bin\Debug\Bingo.exe.config
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS212\Bingo\Bingo\obj\Debug\Bingo.exe
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS212\Bingo\Bingo\obj\Debug\Bingo.pdb
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS212\Bingo\Bingo\bin\Debug\Bingo.exe
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS212\Bingo\Bingo\bin\Debug\Bingo.pdb
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\Bingo\Bingo\bin\Debug\Bingo.exe.config
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\Bingo\Bingo\obj\Debug\Bingo.exe
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\Bingo\Bingo\obj\Debug\Bingo.pdb
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\Bingo\Bingo\bin\Debug\Bingo.exe
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\Bingo\Bingo\bin\Debug\Bingo.pdb
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\Bingo\Bingo\obj\Debug\Bingo.csprojResolveAssemblyReference.cache

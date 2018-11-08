@@ -1,0 +1,12 @@
+-15	Submitted a Windows executable
+-3	testSetSize (appears to) fail
+
+It's okay to work on your projects in a Windows environment, but the final submission must be compiled in Linux.
+Otherwise, I can't run it or grade it, and I can't give you full points.
+
+Most of the code looks good except for the SetSize method, but I can't give any definite feedback, as I can't run the program.
+Best of luck on future projects.
+
+Score: 82/100
+
+- Patrick

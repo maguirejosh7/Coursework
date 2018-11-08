@@ -1,0 +1,163 @@
+-- namer.adb "test-drives" the Name type.
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Joshua Maguire
+-- Date:4/8/14
+----------------------------------------------
+
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure namer is
+
+  NAME_SIZE : constant Integer := 8;
+
+  type Name is 
+  	record
+  		MyFirst, MyMiddle, MyLast : String(1..NAME_SIZE);
+  	end record;
+
+  aName : Name ;
+
+
+  ----------------------------------------------
+  -- Init initializes a Name variable          -
+  -- Receive: theName, the Name variable;      -
+  --          First, the first name;           -
+  --          Middle, the middle name;         -
+  --          Last, the last name.             -
+  -- Return: theName, its fields set to First, -
+  --               Middle, and Last.           -
+  ----------------------------------------------
+
+   procedure Init (TheName : out Name; First, Middle, Last : in String) is
+   begin
+    TheName.MyFirst := First;
+    TheName.MyMiddle := Middle;
+    TheName.MyLast := Last;
+   end Init;
+
+  ----------------------------------------------
+  -- getFirst(Name) retrieves Name.myFirst        -
+  -- Receive: theName, a Name.                 -
+  -- PRE: theName has been initialized.        -
+  -- Return: theName.myFirst.                  -
+  ----------------------------------------------
+
+  function getFirst(TheName : in Name) return String is
+   begin
+      return TheName.MyFirst;
+   end getFirst;
+
+
+ function getMiddle(TheName : in Name) return String is
+   begin
+      return TheName.MyMiddle;
+   end getMiddle;
+   
+   
+   function getLast(TheName : in Name) return String is
+   begin
+      return TheName.MyLast;
+   end getLast;
+
+
+  -----------------------------------------------
+  -- getFullName(Name) retrieves Name as a String  -
+  -- Receive: theName, a Name.                  -
+  -- PRE: theName has been initialized.         -
+  -- Return: a String representation of theName -
+  -----------------------------------------------
+
+function getFullName(TheName : in Name) return String is
+begin
+  return TheName.MyFirst & " " & TheName.MyMiddle & " " & TheName.MyLast;
+end getFullName;
+
+  ----------------------------------------------
+  -- Put(Name) displays a Name value.          -
+  -- PRE: theName has been initialized.        -
+  -- Receive: theName, a Name.                 -
+  -- Output: theName, to the screen.           -
+  ----------------------------------------------
+
+procedure Put(TheName: in Name) is
+  begin
+    Put(getFullName(TheName));
+  end Put;
+ 
+
+-----------------------------------------------------
+ -- these three methods are mutator functions for
+ -- first, middle and last names. 
+ -- Recieve: aFirst/middle/last, a const string
+ -- Return:
+ -----------------------------------------------------
+ procedure setFirst (TheName: out Name ; aFirst: in String) is
+ 	begin
+ 		TheName.MyFirst := aFirst;
+ 	end setFirst;
+ procedure setMiddle (TheName: out Name ; aMiddle: in String) is
+ 	begin
+ 		TheName.MyMiddle := aMiddle;
+ 	end setMiddle;
+ procedure setLast (TheName: out Name ; aLast: in String) is
+ 	begin
+ 		TheName.MyLast := aLast;
+ 	end setLast;
+
+ ---------------------------------------------------
+ -- lfmi function, for a given Name, returns a 
+ -- string giving its Last-First-MiddleInitial form.
+ -- Recieve: a first, middle or last name
+ -- Return: string in Last-First-MiddleInitial form
+ ----------------------------------------------------
+ 	function lfmi (TheName: Name) return string is
+ 		begin
+ 			return TheName.myLast &" "& TheName.myFirst &" "& TheName.myMiddle(1..1);
+ 		end lfmi;
+ 
+ ----------------------------------------------------
+ -- readName function reads in first, middle and 
+ -- last names via keyboard.
+ ----------------------------------------------------
+  procedure readName (TheName: out Name) is
+  	tempName: string(1..NAME_SIZE) := "        ";--make sure tempName is already filled with spaces...just incase
+  	Last : Integer:=NAME_SIZE;
+  	begin
+  		get_line(tempName, Last);--get_line 
+  		setFirst(TheName, tempName);
+  		get_line(tempName, Last);
+  		setMiddle(TheName, tempName);
+  		get_line(tempName, Last);
+  		setLast(TheName, tempName);
+  	end readName;
+ 
+ 
+  
+begin 
+   Init(aName, "John    ", "Paul    ", "Jones   ");
+
+   pragma Assert( getFirst(aName) = "John    ", "getFirst() failed");
+   pragma Assert( getMiddle(aName) = "Paul    ", "getMiddle() failed");
+   pragma Assert( getLast(aName) = "Jones   ", "getLast() failed");
+   pragma Assert( getFullName(aName) = "John     Paul     Jones   ", 
+                    "getFullName() failed");
+
+  Put(aName); New_line;
+  ---------test 2------testing mutators------
+  setFirst(aName, "Billy   ");
+  pragma Assert( getFirst(aName) = "Billy   ", "setFirst() failed");
+  setMiddle(aName, "Tanner  ");
+  pragma Assert( getMiddle(aName) = "Tanner  ", "setFirst() failed");
+  setLast(aName, "Mcgilly ");
+  pragma Assert( getLast(aName) = "Mcgilly ", "setFirst() failed");
+  pragma Assert( lfmi(aName) = "Mcgilly  Billy    T", "lfmi() failed");
+  Put("For testing reasons, please induvidually enter the name ''Andy Bob Chapplen'' :");
+  readName(aName);
+  pragma Assert( getFullName(aName) = "Andy     Bob      Chapplen", "readName() failed!");
+  Put(aName);New_line;
+  -----------------
+  
+  Put("All tests passed!"); New_line;
+
+end namer;
+

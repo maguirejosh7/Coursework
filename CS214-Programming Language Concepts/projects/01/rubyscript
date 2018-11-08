@@ -1,0 +1,49 @@
+Script started on Mon 10 Feb 2014 06:48:55 PM EST
+jlm54@turing:~/214/projects/01$ cat ruby_rectangle_area.rb
+#! /usr/bin/ruby
+# rectangle_area.rb computes the area of a rectangle given its sides
+# 
+# Input: the sides of a rectangle
+# Precondition: the sides are not negative
+# Output: the area of the rectangle.
+#
+# Begun by: Dr. Nelesen, for CS 214 at Calvin College.
+# Completed by: Joshua Maguire
+# Date:2/10/14
+###############################################################
+
+# function rectangleArea returns a rectangle's area, given its sides
+# Parameters: l,w,  numbers
+# Precondition: l,r > 0.
+# Returns: the area of a rectangle whose sides are given.
+def rectangleArea(l,w) #define funct rectangleArea, takes in sides
+    l * w #math
+end #end funct
+
+if __FILE__ == $0 #if file run directly,
+   print "Enter the length: " #...
+   length = gets.chomp.to_f #gets(from keyboard, chomp excludes crazy characters)
+   print "Enter the width: " #...
+   width = gets.chomp.to_f
+   print "Area is: " #..
+   puts rectangleArea(length, width) #print (rectangleArea method) 
+end
+jlm54@turing:~/214/projects/01$ cat ruby_rectangle_area.rb[6P./cpp_rectangle_areag++ rectangle_area.cpp -Wall -o cpp_rectangle_area[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[28Pcat rectangle_area.cpp[2P./ada_rectangle_area5[K./ada_rectangle_areacat rectangle_area.cppg++ rectangle_area.cpp -Wall -o cpp_rectangle_area[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[30P./cpp_rectangle_areacat ruby_rectangle_area.rb[Kruby ruby_rectangle_area.rb
+Enter the length: 1
+Enter the width: 2
+Area is: 2.0
+jlm54@turing:~/214/projects/01$ ruby ruby_rectangle_area.rb
+Enter the length: 2
+Enter the width: 3
+Area is: 6.0
+jlm54@turing:~/214/projects/01$ ruby ruby_rectangle_area.rb
+Enter the length: .5
+Enter the width: 10
+Area is: 5.0
+jlm54@turing:~/214/projects/01$ ruby ruby_rectangle_area.rb
+Enter the length: 100
+Enter the width: 200
+Area is: 20000.0
+jlm54@turing:~/214/projects/01$ exit
+
+Script done on Mon 10 Feb 2014 06:49:46 PM EST

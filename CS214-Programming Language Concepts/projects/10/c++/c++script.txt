@@ -1,0 +1,215 @@
+
+C:\Users\magui_000\Dropbox\Calvin documents\CS214\214\code\10\c++>cat Bird.h bir
+ds.cpp Duck.h Goose.h Owl.h
+        /* Bird.h provides class Bird.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by: Joshua Maguire
+ * Date: 4/29/14
+ */
+
+#ifndef BIRD
+#define BIRD
+
+#include <string>
+using namespace std;
+
+   class Bird {
+     public:
+      Bird(const string & name);
+          virtual ~Bird() {}
+      string name() const;
+      virtual string call() const;
+      void print(ostream & out = cout) const;
+      virtual string className() const;
+     private:
+      string myName;
+   };
+
+#endif
+
+/* birds.cpp illustrates inheritance and polymorphism.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by: Joshua Maguire
+ * Date: 4/29/14
+ */
+
+#include <iostream>       // cin, cout, <<, >>
+using namespace std;
+
+#include "Bird.h"         // Bird
+#include "Owl.h"          // Owl
+#include "Duck.h"         // Duck
+#include "Goose.h"        // Goose
+
+int main() {
+  Bird * birdPtr0 = NULL,
+       * birdPtr1 = NULL,
+       * birdPtr2 = NULL,
+       * birdPtr3 = NULL;
+
+  birdPtr0 = new Bird("Hawkeye");
+  birdPtr0->print(); cout << endl;
+
+  birdPtr1 = new Duck("Donald");
+  birdPtr1->print(); cout << endl;
+
+  birdPtr2 = new Goose("Mother Goose");
+  birdPtr2->print(); cout << endl;
+
+  birdPtr3 = new Owl("Woodsey");
+  birdPtr3->print(); cout << endl;
+
+  delete birdPtr0;
+  delete birdPtr1;
+  delete birdPtr2;
+  delete birdPtr3;
+}
+
+   inline Bird::Bird(const string & name) {
+     myName = name;
+   }
+
+   inline string Bird::name() const {
+     return myName;
+   }
+
+   inline string Bird::call() const {
+     return "Squaaaaaaawk!";
+   }
+
+   inline string Bird::className() const {
+     return "Bird";
+   }
+
+   inline void Bird::print(ostream & out) const {
+      out << name()
+          << ' '
+          << className()
+          << " says "
+          << call();
+   }
+
+
+   /* Duck.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by: Joshua Maguire
+ * Date: 4/29/14
+ */
+
+#ifndef DUCK
+#define DUCK
+
+#include "Bird.h"
+
+
+class Duck : public Bird
+{
+  public:
+  Duck(const string & name);
+  string call() const;
+  string className() const;
+  private:
+};
+
+
+   inline Duck::Duck(const string & name)
+    : Bird(name)
+   {
+   }
+
+   inline string Duck::call() const
+   {
+     return "Quack!";
+   }
+
+      inline string Duck::className() const
+   {
+     return "Duck";
+   }
+
+   #endif
+ /* Goose.h
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by: Joshua Maguire
+ * Date: 4/29/14
+ */
+
+#ifndef GOOSE
+#define GOOSE
+
+#include "Bird.h"
+
+   class Goose : public Bird
+   {
+    public:
+     Goose(const string & name);
+     string call() const;
+     string className() const;
+    private:
+   };
+
+      inline Goose::Goose(const string & name)
+    : Bird(name)
+   {}
+
+   inline string Goose::call() const
+   {
+     return "Honk!";
+   }
+
+   inline string Goose::className() const
+   {
+     return "Goose";
+   }
+
+#endif
+/* Owl.h
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by: Joshua Maguire
+ * Date: 4/29/14
+ */
+
+#ifndef OWL
+#define OWL
+
+#include "Bird.h"
+
+class Owl : public Bird {
+ public:
+        Owl(const string & name);
+        string call() const;
+        string className() const;
+ private:
+};
+
+
+inline Owl::Owl(const string & name)
+: Bird(name)
+{
+}
+
+inline string Owl::call() const
+{
+        return "Whoo-hoo!";
+}
+
+inline string Owl::className() const
+{
+        return "Owl";
+}
+#endif
+
+C:\Users\magui_000\Dropbox\Calvin documents\CS214\214\code\10\c++>make
+g++ -Wall birds.cpp -o birds
+
+C:\Users\magui_000\Dropbox\Calvin documents\CS214\214\code\10\c++>birds.exe
+Hawkeye Bird says Squaaaaaaawk!
+Donald Duck says Quack!
+Mother Goose Goose says Honk!
+Woodsey Owl says Whoo-hoo!
+
+C:\Users\magui_000\Dropbox\Calvin documents\CS214\214\code\10\c++>

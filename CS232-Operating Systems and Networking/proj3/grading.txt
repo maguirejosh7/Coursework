@@ -1,0 +1,27 @@
+
+We the undersigned affirm that (i) the attached project is the work of ourselves 
+and no one else, and (ii) the "fair share percentage" accurately reflects 
+the percentage of a fair share that each person contributed to the project. 
+(If each person did their fair share, use 100%.) 
+
+**Emailed Professor Norman about our case. He did his share plus the part we were supposed to do together, I finished my share April 7, wasn't able to find anyone to borrow code from for the path part so am just turning in the CommandLine section.
+
+
+NAME:    Josh Maguire       FAIR SHARE PERCENTAGE (100):  
+NAME:    Barrett Bryson     FAIR SHARE PERCENTAGE (100):  
+
+
+
+Category                    Points Possible      Points Earned
+Works at all                30                   
+Satisfies Project Specs     80                   
+Style, Documentation        40  
+Extra Credit                5                 
+
+Total                       150 (max 155 with extra credit)
+
+PERSON1 SCORE (Total * FSP): 
+PERSON2 SCORE (Total * FSP): 
+
+Grader comments:
+

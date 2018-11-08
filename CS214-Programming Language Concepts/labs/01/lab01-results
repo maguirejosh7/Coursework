@@ -1,0 +1,210 @@
+Script started on Thu 06 Feb 2014 09:23:31 AM EST
+jlm54@eckert-mauchly:~/214/labs/01$ cat circle_area.cpp
+/* circle_area.cpp computes the area of a circle.
+ *
+ * Input: The radius of the circle.
+ * Precondition: The radius is a positive number.
+ * Output: The area of the circle.
+ *
+ * Begun by: Dr. Nelesen, for CS 214, at Calvin College.
+ * Completed by:Joshua Maguire
+ * Date:2/6/14
+ **********************************************************/
+
+#include <iostream>             // cin, cout, >>, <<
+using namespace std;
+
+/* function circleArea() computes a circle's area, given its radius.
+ * Parameter: r, a double
+ * Precondition: r is not negative.
+ * Returns: the area of the circle
+ */
+double circleArea(double r) {
+  const double PI = 3.1415927;     // define a constant
+  return PI * r * r;               // return an expression
+}
+
+int main() {
+                                   // prompt for and input radius
+  cout << "To compute the area of a circle,\n enter its radius: ";
+  double radius;                   // declare a variable
+  cin >> radius;                   // read radius from the keyboard
+                                   // compute area
+  double area = circleArea(radius);
+                                   // output area
+  cout << "The area is " << area << endl;
+}
+jlm54@eckert-mauchly:~/214/labs/01$ g[Kcat circle_area.cpp[12P./prog3cat circle_area.cpp[12P./prog3ls[Kcd hplantin/public/212/hw1..[Khplantin/public/212/hw1ls[K./prog3cat circle_area.cpp[Kg++ circle_area.cpp Wall[K[K[K[K-Wall -o cpp_circle)[K_area [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ka
+jlm54@eckert-mauchly:~/214/labs/01$ ./cpp_circle_area
+To compute the area of a circle,
+ enter its radius: 1
+The area is 3.14159
+jlm54@eckert-mauchly:~/214/labs/01$ ./cpp_circle_area
+To compute the area of a circle,
+ enter its radius: 2
+The area is 12.5664
+jlm54@eckert-mauchly:~/214/labs/01$ ./cpp_circle_area
+To compute the area of a circle,
+ enter its radius: 2.5
+The area is 19.635
+jlm54@eckert-mauchly:~/214/labs/01$ ./cpp_circle_area
+To compute the area of a circle,
+ enter its radius: 4.99999
+The area is 78.5395
+jlm54@eckert-mauchly:~/214/labs/01$ exit
+exit
+
+Script done on Thu 06 Feb 2014 09:25:21 AM EST
+Script started on Thu 06 Feb 2014 09:40:43 AM EST
+jlm54@eckert-mauchly:~/214/labs/01/02$ cat circle_area.adb
+-- circle_area.adb computes the area of a circle.
+--
+-- Input: The radius of the circle.
+-- Precondition: The radius is a positive number.
+-- Output: The area of the circle.
+--
+-- Begun by: Dr. Nelesen, CS 214 at Calvin College.
+-- Completed by: Joshua Maguire
+-- Date:2/6/14
+----------------------------------------------------
+
+with Ada.Text_IO, Ada.Float_Text_IO;
+use  Ada.Text_IO, Ada.Float_Text_IO;
+
+procedure circle_area is
+
+   radius, area : float; --2 new variables
+
+   -- function circleArea computes a circle's area, given its radius
+   -- Parameter: r, a float
+   -- Precondition: r >= 0.0
+   -- Return: the area of the circle whose radius is r
+   ----------------------------------------------------
+   function circleArea(r: in float) return float is --declare function
+      PI : constant := 3.1415927; --declare new constant PI
+   begin	--start of function (after declaring new variables)
+      return PI * r ** 2; --return area of circle (PI*r^2)
+   end circleArea; --end of function
+
+begin                           --begin beginning of program (after above declarations of new vars.
+   Put_Line("To compute the area of a circle,"); --newline of txt
+   Put("enter its radius: "); --new txt
+   Get(radius); --..from keyboard
+
+   area := circleArea(radius); --calls function to previously declared variable
+
+   Put("The area is "); --txt
+   Put(area); --output area var
+   New_Line; --..
+end circle_area; --end prgrm
+jlm54@eckert-mauchly:~/214/labs/01/02$ gnatmake circle_area
+gcc-4.6 -c circle_area.adb
+gnatbind -x circle_area.ali
+gnatlink circle_area.ali
+jlm54@eckert-mauchly:~/214/labs/01/02$ ./circle_area
+To compute the area of a circle,
+enter its radius: 1
+The area is  3.14159E+00
+jlm54@eckert-mauchly:~/214/labs/01/02$ ./circle_area
+To compute the area of a circle,
+enter its radius: 2
+The area is  1.25664E+01
+jlm54@eckert-mauchly:~/214/labs/01/02$ ./circle_area
+To compute the area of a circle,
+enter its radius: 2.5
+The area is  1.96350E+01
+jlm54@eckert-mauchly:~/214/labs/01/02$ ./circle_area
+To compute the area of a circle,
+enter its radius: 4.99999
+The area is  7.85395E+01
+jlm54@eckert-mauchly:~/214/labs/01/02$ exit
+
+Script done on Thu 06 Feb 2014 09:43:50 AM EST
+;; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, first visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+
+;;; circle_area.el computes the area of a circle. 
+;;;                                                                     
+;;; Input: The radius of the circle.                                    
+;;; Precondition: The radius is a positive number.                      
+;;; Output: The area of the circle.                                     
+;;; 
+;;; Begun by: Dr. Nelesen, for CS 214 at Calvin College.
+;;; Completed by:
+;;; Date:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                   
+
+;;; function circleArea computes a circle's area, given its radius.     
+;;; Parameters: r, a number.                                            
+;;; Precondition: r >= 0.                                               
+;;; Returns: the area of the circle whose radius is r.                   
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                  
+(defun circleArea (radius);define circleArea
+  "Compute the area of a circle, passed its radius."
+  (defconst PI 3.1415927);make var PI
+  (* PI (* radius radius))) ;do maths
+circleArea
+
+
+        
+
+(defun circle_area(r)  ;define fnction
+ "Compute the area of a circle, given its radius interactively."
+  (interactive "nRadius: ") ;define interactive nRadius       
+  (setq area (circleArea r))   ;set variable area to (run circleArea)   
+  (message "The circle's area is %f." area)) ; disp data
+circle_area
+
+
+(circleArea 1)
+3.1415927
+
+Script started on Fri 07 Feb 2014 10:08:22 AM EST
+jlm54@codd:~/214/labs/01$ cat circle_area.rb
+cat: circle_area.rb: No such file or directory
+jlm54@codd:~/214/labs/01$ cd 04
+jlm54@codd:~/214/labs/01/04$ cd 04at circle_area.rb
+#! /usr/bin/ruby
+# circle_area.rb computes the area of a circle given its radius
+# 
+# Input: the radius of a circle
+# Precondition: the radius is not negative
+# Output: the area of the circle.
+#
+# Begun by: Dr. Nelesen, for CS 214 at Calvin College.
+# Completed by: Joshua Maguire
+# Date:2/7/14
+###############################################################
+
+# function circleArea returns a circle's area, given its radius
+# Parameters: r, a number
+# Precondition: r > 0.
+# Returns: the area of a circle whose radius is r.
+PI = 3.1415927 #define pie
+def circleArea(r) #define funct circleArea, takes in radius
+    PI * r ** 2 #math
+end #end funct
+
+if __FILE__ == $0 #if file run directly,
+   print "Enter the radius: " #...
+   radius = gets.chomp.to_f #gets(from keyboard, chomp excludes crazy characters)
+   print "Area is: " #..
+   puts circleArea(radius) #print (circleArea method) 
+end
+jlm54@codd:~/214/labs/01/04$ ruby circle_area.rb
+Enter the radius: 1
+Area is: 3.1415927
+jlm54@codd:~/214/labs/01/04$ ruby circle_area.rb
+Enter the radius: 2
+Area is: 12.5663708
+jlm54@codd:~/214/labs/01/04$ ruby circle_area.rb
+Enter the radius: 2.5
+Area is: 19.634954375
+jlm54@codd:~/214/labs/01/04$ ruby circle_area.rb
+Enter the radius: 4.99999
+Area is: 78.53950334104417
+jlm54@codd:~/214/labs/01/04$ exit
+exit
+
+Script done on Fri 07 Feb 2014 10:09:33 AM EST

@@ -1,0 +1,16 @@
+In the future, in every file that starts like this...
+
+/* Filename
+ * Student Name:
+ * Date:
+ * Begun by: Joel Adams, for CS 112 at Calvin College.
+ */
+
+...please be sure to fill the Student Name and Date fields out. 
+Since you remembered in some of them, I won't deduct for it this time, but in the future I will, so be careful.
+
+Looking good otherwise; great work! =)
+
+Score: 100/100
+
+- Patrick

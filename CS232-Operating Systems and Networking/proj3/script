@@ -1,0 +1,39 @@
+Script started on Sat 09 Apr 2016 02:59:39 PM EDT
+jlm54@cs-ssh:~/workspace/cs232/proj3$ make
+make: Nothing to be done for `all'.
+jlm54@cs-ssh:~/workspace/cs232/proj3$ ./Shell
+apple bee & tree -world
+Ampersand found!
+apple bee tree -world
+spaces: 3
+apple
+bee
+tree
+-world
+argCount: 4
+argv[0] = apple
+argc = 4
+argv = 0x1b1a100
+argv[1] = bee
+noAmpersand = 0
+jlm54@cs-ssh:~/workspace/cs232/proj3$ ./Shell
+and but candnle
+spaces: 2
+and
+but
+candnle
+argCount: 3
+argv[0] = and
+argc = 3
+argv = 0xabb0b0
+argv[1] = but
+noAmpersand = 1
+jlm54@cs-ssh:~/workspace/cs232/proj3$ .l /Shell
+
+spaces: 0
+argCount: 0
+argv[0] = jlm54@cs-ssh:~/workspace/cs232/proj3$ 
+jlm54@cs-ssh:~/workspace/cs232/proj3$ ^C
+jlm54@cs-ssh:~/workspace/cs232/proj3$ exit
+
+Script done on Sat 09 Apr 2016 03:01:58 PM EDT

@@ -1,0 +1,30 @@
+22:29:51 **** Incremental Build of configuration Debug for project proj5 ****
+make all 
+make: Nothing to be done for `all'.
+22:29:54 **** Incremental Build of configuration Debug for project proj5 ****
+make all 
+Building file: ../ListTester.cpp
+Invoking: Cygwin C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"ListTester.d" -MT"ListTester.d" -o "ListTester.o" "../ListTester.cpp"
+In file included from ../ListTester.cpp:9:0:
+../List.h: In member function 'void List<Item>::readFrom(const std::string&) [with Item = double, std::string = std::basic_string<char>]':
+../ListTester.cpp:418:32:   instantiated from here
+../List.h:295:2: warning: comparison between signed and unsigned integer expressions
+In file included from ../ListTester.cpp:9:0:
+../List.h: In member function 'void List<Item>::insert(const Item&, int) [with Item = double]':
+../ListTester.cpp:522:20:   instantiated from here
+../List.h:377:10: warning: comparison between signed and unsigned integer expressions
+../List.h: In member function 'Item& List<Item>::remove(int) [with Item = double]':
+../ListTester.cpp:584:16:   instantiated from here
+../List.h:410:15: warning: comparison between signed and unsigned integer expressions
+../List.h:409:7: warning: reference to local variable 'copy' returned
+../List.h:420:4: warning: comparison between signed and unsigned integer expressions
+../List.h:409:7: warning: reference to local variable 'copy' returned
+../List.h:409:7: warning: reference to local variable 'copy' returned
+Finished building: ../ListTester.cpp
+ 
+Building target: proj5.exe
+Invoking: Cygwin C++ Linker
+g++  -o "proj5.exe"  ./ListTester.o  ./tester.o   
+Finished building target: proj5.exe
+ 

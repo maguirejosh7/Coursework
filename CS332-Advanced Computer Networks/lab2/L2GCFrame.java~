@@ -1,0 +1,95 @@
+import java.lang.*;
+import java.io.*;
+
+public class L2GCFrame
+{
+	//Instance Variables for each field in this frame:
+	private int sourceAddress;
+	private int multicast;
+	private int multicastLength;
+	private int destinationAddress;
+	private int payloadLength;	
+	private static String payload;
+	private int checkSum;
+	public static int BCAST_ADDR = "FF";
+	
+	public L2GCFrame()
+	{
+	
+	}
+	
+	//Provide a constructor that takes in values you need
+	public L2GCFrame(int s, int m, int ml, int d, int pl, String p, int c)
+	{
+  sourceAddress = s;
+	multicast = m;
+	multicastLength = ml;
+	destinationAddress = d;
+	payloadLength = pl;
+  String payload = p;
+	checkSum = c;
+	}
+	
+	//TODO
+  //	then computing derived fields, like length and the error detection field value
+  
+	public getSourceAddress
+	{
+		return sourceAddress;
+	}
+	
+	public getMulticast
+	{
+		return multicast;
+	}
+	
+	public getMulticastLength
+	{
+		return multicastLength;
+	}
+	
+	public getdestinationAddress
+	{
+		return destinationAddress;
+	}
+	
+	public getPayloadLength
+	{
+		return payloadLength;
+	}
+	
+	public getPayload
+	{
+		return payload;
+	}
+	
+	public getCheckSum
+	{
+		return checkSum;	
+	}
+	
+	//write a static method toBinary that takes in an integer value and an integer length, and returns a string of bits of the given length representing the given value in binary. You may assume that the value will fit in the number of bits given by length.
+	public static toBinary (int value, int length)
+	{
+		value = Integer.toBinaryString(value);
+		if(value.length() < length)
+		{
+			//append 0's to 
+		}
+	}
+	
+	//A static method computeErrorCheck that takes in a bit String, and computes the error checking value, of the correct number of bits
+	//public static computeErrorCheck(String string)
+//	{
+		
+	//}
+	
+	// create and return the bit string corresponding to the whole frame. Don’t forget to prepend the “0” preamble to the beginning of it.
+	//public static toString()
+	//{
+		
+	//}
+	
+	
+	
+}

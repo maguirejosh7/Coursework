@@ -1,0 +1,2 @@
+c++
+-build:    g++ SourceFileName.cpp -Wall -o BinaryFileName

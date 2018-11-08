@@ -1,0 +1,330 @@
+Script started on Thu 27 Feb 2014 09:25:21 AM EST
+jlm54@hollerith:~/214/labs/04/C++$ cat log_table.cpp
+/* log_table.cpp displays a table of logarithms.
+ *
+ * Input: start, stop and increment, three doubles.
+ * PRE: start < stop && increment > 0.
+ * Output: A table of logarithms from start to stop,
+ *         with increment as the step value.
+ * Begun by: Adams, for CS 214 at Calvin College.
+ * Completed by:Joshua Maguire
+ ********************************************************/
+
+#include <iostream>    // cin, cout, <<, >>
+#include <cassert>     // assert()
+#include <cmath>       // log10()
+using namespace std;
+
+int main() 
+{
+  cout << "\nTo display a table of logarithms,"
+       << "\n enter the start, stop and increment values: ";
+  double start, stop, increment;
+  cin >> start >> stop >> increment;
+  
+  assert(increment > 0);
+  
+   for (double count = start; count <= stop; count += increment)
+      cout << "\nThe logarithm of " << count
+           << " is " << log10(count) << endl;
+}
+
+jlm54@hollerith:~/214/labs/04/C++$ g++ log_table.cpp -Wall -o log_table
+jlm54@hollerith:~/214/labs/04/C++$ ./log_table
+
+To display a table of logarithms,
+ enter the start, stop and increment values: 1 10 .5
+
+The logarithm of 1 is 0
+
+The logarithm of 1.5 is 0.176091
+
+The logarithm of 2 is 0.30103
+
+The logarithm of 2.5 is 0.39794
+
+The logarithm of 3 is 0.477121
+
+The logarithm of 3.5 is 0.544068
+
+The logarithm of 4 is 0.60206
+
+The logarithm of 4.5 is 0.653213
+
+The logarithm of 5 is 0.69897
+
+The logarithm of 5.5 is 0.740363
+
+The logarithm of 6 is 0.778151
+
+The logarithm of 6.5 is 0.812913
+
+The logarithm of 7 is 0.845098
+
+The logarithm of 7.5 is 0.875061
+
+The logarithm of 8 is 0.90309
+
+The logarithm of 8.5 is 0.929419
+
+The logarithm of 9 is 0.954243
+
+The logarithm of 9.5 is 0.977724
+
+The logarithm of 10 is 1
+jlm54@hollerith:~/214/labs/04/C++$ exit
+
+Script done on Thu 27 Feb 2014 09:26:09 AM EST
+Script started on Thu 27 Feb 2014 09:50:48 AM EST
+jlm54@hollerith:~/214/labs/04/ada$ cat log_table.atb[K[Kdb
+-- log_table.adb computes a table of logarithms.
+--
+-- Input: start, stop, increment, three reals.
+-- Precondition: increment is positive.
+-- Output: A table of logarithms beginning with log(start),
+--         ending with log(stop), with intervals of increment.
+--
+-- Begun by: Dr. Adams, for CS 214 at Calvin College.
+-- Completed by:Joshua Maguire
+--------------------------------------------------------------
+
+with Ada.Text_IO, Ada.Float_Text_IO, Ada.Numerics.Elementary_Functions;
+use  Ada.Text_IO, Ada.Float_Text_IO, Ada.Numerics.Elementary_Functions;
+
+procedure log_table is
+
+   Start, Stop, Increment, Counter : Float;
+
+begin                                           -- Prompt for input
+   Put_Line("To print a table of logarithms,");
+   Put(" enter the start, stop, and increment values: ");
+   Get(Start); Get(Stop); Get(Increment);
+
+   -- form 1: general purpose indeterminate loop.
+	 Counter := Start; --counter keeps track of count in loop
+	 loop
+			exit when (Counter > Stop);
+			Put("The logarithm of ");
+			Put(Counter);
+			Put(" is ");
+			Put( log(Counter,10.0) );
+			Counter := (Counter + Increment); --increment counter
+			New_Line;
+	 end loop;
+	 -- end form 1 loop.
+
+end log_table;
+
+jlm54@hollerith:~/214/labs/04/ada$ gnatmake log_table.adb
+gcc-4.6 -c log_table.adb
+gnatbind -x log_table.ali
+gnatlink log_table.ali
+jlm54@hollerith:~/214/labs/04/ada$ ./log_table
+To print a table of logarithms,
+ enter the start, stop, and increment values: 1 10 0.5
+The logarithm of  1.00000E+00 is  0.00000E+00
+The logarithm of  1.50000E+00 is  1.76091E-01
+The logarithm of  2.00000E+00 is  3.01030E-01
+The logarithm of  2.50000E+00 is  3.97940E-01
+The logarithm of  3.00000E+00 is  4.77121E-01
+The logarithm of  3.50000E+00 is  5.44068E-01
+The logarithm of  4.00000E+00 is  6.02060E-01
+The logarithm of  4.50000E+00 is  6.53212E-01
+The logarithm of  5.00000E+00 is  6.98970E-01
+The logarithm of  5.50000E+00 is  7.40363E-01
+The logarithm of  6.00000E+00 is  7.78151E-01
+The logarithm of  6.50000E+00 is  8.12913E-01
+The logarithm of  7.00000E+00 is  8.45098E-01
+The logarithm of  7.50000E+00 is  8.75061E-01
+The logarithm of  8.00000E+00 is  9.03090E-01
+The logarithm of  8.50000E+00 is  9.29419E-01
+The logarithm of  9.00000E+00 is  9.54243E-01
+The logarithm of  9.50000E+00 is  9.77724E-01
+The logarithm of  1.00000E+01 is  1.00000E+00
+jlm54@hollerith:~/214/labs/04/ada$ exit
+
+Script done on Thu 27 Feb 2014 09:51:15 AM EST
+;;; log_table.el displays a table of logarithms.
+;;;
+;;; Input: start, stop and increment, three reals.
+;;; PRE: start < stop and increment > 0.
+;;; Output: A table of logarithms from start to stop,
+;;;          with interval of increment.
+;;;
+;;; Begun by: Adams, for CS 214 at Calvin College.
+;;; Completed by: Joshua Maguire
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; displayLogTable() recursively generates the actual table of logs. ;;;
+;;; Receive: start and stop, the limit values for the table;          ;;;
+;;;             increment, the step value for the table;              ;;;
+;;;             buf, the buffer in which to display the table.        ;;;
+;;; Output: The table of logs from start to stop, by increment.       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun displayLogTable(start stop increment buff)
+  ;documantation(above)
+  (if (<= start stop) 
+      (progn ;combines next few lines into one expression for the if statement
+      	(princ  "The logarithm of " buff )
+	(princ  start buff)
+	(princ " is " buff)
+	(princ  (log10 start) buff)
+      	(terpri buff); new line
+      	(displayLogTable(+ start increment) stop increment buff) ;repetitional inception
+      )
+  )
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; main is a 'driver' for displayLogTable()                      ;;;
+;;; Input: start, stop and increment.                          ;;;
+;;; Output: The table of logs from start to stop by increment  ;;;
+;;;          in a buffer named 'logTable.out'.                 ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun main (start stop increment)
+  "print a table of logarithms"
+;   (interactive "nEnter starting value: \nnEnter stopping value: \nnEnter increment value: ")
+;   (if (get-buffer "log_table.out")
+;       (kill-buffer "log_table.out"))
+;   (setq buf (switch-to-buffer-other-window "log_table.out"))
+   (displayLogTable start stop increment buf))
+
+
+
+
+
+;;; log_table.el displays a table of logarithms.
+;;;
+;;; Input: start, stop and increment, three reals.
+;;; PRE: start < stop and increment > 0.
+;;; Output: A table of logarithms from start to stop,
+;;;          with interval of increment.
+;;;
+;;; Begun by: Adams, for CS 214 at Calvin College.
+;;; Completed by: Joshua Maguire
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; displayLogTable() recursively generates the actual table of logs. ;;;
+;;; Receive: start and stop, the limit values for the table;          ;;;
+;;;             increment, the step value for the table;              ;;;
+;;;             buf, the buffer in which to display the table.        ;;;
+;;; Output: The table of logs from start to stop, by increment.       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun displayLogTable(start stop increment buff)
+  ;documantation(above)
+  (if (<= start stop) 
+      (progn ;combines next few lines into one expression for the if statement
+      	(princ  "The logarithm of " buff )
+	(princ  start buff)
+	(princ " is " buff)
+	(princ  (log10 start) buff)
+      	(terpri buff); new line
+      	(displayLogTable(+ start increment) stop increment buff) ;repetitional inception
+      )
+  )
+)
+displayLogTable
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; main is a 'driver' for displayLogTable()                      ;;;
+;;; Input: start, stop and increment.                          ;;;
+;;; Output: The table of logs from start to stop by increment  ;;;
+;;;          in a buffer named 'logTable.out'.                 ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun main (start stop increment)
+  "print a table of logarithms"
+   (interactive "nEnter starting value: \nnEnter stopping value: \nnEnter increment value: ")
+   (if (get-buffer "log_table.out")
+       (kill-buffer "log_table.out"))
+   (setq buf (switch-to-buffer-other-window "log_table.out"))
+   (displayLogTable start stop increment buf))
+main
+
+(main 1 10 0.5)
+nil
+
+
+
+
+The logarithm of 1 is 0.0
+The logarithm of 1.5 is 0.17609125905568124
+The logarithm of 2.0 is 0.3010299956639812
+The logarithm of 2.5 is 0.3979400086720376
+The logarithm of 3.0 is 0.47712125471966244
+The logarithm of 3.5 is 0.5440680443502757
+The logarithm of 4.0 is 0.6020599913279624
+The logarithm of 4.5 is 0.6532125137753437
+The logarithm of 5.0 is 0.6989700043360189
+The logarithm of 5.5 is 0.7403626894942439
+The logarithm of 6.0 is 0.7781512503836436
+The logarithm of 6.5 is 0.8129133566428556
+The logarithm of 7.0 is 0.8450980400142568
+The logarithm of 7.5 is 0.8750612633917001
+The logarithm of 8.0 is 0.9030899869919435
+The logarithm of 8.5 is 0.9294189257142927
+The logarithm of 9.0 is 0.9542425094393249
+The logarithm of 9.5 is 0.9777236052888477
+The logarithm of 10.0 is 1.0
+Script started on Fri 28 Feb 2014 09:50:45 AM EST
+jlm54@dijkstra:~/214/labs/04/ruby$ cat ruby[K[K[K[Klog_table.rb
+#! /usr/bin/ruby
+# log_table.rb displays a table of logarithms
+#
+# Begun by: Dr. Nelesen, for CS 214 at Calvin College.
+# Completed by:Joshua Maguire
+#
+# Input:  The start, stop and increment values
+# Precondition: The start value is less than the stop value, 
+#     and the increment is greater than 0
+# Output: A table of logarithms from start to stop, with increment
+#     as the step value
+
+
+if __FILE__ == $0
+   print "Enter the start value: "
+	 start = gets.chomp.to_i #Gets int from keyboard
+   print "Enter the stop value: "
+	 stop = gets.chomp.to_i #Gets int from keyboard
+   print "Enter the increment value: "
+	 counter = gets.chomp.to_f #Gets int from keyboard
+	 
+	 
+	 while start <= stop #our simple loop
+		puts "the logarithm of #{start} is #{Math.log10(start)}" #use #{value}, (rubys string literal thing
+		start = start + counter #increment counter
+	 end
+end
+
+jlm54@dijkstra:~/214/labs/04/ruby$ ruby log_table.rb
+Enter the start value: 1
+Enter the stop value: 10
+Enter the increment value: .5
+the logarithm of 1 is 0.0
+the logarithm of 1.5 is 0.17609125905568124
+the logarithm of 2.0 is 0.3010299956639812
+the logarithm of 2.5 is 0.3979400086720376
+the logarithm of 3.0 is 0.47712125471966244
+the logarithm of 3.5 is 0.5440680443502757
+the logarithm of 4.0 is 0.6020599913279624
+the logarithm of 4.5 is 0.6532125137753437
+the logarithm of 5.0 is 0.6989700043360189
+the logarithm of 5.5 is 0.7403626894942439
+the logarithm of 6.0 is 0.7781512503836436
+the logarithm of 6.5 is 0.8129133566428556
+the logarithm of 7.0 is 0.8450980400142568
+the logarithm of 7.5 is 0.8750612633917001
+the logarithm of 8.0 is 0.9030899869919435
+the logarithm of 8.5 is 0.9294189257142927
+the logarithm of 9.0 is 0.9542425094393249
+the logarithm of 9.5 is 0.9777236052888477
+the logarithm of 10.0 is 1.0
+jlm54@dijkstra:~/214/labs/04/ruby$ exit
+
+Script done on Fri 28 Feb 2014 09:51:57 AM EST

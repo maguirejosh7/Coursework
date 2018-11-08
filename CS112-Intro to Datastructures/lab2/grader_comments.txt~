@@ -1,0 +1,10 @@
+-2	Minor errors in spreadsheet.
+
+I'm not sure how you came up with 12 bytes for a float,  but they're actually only 4.
+Also, the spreadsheet itself seems to be in reverse order, which makes it kind of hard to follow.
+
+Very nice work overall nevertheless!
+
+Score: /100
+
+- Patrick

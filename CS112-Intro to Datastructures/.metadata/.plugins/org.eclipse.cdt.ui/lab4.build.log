@@ -1,0 +1,16 @@
+00:23:21 **** Incremental Build of configuration Debug for project lab4 ****
+make all 
+Building target: lab4.exe
+Invoking: Cygwin C++ Linker
+g++  -o "lab4.exe"  ./VecTester.o  ./tester.o   
+./VecTester.o: In function `_ZNK9VecTester22testDefaultConstructorEv':
+/cygdrive/c/Users/Admin/Documents/Dropbox/Calvin documents/112/lab4/Debug/../VecTester.cpp:39: undefined reference to `Vec<double>::~Vec()'
+makefile:44: recipe for target `lab4.exe' failed
+/cygdrive/c/Users/Admin/Documents/Dropbox/Calvin documents/112/lab4/Debug/../VecTester.cpp:39: undefined reference to `Vec<double>::~Vec()'
+./VecTester.o:VecTester.cpp:(.rdata$_ZTV3VecIdE[vtable for Vec<double>]+0x8): undefined reference to `Vec<double>::~Vec()'
+./VecTester.o:VecTester.cpp:(.rdata$_ZTV3VecIdE[vtable for Vec<double>]+0xc): undefined reference to `Vec<double>::~Vec()'
+collect2: ld returned 1 exit status
+make: *** [lab4.exe] Error 1
+
+00:23:22 Build Finished (took 524ms)
+

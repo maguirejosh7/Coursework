@@ -1,0 +1,57 @@
+-- average.adb "test-drives" function Average.
+-- Precondition: theArray is an array of numbers.
+-- Output: the average of the numbers.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Joshua Maguire		
+-- Date:3/20/14
+-----------------------------------------------
+
+with Ada.Text_IO; use Ada.Text_IO;             -- Put(String)
+with Ada.Float_Text_IO; use Ada.Float_Text_IO; -- Put(Float)
+
+procedure average is
+
+
+type Vector is array (Positive range <>) of Float;-- Declare Vector type
+
+array0 : Vector := (0.0,0.0);
+array1 : Vector := (9.0,8.0,7.0,6.0);
+
+function sum(A: Vector) return Float is 
+----------------------------------------------
+-- sum() sums the values in an array           -
+-- Receive: anArray, an array of numbers     -
+-- Return: the sum of the values in anArray. -
+----------------------------------------------
+  Total : Float := 0.0; 
+  begin 
+    for I in A'First..A'Last--or A'Range
+    loop
+      Total := Total + A(I);
+    end loop; 
+    return Total; 
+end sum; 
+
+
+function average(anArray : Vector) return Float is 
+--average() averages the values in type Vector (array)
+--recieve: a Vector of Floats
+--return: the average of those values..
+begin
+	if ( anArray'Length = 2 and anArray(anArray'First) = 0.0 and anArray(anArray'Last) = 0.0) then--probably better way to do this, but it checks out
+		return 0.0;
+	else return sum(anArray)/Float(anArray'Length);
+	end if;
+end average;
+
+
+begin
+   Put(" average 0 is ");
+   Put( average(array0) );
+   New_line;
+   Put(" average 1 is ");
+   Put( average(array1) );
+   New_line;
+end average;
+

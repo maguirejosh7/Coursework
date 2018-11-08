@@ -1,0 +1,58 @@
+Script started on Wed 05 Mar 2014 05:02:04 PM EST
+jlm54@babbage:~/214/projects/04/c++$ cat fact.cpp
+/* fact.cpp displays the factorial of a positive number n.
+ * Input: unsigned n
+ * PRE: positive integer
+ * Output: factorial of the number
+ * Edited by Joshua Maguire
+ ********************************************************/
+
+
+
+ #include <iostream>
+   using namespace std;
+/* factorial computes the factorial of a positive number n.
+ * Input: unsigned n
+ * PRE: positive integer
+ * Output: factorial of the number
+ *****************************************************/
+   double factorial(unsigned n) {
+      double answer = 1.0;
+
+      for (int i = 2; i <= n; i++) {
+         answer *= i;
+      }
+
+      return answer;
+   }
+
+
+   int main() {
+      cout << "\nTo compute n!, enter n: ";
+      unsigned n;
+      cin >> n;
+
+      cout << n << "! = " << factorial(n) << endl;
+   }
+jlm54@babbage:~/214/projects/04/c++$ g++ c[Kfact.cpp -Wall -o fact
+fact.cpp: In function ‘double factorial(unsigned int)’:
+fact.cpp:21:28: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+jlm54@babbage:~/214/projects/04/c++$ ./fact
+
+To compute n!, enter n: 2
+2! = 2
+jlm54@babbage:~/214/projects/04/c++$ ./fact
+
+To compute n!, enter n: 3
+3! = 6
+jlm54@babbage:~/214/projects/04/c++$ ./fact
+
+To compute n!, enter n: 4
+4! = 24
+jlm54@babbage:~/214/projects/04/c++$ ./fact
+5
+
+To compute n!, enter n: 5! = 120
+jlm54@babbage:~/214/projects/04/c++$ exit
+
+Script done on Wed 05 Mar 2014 05:02:56 PM EST

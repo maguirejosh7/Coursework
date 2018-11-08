@@ -1,0 +1,15 @@
+23:48:31 **** Incremental Build of configuration Debug for project project3 ****
+make all 
+Building file: ../Vec.cpp
+Invoking: Cygwin C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Vec.d" -MT"Vec.d" -o "Vec.o" "../Vec.cpp"
+Finished building: ../Vec.cpp
+ 
+Building target: project3.exe
+Invoking: Cygwin C++ Linker
+g++  -o "project3.exe"  ./Vec.o  ./VecTester.o  ./tester.o   
+Finished building target: project3.exe
+ 
+
+23:48:33 Build Finished (took 1s.852ms)
+

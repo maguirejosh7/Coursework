@@ -1,0 +1,16 @@
+c:\users\joshua\documents\visual studio 2012\Projects\prog2_babble\prog2_babble\bin\Debug\prog2_babble.exe.config
+c:\users\joshua\documents\visual studio 2012\Projects\prog2_babble\prog2_babble\bin\Debug\prog2_babble.exe
+c:\users\joshua\documents\visual studio 2012\Projects\prog2_babble\prog2_babble\bin\Debug\prog2_babble.pdb
+c:\users\joshua\documents\visual studio 2012\Projects\prog2_babble\prog2_babble\obj\Debug\prog2_babble.csprojResolveAssemblyReference.cache
+c:\users\joshua\documents\visual studio 2012\Projects\prog2_babble\prog2_babble\obj\Debug\MainWindow.baml
+c:\users\joshua\documents\visual studio 2012\Projects\prog2_babble\prog2_babble\obj\Debug\MainWindow.g.cs
+c:\users\joshua\documents\visual studio 2012\Projects\prog2_babble\prog2_babble\obj\Debug\App.g.cs
+c:\users\joshua\documents\visual studio 2012\Projects\prog2_babble\prog2_babble\obj\Debug\prog2_babble_MarkupCompile.cache
+c:\users\joshua\documents\visual studio 2012\Projects\prog2_babble\prog2_babble\obj\Debug\prog2_babble.g.resources
+c:\users\joshua\documents\visual studio 2012\Projects\prog2_babble\prog2_babble\obj\Debug\prog2_babble.Properties.Resources.resources
+c:\users\joshua\documents\visual studio 2012\Projects\prog2_babble\prog2_babble\obj\Debug\prog2_babble.csproj.GenerateResource.Cache
+c:\users\joshua\documents\visual studio 2012\Projects\prog2_babble\prog2_babble\obj\Debug\prog2_babble.exe
+c:\users\joshua\documents\visual studio 2012\Projects\prog2_babble\prog2_babble\obj\Debug\prog2_babble.pdb
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS212\prog2_babble\prog2_babble\bin\Debug\prog2_babble.exe.config
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS212\prog2_babble\prog2_babble\obj\Debug\prog2_babble.exe
+C:\Users\Admin\Documents\Dropbox\Calvin documents\CS212\prog2_babble\prog2_babble\obj\Debug\prog2_babble.pdb

@@ -1,0 +1,25 @@
+Observations:
+
+Example 1: 
+-Line 738 in lex.yy.c yeilds a switch statement, where cases 1 and 2 both link to line numbers 6 and 7 in example1.lex (the start and stop commands).
+
+Example2:
+-Feeding proper inputs yields expected results.
+-Feeding it a number then letter (7G) spits out NUMBER WORD.
+-Underscore "_" echos result, as well as any other special character.
+
+-with improved code, underscore counts as a word "_1" or "_x_X_X_" or "_". 
+-"7_" spits out NUMBER WORD. 
+
+Example3
+-reading in from StudentInfo.h spits out every catagory of symbol it runs into. Starts out: KEYWORD:class, IDENTIFIER: StudentInfo, PUNCTUATION: {...
+
+Example 4
+A non-terminal  doesn't need to use use bison to recieve input as tokens (translated from input text to tokens by flex).  Terminals do. 
+
+Runs as it should, but when you type in random things, it echos them except it sticks the echo in your current typing box and can't be backspaced. (Did I miss something obvious?)
+
+Example 5
+Works as it should.. "heat turned on... temperature set to 212".
+
+Example 6

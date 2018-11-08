@@ -1,0 +1,56 @@
+Script started on Fri 28 Feb 2014 09:50:45 AM EST
+jlm54@dijkstra:~/214/labs/04/ruby$ cat ruby[K[K[K[Klog_table.rb
+#! /usr/bin/ruby
+# log_table.rb displays a table of logarithms
+#
+# Begun by: Dr. Nelesen, for CS 214 at Calvin College.
+# Completed by:Joshua Maguire
+#
+# Input:  The start, stop and increment values
+# Precondition: The start value is less than the stop value, 
+#     and the increment is greater than 0
+# Output: A table of logarithms from start to stop, with increment
+#     as the step value
+
+
+if __FILE__ == $0
+   print "Enter the start value: "
+	 start = gets.chomp.to_i #Gets int from keyboard
+   print "Enter the stop value: "
+	 stop = gets.chomp.to_i #Gets int from keyboard
+   print "Enter the increment value: "
+	 counter = gets.chomp.to_f #Gets int from keyboard
+	 
+	 
+	 while start <= stop #our simple loop
+		puts "the logarithm of #{start} is #{Math.log10(start)}" #use #{value}, (rubys string literal thing
+		start = start + counter #increment counter
+	 end
+end
+
+jlm54@dijkstra:~/214/labs/04/ruby$ ruby log_table.rb
+Enter the start value: 1
+Enter the stop value: 10
+Enter the increment value: .5
+the logarithm of 1 is 0.0
+the logarithm of 1.5 is 0.17609125905568124
+the logarithm of 2.0 is 0.3010299956639812
+the logarithm of 2.5 is 0.3979400086720376
+the logarithm of 3.0 is 0.47712125471966244
+the logarithm of 3.5 is 0.5440680443502757
+the logarithm of 4.0 is 0.6020599913279624
+the logarithm of 4.5 is 0.6532125137753437
+the logarithm of 5.0 is 0.6989700043360189
+the logarithm of 5.5 is 0.7403626894942439
+the logarithm of 6.0 is 0.7781512503836436
+the logarithm of 6.5 is 0.8129133566428556
+the logarithm of 7.0 is 0.8450980400142568
+the logarithm of 7.5 is 0.8750612633917001
+the logarithm of 8.0 is 0.9030899869919435
+the logarithm of 8.5 is 0.9294189257142927
+the logarithm of 9.0 is 0.9542425094393249
+the logarithm of 9.5 is 0.9777236052888477
+the logarithm of 10.0 is 1.0
+jlm54@dijkstra:~/214/labs/04/ruby$ exit
+
+Script done on Fri 28 Feb 2014 09:51:57 AM EST

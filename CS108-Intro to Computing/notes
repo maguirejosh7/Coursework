@@ -1,0 +1,14 @@
+Lab 1 Reference
+
+mkdir x/y            makes directory x/y
+ls x                 lists directory x      or ls -1                 ~ means home
+pwd                    print working (current) directory
+cd x                       goes down a directory
+cd ..                      goes up a directory
+cd ~                     goes home
+cp x y                   add -r after cp when coppying entire folders, x is directory name, y is target directory
+
+processing &     starts processing IDE text editor
+cat x.pde             reads text document
+lpr x                       prints x
+rm x                       removes directory or directory and its contents (-r)

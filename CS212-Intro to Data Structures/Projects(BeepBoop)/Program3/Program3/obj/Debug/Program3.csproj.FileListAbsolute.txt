@@ -1,0 +1,13 @@
+c:\users\joshua\documents\visual studio 2012\Projects\Program3\Program3\bin\Debug\Program3.exe.config
+c:\users\joshua\documents\visual studio 2012\Projects\Program3\Program3\bin\Debug\Program3.exe
+c:\users\joshua\documents\visual studio 2012\Projects\Program3\Program3\bin\Debug\Program3.pdb
+c:\users\joshua\documents\visual studio 2012\Projects\Program3\Program3\obj\Debug\Program3.csprojResolveAssemblyReference.cache
+c:\users\joshua\documents\visual studio 2012\Projects\Program3\Program3\obj\Debug\MainWindow.baml
+c:\users\joshua\documents\visual studio 2012\Projects\Program3\Program3\obj\Debug\MainWindow.g.cs
+c:\users\joshua\documents\visual studio 2012\Projects\Program3\Program3\obj\Debug\App.g.cs
+c:\users\joshua\documents\visual studio 2012\Projects\Program3\Program3\obj\Debug\Program3_MarkupCompile.cache
+c:\users\joshua\documents\visual studio 2012\Projects\Program3\Program3\obj\Debug\Program3.g.resources
+c:\users\joshua\documents\visual studio 2012\Projects\Program3\Program3\obj\Debug\Program3.Properties.Resources.resources
+c:\users\joshua\documents\visual studio 2012\Projects\Program3\Program3\obj\Debug\Program3.csproj.GenerateResource.Cache
+c:\users\joshua\documents\visual studio 2012\Projects\Program3\Program3\obj\Debug\Program3.exe
+c:\users\joshua\documents\visual studio 2012\Projects\Program3\Program3\obj\Debug\Program3.pdb

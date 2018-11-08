@@ -1,0 +1,78 @@
+Script started on Mon 10 Feb 2014 05:30:35 PM EST
+jlm54@turing:~/214/projects/01$ cat ada_rectangle_area.adb
+-- circle_area.adb computes the area of a circle.
+--
+-- Input: The radius of the circle.
+-- Precondition: The radius is a positive number.
+-- Output: The area of the circle.
+--
+-- Begun by: Dr. Nelesen, CS 214 at Calvin College.
+-- Completed by: Joshua Maguire
+-- Date:2/10/14
+----------------------------------------------------
+
+with Ada.Text_IO, Ada.Float_Text_IO;
+use  Ada.Text_IO, Ada.Float_Text_IO;
+
+procedure ada_rectangle_area is
+
+   l, w, area: float; --2 new variables
+
+   -- function rectangleArea computes a rectangle's area, given its length and width
+   -- Parameter: l, w float
+   -- Precondition: l,w >= 0.0
+   -- Return: the area of the rectangle
+   ----------------------------------------------------
+   function rectangleArea(l,w: in float) return float is --declare function
+   begin	--start of function (after declaring new variables)
+      return l*w; --return area of circle (PI*r^2)
+   end rectangleArea; --end of function
+
+begin                           --begin beginning of program (after above declarations of new vars.
+   Put_Line("To compute the area of a rectangle,"); --newline of txt
+   Put("enter its length: "); --new txt
+   Get(l); --..from keyboard
+   Put("enter its width: "); --new txt
+   Get(w); --..from keyboard
+   area := rectangleArea(l,w); --calls function to previously declared variables
+
+   Put("The area is "); --txt
+   Put(area); --output area var
+   New_Line; --..
+end ada_rectangle_area; --end prgrm
+jlm54@turing:~/214/projects/01$ gnat[K[K[K[Kcat ada_rectangle_area.adb[K[4Pa2ps lab01-resultscat script.cpp script.ada script.e-lisp script.ruuby > lab01-results[A[C[C[C[C[C[C[C[C[C[C[C[C[Cls[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cscript scriptcat script.cpp script.ada script.e-lisp script.ruuby > lab01-results[A[C[C[C[C[C[C[C[C[C[C[C[C[Cls[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccd labs/01ls[Kcd 214[2Pexitruby circle_area.rbexit[Kcd 214[4Plscd labs/01ls[Kcat script.cpp script.ada script.e-lisp script.ruuby > lab01-results[A[C[C[C[C[C[C[C[C[C[C[C[C[Cscript script[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kcat script.cpp script.ada script.e-lisp script.ruuby > lab01-results[A[C[C[C[C[C[C[C[C[C[C[C[C[C[30Pa2ps lab01-results
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccat ada_rectangle_area.adb[Kgnatmake circle[K[K[K[K[K[Kada_circle_area
+gnatmake: "ada_circle_area" not found
+jlm54@turing:~/214/projects/01$ ada_cir[K[K[Krectangle_area
+ada_rectangle_area: command not found
+jlm54@turing:~/214/projects/01$ ada_rectangle_area[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kgna[K[K[Kgnatmake ada_cir[K[K[Krectangle_area
+gcc-4.6 -c ada_rectangle_area.adb
+gnatbind -x ada_rectangle_area.ali
+gnatlink ada_rectangle_area.ali
+jlm54@turing:~/214/projects/01$ ./ada_rectangle_area
+To compute the area of a rectangle,
+enter its length: 1 2 1
+enter its width: 2
+The area is  2.00000E+00
+jlm54@turing:~/214/projects/01$ ./ada_rectangle_area
+To compute the area of a rectangle,
+enter its length: .5
+enter its width: 10
+The area is  5.00000E+00
+jlm54@turing:~/214/projects/01$ 100
+100: command not found
+jlm54@turing:~/214/projects/01$ 5
+5: command not found
+jlm54@turing:~/214/projects/01$ 5
+5: command not found
+jlm54@turing:~/214/projects/01$ 5100./ada_rectangle_area
+To compute the area of a rectangle,
+enter its length: 100
+enter its width: 5
+The area is  5.00000E+02
+jlm54@turing:~/214/projects/01$ exit
+
+Script done on Mon 10 Feb 2014 05:33:23 PM EST

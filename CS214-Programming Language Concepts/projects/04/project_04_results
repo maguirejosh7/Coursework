@@ -1,0 +1,270 @@
+Script started on Wed 05 Mar 2014 05:02:04 PM EST
+jlm54@babbage:~/214/projects/04/c++$ cat fact.cpp
+/* fact.cpp displays the factorial of a positive number n.
+ * Input: unsigned n
+ * PRE: positive integer
+ * Output: factorial of the number
+ * Edited by Joshua Maguire
+ ********************************************************/
+
+
+
+ #include <iostream>
+   using namespace std;
+/* factorial computes the factorial of a positive number n.
+ * Input: unsigned n
+ * PRE: positive integer
+ * Output: factorial of the number
+ *****************************************************/
+   double factorial(unsigned n) {
+      double answer = 1.0;
+
+      for (int i = 2; i <= n; i++) {
+         answer *= i;
+      }
+
+      return answer;
+   }
+
+
+   int main() {
+      cout << "\nTo compute n!, enter n: ";
+      unsigned n;
+      cin >> n;
+
+      cout << n << "! = " << factorial(n) << endl;
+   }
+jlm54@babbage:~/214/projects/04/c++$ g++ c[Kfact.cpp -Wall -o fact
+fact.cpp: In function ‘double factorial(unsigned int)’:
+fact.cpp:21:28: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+jlm54@babbage:~/214/projects/04/c++$ ./fact
+
+To compute n!, enter n: 2
+2! = 2
+jlm54@babbage:~/214/projects/04/c++$ ./fact
+
+To compute n!, enter n: 3
+3! = 6
+jlm54@babbage:~/214/projects/04/c++$ ./fact
+
+To compute n!, enter n: 4
+4! = 24
+jlm54@babbage:~/214/projects/04/c++$ ./fact
+5
+
+To compute n!, enter n: 5! = 120
+jlm54@babbage:~/214/projects/04/c++$ exit
+
+Script done on Wed 05 Mar 2014 05:02:56 PM EST
+
+$$$$$$$$$$$$$$$$$$$$$$$$$NEXT SCRIPT$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+Script started on Wed 05 Mar 2014 05:04:06 PM EST
+jlm54@babbage:~/214/projects/04/ada$ cat fact.adb
+-- fact.adb displays the factorial of a positive number n.
+-- Input: unsigned n
+-- PRE: positive integer
+-- Output: factorial of the number
+-- Edited by Joshua Maguire
+--------------------------------------------------------------
+
+with Ada.Text_IO,Ada.Integer_Text_IO;
+use Ada.Text_IO, Ada.Integer_Text_IO;
+
+
+procedure fact is
+	n : integer; --Ada doesn't have the unsigned type. Could use mod-1 but is a little unnecesarry. Anyone who disobeys the consol WILL get errors. This is the number we will input from user.
+	
+
+	
+------------computeFact FUNCTION----------------
+-- computeGrades computes the factorial of a positive number n.
+-- Input: int n
+-- PRE: positive integer
+-- Output: factorial of the number
+function computeFact(n: in integer) return integer is 
+answer:integer; --declaring answer variable
+begin
+	answer := 1; --initializing it..
+	For i in Integer Range 2 .. n loop --our count-up for loop
+		answer := answer * i;          --answer *= i
+	end loop;						   --i auto incremented
+	
+	return answer;
+end computeFact;
+-----------end computeFact FUNTION----------------
+
+------main--------------
+begin 
+	Put("To compute n!, enter positive integer n: ");
+	Get(n);
+	Put(n); --Why didn't Put_Line(n) work?
+	Put("! = ");
+	Put(computeFact(n)); --calls function... for some reason big space inbetween "! = " and the answer...owell. 
+end;
+-------end main-----------------------
+jlm54@babbage:~/214/projects/04/ada$ gnatmake fact.adb
+gnatmake: "fact" up to date.
+jlm54@babbage:~/214/projects/04/ada$ gnatmake fact.adb
+gcc-4.6 -c fact.adb
+gnatbind -x fact.ali
+gnatlink fact.ali
+jlm54@babbage:~/214/projects/04/ada$ ./fact.adb[K[K[K[K
+To compute n!, enter positive integer n: 2
+          2! =           2
+jlm54@babbage:~/214/projects/04/ada$ ./fact
+To compute n!, enter positive integer n: 3
+          3! =           6
+jlm54@babbage:~/214/projects/04/ada$ ./fact
+To compute n!, enter positive integer n: 4
+          4! =          24
+jlm54@babbage:~/214/projects/04/ada$ ./fact
+To compute n!, enter positive integer n: 5
+          5! =         120
+jlm54@babbage:~/214/projects/04/ada$ exit
+
+Script done on Wed 05 Mar 2014 05:04:57 PM EST
+
+$$$$$$$$$$$$$$$$$$$$$$$$$NEXT SCRIPT$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+; fact.el displays the factorial of a positive number n.
+; Input: unsigned n
+; PRE: positive integer
+; Output: factorial of the number
+; Edited by Joshua Maguire
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; computeFact  computes the factorial of a positive number n.
+; Input: i (counting variable) and answer (starts as 1, returns factorial answer)
+; PRE: i is positive integer
+; Output: factorial of i (returned through variable answer)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun computeFact(i answer)
+ ;Documentation above..
+  (if(>= i 2) ;if /for loop
+    (progn
+    (setq answer (* i answer)) ;*= answer
+    (setq i (- i 1))        ;decrement counter
+    (computeFact i answer)  ;recursion loop
+    )
+  answer) ; else return answer, which defaults as 1
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; main is a 'driver' for fact()               	       ;;;
+;;; Documentation is at top of file..	                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun main (n)
+  "documentation above..."
+   (interactive "nTo compute n!, enter n: ")
+   (message "%d" (computeFact n 1)))
+   
+   
+   
+   
+   
+   
+; fact.el displays the factorial of a positive number n.
+; Input: unsigned n
+; PRE: positive integer
+; Output: factorial of the number
+; Edited by Joshua Maguire
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; computeFact  computes the factorial of a positive number n.
+; Input: i (counting variable) and answer (starts as 1, returns factorial answer)
+; PRE: i is positive integer
+; Output: factorial of i (returned through variable answer)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun computeFact(i answer)
+ ;Documentation above..
+  (if(>= i 2) ;if /for loop
+    (progn
+    (setq answer (* i answer)) ;*= answer
+    (setq i (- i 1))        ;decrement counter
+    (computeFact i answer)  ;recursion loop
+    )
+  answer) ; else return answer, which defaults as 1
+)
+computeFact
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; main is a 'driver' for fact()               	       ;;;
+;;; Documentation is at top of file..	                       ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun main (n)
+  "documentation above..."
+   (interactive "nTo compute n!, enter n: ")
+   (message "%d" (computeFact n 1)))
+main
+
+;tests
+(main 2)
+"2"
+(main 3)
+"6"
+(main 4)
+"24"
+(main 5)
+"120"
+
+$$$$$$$$$$$$$$$$$$$$$$$$$NEXT SCRIPT$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+Script started on Wed 05 Mar 2014 06:30:00 PM EST
+jlm54@babbage:~/214/projects/04/ruby$ cat fact.rb
+# fact.rb displays the factorial of a positive number n.
+# Input: unsigned n
+# PRE: positive integer
+# Output: factorial of the number
+# Edited by Joshua Maguire
+#*******************************************************/
+
+
+# computeFact computes the factorial of a positive number n.
+# Input: unsigned n
+# PRE: positive integer
+# Output: factorial of the number
+def computeFact(n) #declare..
+	result=1 #set result to default 1
+	for i in 2..n #for loop
+		result=result*i
+	end 
+	puts result #print result
+end
+
+
+#main
+if __FILE__ == $0
+	print "\nTo compute n!, enter n: "
+	n = gets.chomp.to_i
+	print n
+	print "! = "
+	computeFact(n)
+end
+jlm54@babbage:~/214/projects/04/ruby$ ruby fact.rb
+
+To compute n!, enter n: 2
+2! = 2
+jlm54@babbage:~/214/projects/04/ruby$ ruby fact.rb
+
+To compute n!, enter n: 3
+3! = 6
+jlm54@babbage:~/214/projects/04/ruby$ ruby fact.rb
+
+To compute n!, enter n: 4
+4! = 24
+jlm54@babbage:~/214/projects/04/ruby$ ruby fact.rb
+
+To compute n!, enter n: 5
+5! = 120
+jlm54@babbage:~/214/projects/04/ruby$ ruby fact.rb
+
+To compute n!, enter n: 6
+6! = 720
+jlm54@babbage:~/214/projects/04/ruby$ exit
+
+Script done on Wed 05 Mar 2014 06:30:26 PM EST

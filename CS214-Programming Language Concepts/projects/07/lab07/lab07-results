@@ -1,0 +1,475 @@
+Script started on Wed 09 Apr 2014 03:26:33 PM EDT
+jlm54@zuse:~/214/labs/07/c++$ g++ namer.cpp -Wall 0-o [K[K[K[K-o namer
+jlm54@zuse:~/214/labs/07/c++$ cat namer.cpp
+/* namer.cpp implements and tests class Name.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by:Joshua Maguire
+ * Date:4/8/14
+ */
+
+#include <iostream>        // istream, ostream
+#include <string>          // string
+#include <cassert>         // assert()
+using namespace std;
+
+class Name
+{
+ public:                          // interface functions
+	Name(const string & first, const string & middle, const string & last);
+	string getFirst() const;
+	string getMiddle() const;
+	string getLast() const;
+	string getFullName() const;
+	void print(ostream & out);
+ private:
+   string myFirst,
+          myMiddle,
+          myLast;
+};
+
+
+/**************************************************
+* Name constructs a name from three strings.      *
+* Receive: first, middle and last, three strings. *
+* Return: the triplet (first middle last).        *
+***************************************************/
+
+Name::Name(const string & first, const string & middle, const string & last)
+{
+   myFirst = first;
+   myMiddle = middle;
+   myLast = last;
+}
+
+/***************************************************
+ * getFirst() extracts the first name of a Name object. *
+ * Return: myFirst.                                *
+ ***************************************************/
+
+string Name::getFirst() const
+ {
+   return myFirst;
+ }
+
+/*****************************************************
+ * getMiddle() extracts the middle name of a Name object. *
+ * Return: myMiddle.                                 *
+ *****************************************************/
+
+string Name::getMiddle() const
+{
+	return myMiddle;
+}
+
+/**************************************************
+ * getLast() extracts the last name of a Name object.  *
+ * Return: myLast.                                *
+ **************************************************/
+
+string Name::getLast() const
+{
+	return myLast;
+}
+/***************************************************
+ * getFullName() returns a full name in F-M-L order.    *
+ * Return: myFirst, myMiddle, myLast.              *
+ ***************************************************/
+
+string Name::getFullName() const
+{
+   return myFirst + ' ' + myMiddle + ' ' + myLast;
+}
+
+/****************************************************
+ * print() displays a Name object.                    *
+ * Receive: out, the name of a stream.              *
+ * Output: the strings in theName to buffer.        *
+ * POST: out contains myFirst, myMiddle and myLast. *
+ ****************************************************/
+
+void Name::print(ostream & out)
+{
+   out << getFullName();
+}
+
+/******************************************
+ * a simple driver to test our Name type. *
+ ******************************************/
+int main()
+{
+  Name aName("John", "Paul", "Jones");
+
+  assert( aName.getFirst() == "John" );
+  assert( aName.getMiddle() == "Paul" );
+  assert( aName.getLast() == "Jones" );
+  assert( aName.getFullName() == "John Paul Jones" );
+  
+  aName.print(cout);  cout << endl;
+  cout << "\n\nAll tests passed! " << endl;
+}
+
+jlm54@zuse:~/214/labs/07/c++$ ./namer 
+John Paul Jones
+
+
+All tests passed! 
+jlm54@zuse:~/214/labs/07/c++$ exit
+
+Script done on Wed 09 Apr 2014 03:27:38 PM EDT
+Script started on Tue 08 Apr 2014 05:57:16 PM EDT
+jlm54@hollerith:~/214/labs/07/ada$ cat m[Knamer.adb[Kb
+-- namer.adb "test-drives" the Name type.
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by:Joshua Maguire
+-- Date:4/8/14
+----------------------------------------------
+
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure namer is
+
+  NAME_SIZE : constant Integer := 8;
+
+  type Name is 
+  	record
+  		MyFirst, MyMiddle, MyLast : String(1..NAME_SIZE);
+  	end record;
+
+  aName : Name ;
+
+
+  ----------------------------------------------
+  -- Init initializes a Name variable          -
+  -- Receive: theName, the Name variable;      -
+  --          First, the first name;           -
+  --          Middle, the middle name;         -
+  --          Last, the last name.             -
+  -- Return: theName, its fields set to First, -
+  --               Middle, and Last.           -
+  ----------------------------------------------
+
+   procedure Init (TheName : out Name; First, Middle, Last : in String) is
+   begin
+    TheName.MyFirst := First;
+    TheName.MyMiddle := Middle;
+    TheName.MyLast := Last;
+   end Init;
+
+  ----------------------------------------------
+  -- getFirst(Name) retrieves Name.myFirst        -
+  -- Receive: theName, a Name.                 -
+  -- PRE: theName has been initialized.        -
+  -- Return: theName.myFirst.                  -
+  ----------------------------------------------
+
+  function getFirst(TheName : in Name) return String is
+   begin
+      return TheName.MyFirst;
+   end getFirst;
+
+
+ function getMiddle(TheName : in Name) return String is
+   begin
+      return TheName.MyMiddle;
+   end getMiddle;
+   
+   
+   function getLast(TheName : in Name) return String is
+   begin
+      return TheName.MyLast;
+   end getLast;
+
+
+  -----------------------------------------------
+  -- getFullName(Name) retrieves Name as a String  -
+  -- Receive: theName, a Name.                  -
+  -- PRE: theName has been initialized.         -
+  -- Return: a String representation of theName -
+  -----------------------------------------------
+
+function getFullName(TheName : in Name) return String is
+begin
+  return TheName.MyFirst & " " & TheName.MyMiddle & " " & TheName.MyLast;
+end getFullName;
+
+  ----------------------------------------------
+  -- Put(Name) displays a Name value.          -
+  -- PRE: theName has been initialized.        -
+  -- Receive: theName, a Name.                 -
+  -- Output: theName, to the screen.           -
+  ----------------------------------------------
+
+procedure Put(TheName: in Name) is
+  begin
+    Put(getFullName(TheName));
+  end Put;
+ 
+
+begin 
+   Init(aName, "John    ", "Paul    ", "Jones   ");
+
+   pragma Assert( getFirst(aName) = "John    ", "getFirst() failed");
+   pragma Assert( getMiddle(aName) = "Paul    ", "getMiddle() failed");
+   pragma Assert( getLast(aName) = "Jones   ", "getLast() failed");
+   pragma Assert( getFullName(aName) = "John     Paul     Jones   ", 
+                    "getFullName() failed");
+
+  Put(aName); New_line;
+   Put("All tests passed!"); New_line;
+
+end namer;
+
+jlm54@hollerith:~/214/labs/07/ada$ gnatmake namer.adb -gnata
+gcc-4.6 -c -gnata namer.adb
+gnatbind -x namer.ali
+gnatlink namer.ali
+jlm54@hollerith:~/214/labs/07/ada$ ./namer 
+John     Paul     Jones   
+All tests passed!
+jlm54@hollerith:~/214/labs/07/ada$ exit
+
+Script done on Tue 08 Apr 2014 05:58:00 PM EDT
+;;; namer.el simulates and tests an e-LISP Name type.
+;;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;;; Completed by:Joshua Maguire
+;;; Date:04/7/14
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Name constructs a name from three strings.      ;;
+;;; Receive: first, middle and last, three strings. ;;
+;;; Return: the triplet (first middle last).        ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun Name(first middle last)
+  (list first middle last)
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFirst extracts the first name of a name object.;
+;;; Receive: theName, a Name.                       
+;;; Return: the first string in theName.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getFirst(theName)
+  (car theName)
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getMiddle extracts the middle name of a name object.
+;;; Receive: theName, a Name.                      
+;;; Return: the second string in theName.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getMiddle (theName)
+  (car (cdr theName))
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getLast extracts the last name of a name object.
+;;; Receive: theName, a Name.                    
+;;; Return: the third string in theName.       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getLast (theName)
+  (car (cdr (cdr  theName)))
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFullName returns a full name in F-M-L order. 
+;;; Return: myFirst, myMiddle, myLast.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getFullName(theName)
+  (concat (getFirst theName)
+          " "
+	  (getMiddle theName)
+	  " "
+	  (getLast theName))
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; printName displays a name object.         
+;;; Receive: theName, a Name,                 
+;;;          buffer, the name of a buffer.   
+;;; Output: the strings in theName to buffer. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun printName(theName theBuffer)
+  (princ (getFullName theName) theBuffer)
+  theName
+)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; A simple driver for our Name functions. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(progn
+  (require 'cl)                              ; assert
+  (setq aName (Name "John" "Paul" "Jones"))  ; build a Name
+  (assert (equal (getFirst aName) "John" ))  ; test it
+  (assert (equal (getMiddle aName) "Paul" ))
+  (assert (equal (getLast aName) "Jones" ))
+  (assert (equal (getFullName aName) "John Paul Jones" ))
+  (setq buf (get-buffer "namer.el"))         ; buf = this buffer
+  (assert (eq (printName aName buf) aName) ) ; output
+  (terpri buf)                               ; newline
+  (princ "All tests passed!")                ; feedback
+  (terpri buf))      ; newline
+
+;;; namer.el simulates and tests an e-LISP Name type.
+;;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;;; Completed by:Joshua Maguire
+;;; Date:04/7/14
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Name constructs a name from three strings.      ;;
+;;; Receive: first, middle and last, three strings. ;;
+;;; Return: the triplet (first middle last).        ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun Name(first middle last)
+  (list first middle last)
+)
+Name
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFirst extracts the first name of a name object.;
+;;; Receive: theName, a Name.                       
+;;; Return: the first string in theName.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getFirst(theName)
+  (car theName)
+)
+getFirst
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getMiddle extracts the middle name of a name object.
+;;; Receive: theName, a Name.                      
+;;; Return: the second string in theName.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getMiddle (theName)
+  (car (cdr theName))
+)
+getMiddle
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getLast extracts the last name of a name object.
+;;; Receive: theName, a Name.                    
+;;; Return: the third string in theName.       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getLast (theName)
+  (car (cdr (cdr  theName)))
+)
+getLast
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFullName returns a full name in F-M-L order. 
+;;; Return: myFirst, myMiddle, myLast.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun getFullName(theName)
+  (concat (getFirst theName)
+          " "
+	  (getMiddle theName)
+	  " "
+	  (getLast theName))
+)
+getFullName
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; printName displays a name object.         
+;;; Receive: theName, a Name,                 
+;;;          buffer, the name of a buffer.   
+;;; Output: the strings in theName to buffer. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun printName(theName theBuffer)
+  (princ (getFullName theName) theBuffer)
+  theName
+)
+printName
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; A simple driver for our Name functions. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(progn
+  (require 'cl)                              ; assert
+  (setq aName (Name "John" "Paul" "Jones"))  ; build a Name
+  (assert (equal (getFirst aName) "John" ))  ; test it
+  (assert (equal (getMiddle aName) "Paul" ))
+  (assert (equal (getLast aName) "Jones" ))
+  (assert (equal (getFullName aName) "John Paul Jones" ))
+  (setq buf (get-buffer "namer.el"))         ; buf = this buffer
+  (assert (eq (printName aName buf) aName) ) ; output
+  (terpri buf)                               ; newline
+  (princ "All tests passed!")                ; feedback
+  (terpri buf))      ; newline
+
+
+John Paul Jones
+All tests passed!
+t
+Script started on Wed 09 Apr 2014 03:55:57 PM EDT
+jlm54@zuse:~/214/labs/07/ruby$ ruby namer.rb[1Pcat[C[C[C[C[C[C[C[C[C
+# namer.rb tests class Name and its operations
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by:Joshua Maguire
+# Date: 4/9/14
+####################################################
+
+require 'test/unit/assertions'   # needed for assert
+include Test::Unit::Assertions
+
+class Name
+	def initialize(first, middle, last)
+		@first, @middle, @last = first, middle, last
+		#@fullName = @first+" "+@middle+" "+@last
+		#@prints = puts(@fullName)
+	end
+	attr_reader :first, :middle, :last
+	
+	
+	#Name.fullName concatinates together the first, middle, and last names in the Name class and returns them.
+	def fullName
+		 return @first+" "+@middle+" "+@last
+	end
+	
+	##Name.Print prints(puts) Name.fullName and returns it also.
+	def print
+		puts fullName
+		fullName#returned
+	end
+end
+
+
+
+def testName
+   name = Name.new("John", "Paul", "Jones")
+
+   assert name.first == "John", "first failed"
+   assert name.middle == "Paul", "middle failed"
+   assert name.last == "Jones", "last failed"
+   assert name.fullName == "John Paul Jones", "fullName failed"
+   assert name.print == "John Paul Jones", "print failed"
+   
+   print "All tests passed!\n"
+end
+
+testName
+
+jlm54@zuse:~/214/labs/07/ruby$ cat namer.rb[1@ruby[C[C[C[C[C[C[C[C[C
+John Paul Jones
+All tests passed!
+jlm54@zuse:~/214/labs/07/ruby$ exit
+
+Script done on Wed 09 Apr 2014 03:56:03 PM EDT

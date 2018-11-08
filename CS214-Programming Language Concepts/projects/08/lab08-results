@@ -1,0 +1,521 @@
+Script started on Tue 15 Apr 2014 09:23:55 PM EDT
+jlm54@backus-naur:~/214/08/c++$ cat Nam[K[K[Knamer.cpp Name.cpp Name.h
+/* namer.cpp implements and tests class Name.
+ *
+ * Begun by: Dr. Adams, for CS 214 at Calvin College.
+ * Completed by: Joshua Maguire
+ * Date:4/13/14
+ *****************************************************/
+
+#include <iostream>        // istream, ostream
+#include <cassert>
+#include "Name.cpp"
+
+using namespace std;
+
+/******************************************
+ * a simple driver to test our Name type. *
+ ******************************************/
+int main()
+{
+  Name aName("John", "Paul", "Jones");
+  
+  assert( aName.getMiddle() == "Paul" );
+  assert( aName.getLast() == "Jones" );
+  assert( aName.getFullName() == "John Paul Jones" );
+  
+  aName.print(cout);  cout << endl;
+  cout << "All tests passed!\n";
+}
+
+
+/* Name.cpp defines Name operations.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by: Joshua Maguire
+ * Date:4/13/14
+ */
+ #include "Name.h"
+using namespace std;
+/**************************************************
+* Name constructs a name from three strings.      *
+* Receive: first, middle and last, three strings. *
+* Return: the triplet (first middle last).        *
+***************************************************/
+Name::Name(const string & first, const string & middle, const string & last)
+{
+   myFirst = first;
+   myMiddle = middle;
+   myLast = last;
+}
+
+
+/***************************************************
+ * getFirst() extracts the first name of a Name object. 
+ * Return: myFirst.                                
+ ***************************************************/
+string Name::getFirst() const {
+   return myFirst;
+}
+
+
+/*****************************************************
+ * getMiddle() extracts the middle name of a Name object. 
+ * Return: myMiddle.                                 
+ *****************************************************/
+string Name::getMiddle() const {
+   return myMiddle;
+}
+
+
+/**************************************************
+ * getLast() extracts the last name of a Name object.  
+ * Return: myLast.                                
+ **************************************************/
+string Name::getLast() const {
+   return myLast;
+}
+
+
+/***************************************************
+ * getFullName() returns a full name in F-M-L order.  
+ * Return: myFirst, myMiddle, myLast.           
+ ***************************************************/
+string Name::getFullName() const {
+   return myFirst + ' ' + myMiddle + ' ' + myLast;
+}
+
+/****************************************************
+ * print() displays a Name object.                    
+ * Receive: out, the name of a stream.              
+ * Output: the strings in theName to buffer.        
+ * POST: out contains myFirst, myMiddle and myLast. 
+ ****************************************************/
+void Name::print(ostream & out) {
+   out << myFirst << ' ' << myMiddle << ' ' << myLast;
+}
+/* Name.h declares class Name.
+ *
+ * Begun by: Dr. Adams, CS 214 at Calvin College.
+ * Completed by: Joshua Maguire
+ * Date:4/13/14
+ */
+
+#include <iostream> 
+#include <string>          // string
+using namespace std;
+
+class Name {
+public:                          // interface functions
+   Name(const string & first, const string & middle, const string &
+last);
+   string getFirst() const;
+   string getMiddle() const;
+   string getLast() const;
+   string getFullName() const;
+   void print(ostream & out);
+   
+private:
+   string myFirst,
+          myMiddle,
+          myLast;
+};
+
+jlm54@backus-naur:~/214/08/c++$ make
+make: `namer' is up to date.
+jlm54@backus-naur:~/214/08/c++$ ./namer
+John Paul Jones
+All tests passed!
+jlm54@backus-naur:~/214/08/c++$ exit
+
+Script done on Tue 15 Apr 2014 09:24:37 PM EDT
+Script started on Tue 15 Apr 2014 09:25:26 PM EDT
+jlm54@backus-naur:~/214/08/ada$ cat name_package.adb name_package.ads namer.adb  [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K 
+-- name_package.adb defines operations for the Name type.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by: Joshua Maguire
+-- Date: 4/14/14
+---------------------------------------------------------
+
+package body Name_Package is
+	
+  ----------------------------------------------
+  -- Init initializes a Name variable          
+  -- Receive: Nm, the Name variable;          
+  --          First, the first name;         
+  --          Middle, the middle name;      
+  --          Last, the last name.         
+  -- Return: Nm, its fields set to First, 
+  --               Middle, and Last.     
+  ----------------------------------------------
+
+  procedure Init(Nm: out Name;
+                 First, Middle, Last : in String) is
+  begin
+    Nm.MyFirst := First;
+    Nm.MyMiddle := Middle;
+    Nm.MyLast := Last;
+  end Init;
+
+  ----------------------------------------------
+  -- getFirst(Name) retrieves Name.myFirst        
+  -- Receive: Nm, a Name.                      
+  -- PRE: Nm has been initialized.            
+  -- Return: Nm.myFirst.                     
+  ----------------------------------------------
+  function getFirst( Nm: in Name) return String is
+  begin
+    return Nm.MyFirst;
+  end getFirst;
+
+  ----------------------------------------------
+  -- getMiddle(Name) retrieves Name as a String 
+  -- Receive: Nm, a Name.        
+  -- PRE: Nm has been initialized.
+  -- Return: Nm.myMiddle. 
+  ----------------------------------------------
+  function getMiddle( Nm: in Name) return String is
+  begin
+     return Nm.MyMiddle;
+  end getMiddle;
+
+  ----------------------------------------------
+  -- getLast(Name) retrieves Name.myLast       
+  -- Receive: Nm, a Name.                    
+  -- PRE: Nm has been initialized.            
+  -- Return: Nm.myLast.                        
+  ----------------------------------------------
+  function getLast( Nm: in Name) return String is
+  begin
+     return Nm.MyLast;
+  end getLast;
+
+  ----------------------------------------------
+  -- getFullName(Name) retrieves Name as a String -
+  -- Receive: Nm, a Name.                      -
+  -- PRE: Nm has been initialized.             -
+  -- Return: a String representation of Nm.    -
+  ----------------------------------------------
+  function getFullName( Nm: in Name) return String is
+  begin
+    return Nm.MyFirst & " "
+           & Nm.MyMiddle & " "
+           & Nm.MyLast;
+  end getFullName;
+
+
+end Name_Package;-- name_package.ads declares the Name type and its operations.
+--
+-- Begun by: Dr. Adams, CS 214 at Calvin College.
+-- Completed by: Joshua Maguire
+-- Date: 4/14/14
+--------------------------------------------------------------
+
+package Name_Package is
+
+  type Name is private;
+  ----------------------------------------------
+  -- Init initializes a Name variable          
+  -- Receive: Nm, the Name variable;          
+  --          First, the first name;         
+  --          Middle, the middle name;      
+  --          Last, the last name.         
+  -- Return: Nm, its fields set to First, 
+  --               Middle, and Last.     
+  ----------------------------------------------
+  procedure Init(Nm: out Name; First, Middle, Last : in String) ;
+	
+	
+  ----------------------------------------------
+  -- getFirst(Name) retrieves Name.myFirst        
+  -- Receive: Nm, a Name.                      
+  -- PRE: Nm has been initialized.            
+  -- Return: Nm.myFirst.                     
+  ----------------------------------------------
+  function getFirst( Nm: in Name) return String;
+
+  ----------------------------------------------
+  -- getMiddle(Name) retrieves Name as a String 
+  -- Receive: Nm, a Name.        
+  -- PRE: Nm has been initialized.
+  -- Return: Nm.myMiddle. 
+  ----------------------------------------------
+  function getMiddle( Nm: in Name) return String;
+  
+  ----------------------------------------------
+  -- getLast(Name) retrieves Name.myLast       
+  -- Receive: Nm, a Name.                    
+  -- PRE: Nm has been initialized.            
+  -- Return: Nm.myLast.                        
+  ----------------------------------------------
+  function getLast( Nm: in Name) return String;
+  
+  ----------------------------------------------
+  -- getFullName(Name) retrieves Name as a String -
+  -- Receive: Nm, a Name.                      -
+  -- PRE: Nm has been initialized.             -
+  -- Return: a String representation of Nm.    -
+  ----------------------------------------------
+  function getFullName( Nm: in Name) return String;
+  
+
+  
+  private
+  NAME_SIZE : constant Positive := 8;
+
+  type Name is
+      record
+         myFirst,
+         myMiddle,
+         MyLast : String(1..NAME_SIZE);
+      end record;
+
+  
+  end Name_Package;
+
+
+-- namer.adb "test-drives" the Name type.
+--
+-- Begun by: Dr. Adams, CPSC 280, October 1999.
+-- Completed by: Joshua Maguire
+-- Date: 4/14/14
+----------------------------------------------
+
+with Ada.Text_IO; use Ada.Text_IO;
+with name_package; use name_package;
+
+procedure namer is
+
+
+  aName : name_package.Name ;
+  
+    ----------------------------------------------
+  -- Put(Name) displays a Name value.          -
+  -- PRE: Nm has been initialized.             -
+  -- Receive: Nm, a Name.                      -
+  -- Output: Nm, to the screen.                -
+  ----------------------------------------------
+  procedure Put(Nm: in name_package.Name) is
+  begin
+    Put( getFullName(Nm) );
+  end Put;
+
+
+begin
+   name_package.Init(aName, "John    ", "Paul    ", "Jones   ");
+
+   pragma Assert( name_package.getFirst(aName) = "John    ",
+                   "getFirst() failed");
+   pragma Assert( name_package.getMiddle(aName) = "Paul    ", 
+                   "getMiddle() failed");
+   pragma Assert( name_package.getLast(aName) = "Jones   ", 
+                   "getLast() failed");
+   pragma Assert( name_package.getFullName(aName) = "John     Paul     Jones   ",
+                    "getFullName() failed");
+   Put(aName); New_line;
+   Put("All tests passed!"); New_line;
+end namer;
+
+jlm54@backus-naur:~/214/08/ada$ make
+make: `namer' is up to date.
+jlm54@backus-naur:~/214/08/ada$ ./namer
+John     Paul     Jones   
+All tests passed!
+jlm54@backus-naur:~/214/08/ada$ exit
+
+Script done on Tue 15 Apr 2014 09:26:14 PM EDT
+;;; namer.el simulates and tests an e-LISP Name type.
+;;;
+;;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;;; Completed by:Joshua Maguire
+;;; Date:4/13/14
+;;;
+;;;used M-x byte-compile, then entered pathname, remember double //
+
+
+(add-to-list 'load-path "C:\\Users\magui_000\Desktop\08\e-lisp")
+
+(load "Name.elc")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; A simple driver for our Name functions. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(progn
+  (require 'cl)                              ; Common Lisp's assert
+  (setq aName (Name "John" "Paul" "Jones"))  ; build a Name
+
+  (assert (equal (getFirst aName) "John" ))  ; test it
+  (assert (equal (getMiddle aName) "Paul" ))
+  (assert (equal (getLast aName) "Jones" ))
+  (assert (equal (getFullName aName) "John Paul Jones" ))
+
+  (setq buf (get-buffer "namer.el"))         ; buf = this buffer
+  (assert (eq (printName aName buf) aName) )
+  (terpri buf)                               ; newline
+  (princ "All tests passed!")                ; feedback
+  (terpri buf))   
+;;; namer.el simulates and tests an e-LISP Name type.
+;;;
+;;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;;; Completed by:Joshua Maguire
+;;; Date:4/13/14
+;;;
+;;;used M-x byte-compile, then entered pathname, remember double //
+
+
+(add-to-list 'load-path "C:\\Users\magui_000\Desktop\08\e-lisp")
+("C:\\Usersmagui_000Desktop 8-lisp" "." "c:/Users/magui_000/Desktop/emacs-24.3/site-lisp" "c:/Users/magui_000/Desktop/site-lisp" "c:/Users/magui_000/Desktop/emacs-24.3/lisp" "c:/Users/magui_000/Desktop/emacs-24.3/lisp/vc" "c:/Users/magui_000/Desktop/emacs-24.3/lisp/url" "c:/Users/magui_000/Desktop/emacs-24.3/lisp/textmodes" "c:/Users/magui_000/Desktop/emacs-24.3/lisp/progmodes" "c:/Users/magui_000/Desktop/emacs-24.3/lisp/play" "c:/Users/magui_000/Desktop/emacs-24.3/lisp/org" "c:/Users/magui_000/Desktop/emacs-24.3/lisp/nxml" ...)
+
+
+(load "Name.elc")
+t
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; A simple driver for our Name functions. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(progn
+  (require 'cl)                              ; Common Lisp's assert
+  (setq aName (Name "John" "Paul" "Jones"))  ; build a Name
+
+  (assert (equal (getFirst aName) "John" ))  ; test it
+  (assert (equal (getMiddle aName) "Paul" ))
+  (assert (equal (getLast aName) "Jones" ))
+  (assert (equal (getFullName aName) "John Paul Jones" ))
+
+  (setq buf (get-buffer "namer.el"))         ; buf = this buffer
+  (assert (eq (printName aName buf) aName) )
+  (terpri buf)                               ; newline
+  (princ "All tests passed!")                ; feedback
+  (terpri buf))                              ; newline
+
+
+John Paul Jones
+All tests passed!
+t
+;;; namer.el simulates and tests an e-LISP Name type.
+;;;
+;;; Begun by: Dr. Adams, CS 214 at Calvin College.
+;;; Completed by:Joshua Maguire
+;;; Date:4/13/14
+;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Name constructs a name from three strings.      ;;
+;;; Receive: first, middle and last, three strings. ;;
+;;; Return: the triplet (first middle last).        ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun Name(first middle last)
+  (list first middle last) )
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFirst extracts the first name of a name object.;
+;;; Receive: theName, a Name.                       
+;;; Return: the first string in theName.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun getFirst(theName)
+  (car theName) )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getMiddle extracts the middle name of a name object.
+;;; Receive: theName, a Name.                      
+;;; Return: the second string in theName.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun getMiddle(theName)
+  (car (cdr theName) ) )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getLast extracts the last name of a name object.
+;;; Receive: theName, a Name.                    
+;;; Return: the third string in theName.       
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun getLast(theName)
+  (car (cdr (cdr theName) ) ) )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; getFullName returns a full name in F-M-L order. 
+;;; Return: myFirst, myMiddle, myLast.           
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun getFullName (theName)
+   (concat (getFirst theName) " " (getMiddle theName) " " (getLast theName) ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; printName displays a name object.         
+;;; Receive: theName, a Name,                 
+;;;          buffer, the name of a buffer.   
+;;; Output: the strings in theName to buffer. ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun printName (theName buf)
+   (princ (getFullName theName) buf)
+   theName )
+Script started on Tue 15 Apr 2014 09:26:25 PM EDT
+jlm54@backus-naur:~/214/08/ruby$ cat Name.rb namer.rb
+# Name.rb houses the class and module for names/name
+# Completed by: Joshua Maguire
+# Date: 4/14/14
+####################################################
+
+
+module Names
+	class Name
+
+	  def initialize(first, middle, last)
+		@first, @middle, @last = first, middle, last
+	  end
+
+	  attr_reader :first, :middle, :last
+
+	  def fullName
+		@first + " " + @middle + " " + @last
+	  end
+
+	  def print
+		puts fullName
+		fullName
+	  end
+	end
+end# namer.rb tests class Name and its operations
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by: Joshua Maguire
+# Date: 4/14/14
+####################################################
+
+require 'test/unit/assertions'
+include Test::Unit::Assertions
+require "./Name"
+
+def testName
+   name = Names::Name.new("John", "Paul", "Jones")
+
+   assert name.first == "John", 
+           "first failed"
+   assert name.middle == "Paul",
+           "middle failed"
+   assert name.last == "Jones",
+           "last failed"
+   assert name.fullName == "John Paul Jones",
+           "fullName failed"
+   assert name.print == "John Paul Jones",
+           "print failed"
+   
+   print "All tests passed!\n"
+end
+
+testName
+jlm54@backus-naur:~/214/08/ruby$ ruby namer.rb 
+John Paul Jones
+All tests passed!
+jlm54@backus-naur:~/214/08/ruby$ exit
+
+Script done on Tue 15 Apr 2014 09:26:58 PM EDT

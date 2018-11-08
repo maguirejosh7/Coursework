@@ -1,0 +1,61 @@
+Script started on Tue 15 Apr 2014 09:26:25 PM EDT
+jlm54@backus-naur:~/214/08/ruby$ cat Name.rb namer.rb
+# Name.rb houses the class and module for names/name
+# Completed by: Joshua Maguire
+# Date: 4/14/14
+####################################################
+
+
+module Names
+	class Name
+
+	  def initialize(first, middle, last)
+		@first, @middle, @last = first, middle, last
+	  end
+
+	  attr_reader :first, :middle, :last
+
+	  def fullName
+		@first + " " + @middle + " " + @last
+	  end
+
+	  def print
+		puts fullName
+		fullName
+	  end
+	end
+end# namer.rb tests class Name and its operations
+#
+# Begun by: Dr. Adams, for CS 214 at Calvin College.
+# Completed by: Joshua Maguire
+# Date: 4/14/14
+####################################################
+
+require 'test/unit/assertions'
+include Test::Unit::Assertions
+require "./Name"
+
+def testName
+   name = Names::Name.new("John", "Paul", "Jones")
+
+   assert name.first == "John", 
+           "first failed"
+   assert name.middle == "Paul",
+           "middle failed"
+   assert name.last == "Jones",
+           "last failed"
+   assert name.fullName == "John Paul Jones",
+           "fullName failed"
+   assert name.print == "John Paul Jones",
+           "print failed"
+   
+   print "All tests passed!\n"
+end
+
+testName
+jlm54@backus-naur:~/214/08/ruby$ ruby namer.rb 
+John Paul Jones
+All tests passed!
+jlm54@backus-naur:~/214/08/ruby$ exit
+
+Script done on Tue 15 Apr 2014 09:26:58 PM EDT

@@ -1,0 +1,81 @@
+V "GNAT Lib v2013"
+A -mtune=generic
+A -march=pentiumpro
+P SS ZX
+
+RN
+RV NO_DISPATCHING_CALLS
+RV NO_IO
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_ELABORATION_CODE
+RV SPARK
+
+U duck_package%b	duck_package.adb	c5709b38 NE OO PK
+W ada%s			ada.ads			ada.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+U duck_package%s	duck_package.ads	560cd9f8 EE OO PF PK
+W ada.exceptions%s	a-except.adb		a-except.ali
+W ada.streams%s		a-stream.ads		a-stream.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W bird_package%s	bird_package.adb	bird_package.ali
+W system%s		system.ads		system.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+W system.soft_links%s	s-soflin.adb		s-soflin.ali
+W system.storage_elements%s  s-stoele.adb	s-stoele.ali
+
+D ada.ads		20130417131022 3ffc8e18
+D a-except.ads		20130417131018 10fcae55
+D a-finali.ads		20130417131020 52ecdc1b
+D a-ioexce.ads		20130417131020 8b9de6cd
+D a-stream.ads		20130417131020 2ca4ee37
+D a-tags.ads		20130417131022 6c0509d0
+D a-textio.ads		20130417131022 386df5d4
+D a-unccon.ads		20130417131022 f9eb8f06
+D a-uncdea.ads		20130417131022 f15a5ed1
+D bird_package.ads	20140502140450 c278ef0e
+D duck_package.ads	20140502140450 947436f6
+D duck_package.adb	20140502140450 6969581a
+D interfac.ads		20130417131026 cb4a8015
+D i-cstrea.ads		20130417131026 8128536b
+D system.ads		20130417131036 5fc8ae56
+D s-crtl.ads		20130417131028 dfcfca61
+D s-exctab.ads		20130417131028 66e51330
+D s-ficobl.ads		20130417131028 55a71d43
+D s-finmas.ads		20130417131028 b95bb341
+D s-finroo.ads		20130417131028 4ff27390
+D s-parame.ads		20130417131032 b6e20cc0
+D s-pooglo.ads		20130417131032 542f33d0
+D s-secsta.ads		20130417131032 eea35a36
+D s-soflin.ads		20130417131032 24c8153c
+D s-stache.ads		20130417131032 596fc1b4
+D s-stalib.ads		20130417131032 f78bcf95
+D s-stoele.ads		20130417131032 facd7d98
+D s-stoele.adb		20130417131032 afc5dc80
+D s-stopoo.ads		20130417131032 7b8fbeee
+D s-string.ads		20130417131032 46b01415
+D s-ststop.ads		20130417131032 ee472be4
+D s-traent.ads		20130417131032 5221ee41
+D s-unstyp.ads		20130417131034 6ae15c76
+D s-wchcon.ads		20130417131034 bfeb2e3d
+X 1 ada.ads
+16K9*Ada 19e8 12|9r6 10r5
+X 7 a-textio.ads
+49K13*Text_IO 471e16 12|9w10 10r9
+X 10 bird_package.ads
+8K9*Bird_Package 55e17 11|9w6 9r24
+10R6*Bird_Type 52e17 11|13r23 33r28
+17U15*Init
+24V15*Name{string}
+X 11 duck_package.ads
+11K9*Duck_Package 39l5 39e17 12|12b14 34l5 34t17
+13R6*Duck_Type<10|10R6> 10|17p15 24p15 11|20P13 20r30 28P11 28r33 33c11 36e21
+. 12|19r30 28r35
+20V13*Call{string}<10|31p15> 20>18 12|19b13 22l8 22t12
+20r18 A_Duck{13R6} 12|19b18
+28V11*Type_Name{string}<10|38p15> 28>21 12|28b13 31l8 31t17
+28r21 A_Duck{13R6} 12|28b23
+

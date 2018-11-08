@@ -1,0 +1,110 @@
+body {
+   background: #e2d5d5;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-size: 30px;
+   height: 100%;
+   margin: 0;
+   padding: 30px;
+   display: flex;
+   flex-flow: row;
+}
+
+h1 {
+   color: #D60000;
+   text-shadow: 1px 1px 1px black;
+   border-bottom: 3px solid #ddd;
+   font-size: 80px;
+   font-weight: bold;
+   margin: 0 0 15px;
+   padding: 0;
+   font-family: 'Luckiest Guy', cursive;
+   text-align: center;
+}
+
+div {
+   background: #e2d5d5;
+   width: 100%;
+}
+
+p {
+   margin: 4px 25%;
+   padding: 5px;
+   border: 3px solid #FFD700;
+   border-radius: 10pt;
+   background: #e2d5d5;
+   flex: 3 1 60%;
+   order: 2;
+   text-align: center;
+}
+
+form {
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background: #000000;
+  border-radius: 8px;
+}
+
+.formBtn {
+  padding: 19px 39px 18px 39px;
+  color: #FFF;
+  background-color: #FFD700;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  border-radius: 5px;
+  width: 100%;
+  border: 1px solid #FFD700;
+  border-width: 1px 1px 3px;
+  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+  margin-bottom: 10px;
+}
+
+button :hover {
+	cursor: pointer;
+}
+
+input {
+   height: 30px;
+   width: 98%;
+   margin: 0;
+   border: 5px solid #000000;
+   font-size: 15px;
+   font-weight: bold;
+}
+
+table {
+	margin: 5px auto;
+	width: 40%;
+}
+
+table :hover {
+	cursor: pointer;
+}
+
+.date {
+	width: 40%;
+}
+
+.time {
+	width: 10%;
+}
+
+.name {
+	width: 50%;
+	text-align: center;
+}
+
+.cancel {
+	width: 100px;
+	margin: 0 46%;
+	padding: 3px;
+	background: #e89494;
+    text-align: center;
+    font-style: normal;
+    border-radius: 5px;
+    border: 1px solid #e89494;
+    border-width: 1px 1px 3px;
+    box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+}
+ 

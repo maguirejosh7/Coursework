@@ -1,0 +1,90 @@
+V "GNAT Lib v4.6"
+M P W=b
+P SS ZX
+R nnnnnnnnnnnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnvnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+
+U namer%b		namer.adb		b1f2aac7 NE OO SU IL
+W ada%s			ada.ads			ada.ali
+W ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W system.concat_5%s	s-conca5.adb		s-conca5.ali
+W system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+
+D ada.ads		20070406091342 3ffc8e18
+D a-except.ads		20090727140100 0c711ac9
+D a-finali.ads		20090409150019 e5e85fa4
+D a-filico.ads		20090409150019 872dc219
+D a-ioexce.ads		20091130110856 8b9de6cd
+D a-stream.ads		20090409150019 2ca4ee37
+D a-tags.ads		20101021101406 c7695348
+D a-textio.ads		20091028140912 386df5d4
+D a-unccon.ads		20070406091342 f9eb8f06
+D interfac.ads		20090409150019 f77d8799
+D i-cstrea.ads		20100622165701 1bd72c32
+D namer.adb		20140411023138 899f5f13
+D system.ads		20120503154647 23e1f70b
+D s-conca5.ads		20090420091404 1039cea1
+D s-crtl.ads		20100617122610 ac77b159
+D s-exctab.ads		20090417131547 66e51330
+D s-ficobl.ads		20100909103250 443b9d66
+D s-finimp.ads		20090409150019 46853fe8
+D s-finroo.ads		20090409150019 dbb860c9
+D s-parame.ads		20091130110856 9c5d83fa
+D s-secsta.ads		20090707124243 eea35a36
+D s-soflin.ads		20090729085153 9414c974
+D s-stache.ads		20090417130712 596fc1b4
+D s-stalib.ads		20101021102512 c4241c00
+D s-stoele.ads		20090417130712 facd7d98
+D s-stoele.adb		20100617152355 afc5dc80
+D s-stratt.ads		20100909123135 aedef97e
+D s-traent.ads		20090417130712 5221ee41
+D s-unstyp.ads		20090409150019 6ae15c76
+D s-wchcon.ads		20090417130712 bfeb2e3d
+X 1 ada.ads
+16K9*Ada 19e8 12|7r6 7r23
+X 8 a-textio.ads
+49K13*Text_IO 472e16 12|7w10 7r27
+167U14*New_Line 12|145s15 157s14 160s29
+243U14*Put 12|84s5 154s3 160s3
+250U14*Get_Line 12|126s17 128s17 130s17
+X 12 namer.adb
+9U11*namer 9b11 162l5 162t10
+11i3 NAME_SIZE{integer} 15r55 123r29 124r25
+13R8 Name 16e19 18r11 31r34 45r34 51r34 57r34 70r35 82r27 94r35 98r36 102r34
+. 113r33 122r36
+15a17 MyFirst{string} 33m13 47r22 72r18 96m25 115r61
+15a26 MyMiddle{string} 34m13 53r22 72r42 100m25 115r83
+15a36 MyLast{string} 35m13 59r22 72r67 104m25 115r40
+18r3 aName{13R8} 137m9 139r28 140r29 141r27 142r31 145r7 147m12 148r27 149m13
+. 150r28 151m11 152r26 153r23 155m12 156r30 157r7
+31U14 Init 31b14 31<20 31>40 31>47 31>55 36l8 36t12 137s4
+31r20 TheName{13R8} 33m5 34m5 35m5
+31s40 First{string} 33r24
+31s47 Middle{string} 34r25
+31s55 Last{string} 35r23
+45V12 getFirst{string} 45b12 45>21 48l8 48t16 139s19 148s18
+45r21 TheName{13R8} 47r14
+51V11 getMiddle{string} 51b11 51>21 54l8 54t17 140s19 150s18
+51r21 TheName{13R8} 53r14
+57V13 getLast{string} 57b13 57>21 60l8 60t15 141s19 152s18
+57r21 TheName{13R8} 59r14
+70V10 getFullName{string} 70b10 70>22 73l5 73t16 84s9 142s19 156s18
+70r22 TheName{13R8} 72r10 72r34 72r59
+82U11 Put 82b11 82>15 85l7 85t10 145s3 157s3
+82r15 TheName{13R8} 84r21
+94U12 setFirst 94b12 94<22 94>42 97l13 97t21 127s17 147s3
+94r22 TheName{13R8} 96m17
+94s42 aFirst{string} 96r36
+98U12 setMiddle 98b12 98<23 98>43 101l13 101t22 129s17 149s3
+98r23 TheName{13R8} 100m17
+98s43 aMiddle{string} 100r37
+102U12 setLast 102b12 102<21 102>41 105l13 105t20 131s17 151s3
+102r21 TheName{13R8} 104m17
+102s41 aLast{string} 104r35
+113V18 lfmi{string} 113b18 113>24 116l21 116t25 153s18
+113r24 TheName{13R8} 115r32 115r53 115r75
+122U13 readName 122b13 122<23 132l13 132t21 155s3
+122r23 TheName{13R8} 127m26 129m27 131m25
+123a9 tempName{string} 126m26 127r35 128m26 129r36 130m26 131r34
+124i9 Last{integer} 126m36 128m36 130m36
+

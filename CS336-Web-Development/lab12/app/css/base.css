@@ -1,0 +1,19 @@
+.flex {
+        /* basic styling */
+        width: 350px;
+        height: 200px;
+        border: 1px solid #555;
+        font: 14px Arial;
+
+        /* flexbox setup */
+        display: flex;
+        flex-direction: row;
+    }
+
+    .flex > div {
+        flex: 1 1 auto;
+        width: 30px; /* To make the transition work nicely. (Transitions to/from
+                        "width:auto" are buggy in Gecko and Webkit, at least.
+                        See http://bugzil.la/731886 for more info.) */
+        transition: width 0.7s ease-out;
+    }

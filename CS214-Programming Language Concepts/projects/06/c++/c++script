@@ -1,0 +1,70 @@
+Script started on Wed 02 Apr 2014 05:31:51 PM EDT
+jlm54@knuth:~/214/projects/06/c++$ cat array.cpp
+cat: array.cpp: No such file or directory
+jlm54@knuth:~/214/projects/06/c++$ cat arrays.cpp
+ /* arrays.cpp reads in a user-specified amount of values into an array, then prints them out. Driver driven. 
+ *
+ * Begun by: Dr. Adams, for CS 214 at Calvin College.
+ * Completed by: Joshua Maguire
+ * Date:4/2/14
+ */
+ 
+ #include <iostream>
+ #include <string>   
+ using namespace std;
+
+
+/* readArray reads in an arrays contents.
+ * Input: double array anArray, int size, istream
+ * Output:
+ **********************************/
+void readArray(double anArray[], int itsSize, istream & in = cin)
+{
+      for (int i = 0; i < itsSize; i++) {
+      	 cout << "\nenter its contents:";
+         cin >> anArray[i];
+      }
+}
+ 
+/* printArray prints an arrays contents.
+ * Input: double array anArray, int size, ostream
+ * Output: arrays contents
+ **********************************/
+void printArray(double anArray[], int itsSize, ostream & out = cout)
+{
+      for (int i = 0; i < itsSize; i++) {
+         cout << anArray[i] << endl;
+         }
+}
+      
+//driver, calls both methods, inputs size of our array.
+int main()
+{
+	cout << "\nEnter array size:";
+	int theSize;
+	cin >> theSize;
+	double theArray[theSize];
+	readArray(theArray, theSize, cin);
+	printArray(theArray, theSize, cout);
+}
+jlm54@knuth:~/214/projects/06/c++$ g++ arrays.cpp -Wall -o
+g++: error: missing filename after ‘-o’
+jlm54@knuth:~/214/projects/06/c++$ g++ arrays.cpp -Wall -o arrays
+jlm54@knuth:~/214/projects/06/c++$ ./arrays 
+
+Enter array size:4
+
+enter its contents:2
+
+enter its contents:4
+
+enter its contents:6
+
+enter its contents:8
+2
+4
+6
+8
+jlm54@knuth:~/214/projects/06/c++$ exit
+
+Script done on Wed 02 Apr 2014 05:32:33 PM EDT

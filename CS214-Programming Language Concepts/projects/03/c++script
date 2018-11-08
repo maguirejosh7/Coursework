@@ -1,0 +1,55 @@
+Script started on Wed 26 Feb 2014 02:54:26 PM EST
+jlm54@babbage:~/214/projects/03$ l[Kcpp grades.cpp[Kcpp grades.cpp[Kcat grades.cpp
+/* grades.cpp tests the letterGrade method given from the project. By Joshua Maguire on 2/26/14 for Calvin College.*/
+
+#include <iostream>
+
+using namespace std;
+
+char letterGrade(int average);//declaring method
+
+
+int main()
+{
+  cout << "testing letterGrade method...\n";
+  cout << "average 100 = " << letterGrade(100) << "\n";
+  cout << "average 90 = " << letterGrade(90) << "\n";
+  cout << "average 80 = " << letterGrade(80) << "\n";
+  cout << "average 77 = " << letterGrade(77) << "\n";
+  cout << "average 61 = " << letterGrade(61) << "\n";
+  cout << "average 55 = " << letterGrade(55) << "\n";
+  cout << "average 111 = " << letterGrade(111) << "\n";
+  cout << "testing complete.\n";
+}
+
+
+   char letterGrade(int average)
+   {
+      switch (average / 10)
+      {
+         case 10: case 9:
+            return 'A';
+         case 8:
+            return 'B';
+         case 7:
+            return 'C';
+         case 6:
+            return 'D';
+         default:
+            return 'F';
+      }
+   }
+jlm54@babbage:~/214/projects/03$ g++ grades.cpp -Wall -o grades
+jlm54@babbage:~/214/projects/03$ ./grades
+testing letterGrade method...
+average 100 = A
+average 90 = A
+average 80 = B
+average 77 = C
+average 61 = D
+average 55 = F
+average 111 = F
+testing complete.
+jlm54@babbage:~/214/projects/03$ exit
+
+Script done on Wed 26 Feb 2014 02:55:42 PM EST

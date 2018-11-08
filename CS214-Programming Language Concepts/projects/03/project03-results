@@ -1,0 +1,248 @@
+Script started on Wed 26 Feb 2014 02:54:26 PM EST
+jlm54@babbage:~/214/projects/03$ l[Kcpp grades.cpp[Kcpp grades.cpp[Kcat grades.cpp
+/* grades.cpp tests the letterGrade method given from the project. By Joshua Maguire on 2/26/14 for Calvin College.*/
+
+#include <iostream>
+
+using namespace std;
+
+char letterGrade(int average);//declaring method
+
+
+int main()
+{
+  cout << "testing letterGrade method...\n";
+  cout << "average 100 = " << letterGrade(100) << "\n";
+  cout << "average 90 = " << letterGrade(90) << "\n";
+  cout << "average 80 = " << letterGrade(80) << "\n";
+  cout << "average 77 = " << letterGrade(77) << "\n";
+  cout << "average 61 = " << letterGrade(61) << "\n";
+  cout << "average 55 = " << letterGrade(55) << "\n";
+  cout << "average 111 = " << letterGrade(111) << "\n";
+  cout << "testing complete.\n";
+}
+
+
+   char letterGrade(int average)
+   {
+      switch (average / 10)
+      {
+         case 10: case 9:
+            return 'A';
+         case 8:
+            return 'B';
+         case 7:
+            return 'C';
+         case 6:
+            return 'D';
+         default:
+            return 'F';
+      }
+   }
+jlm54@babbage:~/214/projects/03$ g++ grades.cpp -Wall -o grades
+jlm54@babbage:~/214/projects/03$ ./grades
+testing letterGrade method...
+average 100 = A
+average 90 = A
+average 80 = B
+average 77 = C
+average 61 = D
+average 55 = F
+average 111 = F
+testing complete.
+jlm54@babbage:~/214/projects/03$ exit
+
+Script done on Wed 26 Feb 2014 02:55:42 PM EST
+Script started on Wed 26 Feb 2014 04:29:01 PM EST
+jlm54@babbage:~/214/projects/03$ cd [K[K[Kcad [K[Kt grades.adb
+--grades.adb tests the letterGrade method given from the
+--project. By Joshua Maguire on 2/26/14 for Calvin College.
+-----------------------------------
+with Ada.Text_IO, Ada.Float_Text_IO, Ada.Strings, Ada.Integer_Text_IO;
+use  Ada.Text_IO, Ada.Float_Text_IO, Ada.Strings, Ada.Integer_Text_IO;
+
+procedure grades is
+ average : integer;
+ grade : character;
+
+--function computeGrades computes the letter grade given the percentage as an int
+--parameter myAverage, an int
+--precondition: 
+--return: char letter grade
+function computeGrades (myAverage: in integer) return character is
+result:character; --to be returned
+begin
+	case (myAverage/10) is 
+		when 10 => result := 'A';
+		when 9 => result :=  'A';
+		when 8 => result :=  'B';
+		when 7 => result :=  'C';
+		when 6 => result :=  'D';
+		when others => result := 'F';
+	end case;
+	return result;
+end computeGrades;
+
+
+begin
+ Put("enter average as int:");
+ Get(average);
+ grade := computeGrades(average);
+ Put(grade);
+end grades;
+jlm54@babbage:~/214/projects/03$ gnatmake ad[K[Kgrades.adb
+gcc-4.6 -c grades.adb
+gnatbind -x grades.ali
+gnatlink grades.ali
+jlm54@babbage:~/214/projects/03$ ./adb[K[K[Kgrades
+enter average as int:100
+A
+jlm54@babbage:~/214/projects/03$ ./grades
+enter average as int:91
+A
+jlm54@babbage:~/214/projects/03$ ./grades
+enter average as int:88
+B
+jlm54@babbage:~/214/projects/03$ ./grades
+enter average as int:77
+C
+jlm54@babbage:~/214/projects/03$ ./grades
+enter average as int:66
+D
+jlm54@babbage:~/214/projects/03$ ./grades
+enter average as int:55
+F
+jlm54@babbage:~/214/projects/03$ ./grades
+enter average as int:567
+F
+jlm54@babbage:~/214/projects/03$ exit
+
+Script done on Wed 26 Feb 2014 04:30:01 PM EST
+Script started on Wed 26 Feb 2014 05:34:12 PM EST
+jlm54@babbage:~/214/projects/03$ cat grades.el elispscript [K
+;;; grades.el computes the function for this lab...  
+;;; Completed by:Joshua Maguire
+;;; Date:2/26/14
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                   
+
+
+
+;;;this function, given average grade, returns letter grade
+;;;parameter: myGrade, an int
+;;;return: char of letter grade
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun computeGrades(myGrade)
+  (case (/ myGrade 10) (10 'A)
+    (9 'A) 
+    (8 'B) 
+    (7 'C) 
+    (6 'D)
+    (t 'F)
+  ))
+
+(defun grades(myGrade)
+  "test computeGrades(myGrade)"
+  (interactive "Average:")
+  (setq result (computeGrades myGrade))
+  (message "letter grade:" result))
+;;; grades.el computes the function for this lab...  
+;;; Completed by:Joshua Maguire
+;;; Date:2/26/14
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;                   
+
+
+
+;;;this function, given average grade, returns letter grade
+;;;parameter: myGrade, an int
+;;;return: char of letter grade
+(defun computeGrades(myGrade)
+  (case (/ myGrade 10) (10 'A)
+    (9 'A) 
+    (8 'B) 
+    (7 'C) 
+    (6 'D)
+    (t 'F)
+  ))
+
+(computeGrades 99)
+A
+(computeGrades 88)
+B
+(computeGrades 77)
+C
+(computeGrades 66)
+D
+(computeGrades 55)
+F
+(computeGrades 123)
+F
+
+
+
+
+
+(defun grades(myGrade)
+  "test computeGrades(myGrade)"
+  (interactive "Average:")
+  (setq result (computeGrades myGrade))
+  (message "letter grade:"  result))
+jlm54@babbage:~/214/projects/03$ exit
+
+Script done on Wed 26 Feb 2014 05:34:28 PM EST
+Script started on Wed 26 Feb 2014 06:19:29 PM EST
+jlm54@babbage:~/214/projects/03$ cat grades.rb
+#grades.rb computes letter grade of given int class average
+# Input:int average
+# Output: the letter grade associated with average
+#
+# By: Joshua Maguire
+# Date:2/26/14
+###############################################################
+
+
+#computeGrages outputs letter grade coresponding to recieved int
+# Input:int average
+# Output: the letter grade associated with average
+def computeGrades(myAverage)
+	case (myAverage/10)
+		when 9..10 then puts 'A' #if myAverage is in range 9 to 10 after being divided by 10, then put "A".
+		when 8..9 then puts 'B'#^^^...
+		when 7..8 then puts 'C'
+		when 6..7 then puts 'D'
+		else puts 'F'
+	end		
+end
+
+
+if __FILE__ == $0 #If file run directly
+	print "Enter int average:"
+	average=gets.chomp.to_f #get the int from keyboard
+	computeGrades(average) #run method, which outputs result.
+end
+jlm54@babbage:~/214/projects/03$ ruby grades.rb
+Enter int average:100
+A
+jlm54@babbage:~/214/projects/03$ ruby grades.rb
+Enter int average:99
+A
+jlm54@babbage:~/214/projects/03$ ruby grades.rb
+Enter int average:
+F
+jlm54@babbage:~/214/projects/03$ 8[K=[Kruby grades.rb
+Enter int average:88
+B
+jlm54@babbage:~/214/projects/03$ ruby grades.rb
+Enter int average:77
+C
+jlm54@babbage:~/214/projects/03$ ruby grades.rb
+Enter int average:66
+D
+jlm54@babbage:~/214/projects/03$ ruby grades.rb
+Enter int average:55
+F
+jlm54@babbage:~/214/projects/03$ ruby grades.rb
+Enter int average:567
+F
+jlm54@babbage:~/214/projects/03$ exit
+
+Script done on Wed 26 Feb 2014 06:20:04 PM EST

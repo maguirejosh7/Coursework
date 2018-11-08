@@ -1,0 +1,65 @@
+Script started on Wed 26 Feb 2014 04:29:01 PM EST
+jlm54@babbage:~/214/projects/03$ cd [K[K[Kcad [K[Kt grades.adb
+--grades.adb tests the letterGrade method given from the
+--project. By Joshua Maguire on 2/26/14 for Calvin College.
+-----------------------------------
+with Ada.Text_IO, Ada.Float_Text_IO, Ada.Strings, Ada.Integer_Text_IO;
+use  Ada.Text_IO, Ada.Float_Text_IO, Ada.Strings, Ada.Integer_Text_IO;
+
+procedure grades is
+ average : integer;
+ grade : character;
+
+--function computeGrades computes the letter grade given the percentage as an int
+--parameter myAverage, an int
+--precondition: 
+--return: char letter grade
+function computeGrades (myAverage: in integer) return character is
+result:character; --to be returned
+begin
+	case (myAverage/10) is 
+		when 10 => result := 'A';
+		when 9 => result :=  'A';
+		when 8 => result :=  'B';
+		when 7 => result :=  'C';
+		when 6 => result :=  'D';
+		when others => result := 'F';
+	end case;
+	return result;
+end computeGrades;
+
+
+begin
+ Put("enter average as int:");
+ Get(average);
+ grade := computeGrades(average);
+ Put(grade);
+end grades;
+jlm54@babbage:~/214/projects/03$ gnatmake ad[K[Kgrades.adb
+gcc-4.6 -c grades.adb
+gnatbind -x grades.ali
+gnatlink grades.ali
+jlm54@babbage:~/214/projects/03$ ./adb[K[K[Kgrades
+enter average as int:100
+A
+jlm54@babbage:~/214/projects/03$ ./grades
+enter average as int:91
+A
+jlm54@babbage:~/214/projects/03$ ./grades
+enter average as int:88
+B
+jlm54@babbage:~/214/projects/03$ ./grades
+enter average as int:77
+C
+jlm54@babbage:~/214/projects/03$ ./grades
+enter average as int:66
+D
+jlm54@babbage:~/214/projects/03$ ./grades
+enter average as int:55
+F
+jlm54@babbage:~/214/projects/03$ ./grades
+enter average as int:567
+F
+jlm54@babbage:~/214/projects/03$ exit
+
+Script done on Wed 26 Feb 2014 04:30:01 PM EST

@@ -1,0 +1,318 @@
+Script started on Thu 06 Mar 2014 09:26:47 AM EST
+jlm54@backus-naur:~/214/labs/05/c++$ g++ split.cpp -Wall -o split
+jlm54@backus-naur:~/214/labs/05/c++$ ./split
+
+To split a string, enter the string: hello
+
+Enter the split position: 0
+
+The first part is: 
+ and the second part is: hello
+jlm54@backus-naur:~/214/labs/05/c++$ 5./split
+
+To split a string, enter the string: hello
+
+Enter the split position: 3
+
+The first part is: hel
+ and the second part is: lo
+jlm54@backus-naur:~/214/labs/05/c++$ ./split
+
+To split a string, enter the string: hello
+
+Enter the split position: 5
+
+The first part is: hello
+ and the second part is: 
+jlm54@backus-naur:~/214/labs/05/c++$ cat split.cpp
+/* split.cpp splits a string into two substrings.
+ *
+ * Input: aString, a string;
+ *        pos, an integer.
+ * PRE: 0 <= pos < aString.length().
+ * Output: The substrings aString(0, pos-1) and aString(pos, length()-1).
+ *
+ * Begun by: Dr. Adams, for CS 214 at Calvin College.
+ * Completed by:Joshua Maguire
+ * Date:3/6/14 
+ **********************************************************************/
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+void split(const string & theString,
+	   const int position,
+	   string & firstPart,
+	   string & lastPart);
+
+int main() { 
+  cout << "\nTo split a string, enter the string: ";
+  string aString;
+  getline(cin, aString);
+
+  cout << "\nEnter the split position: ";
+  int pos;
+  cin >> pos;
+
+  string part1, part2;
+  split(aString, pos, part1, part2);
+
+  cout << "\nThe first part is: " << part1
+       << "\n and the second part is: " << part2 << endl;
+}
+
+/**************************************************
+ * split() splits a string in two.                *
+ * Receive: theString, the string to be split,    *
+ *          position, the split index.            *
+ * PRE: 0 <= position < theString.length().        *
+ * Passback: firstPart - the first substring,     *
+ *           lastPart - the second substring.     *
+ **************************************************/
+
+void split(const string & theString, int position,
+               string & firstPart, string & lastPart)
+   {
+	firstPart = theString.substr(0, position);
+	lastPart = theString.substr(position, theString.length() - position);
+   }
+
+jlm54@backus-naur:~/214/labs/05/c++$ exit
+
+Script done on Thu 06 Mar 2014 09:28:29 AM EST
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+Script started on Fri 07 Mar 2014 09:28:54 AM EST
+jlm54@backus-naur:~/214/labs/05/ada$ cat split.adb
+-- split.adb splits an input string about a specified position.
+--
+-- Input: Astring, a string,
+--        Pos, an integer.
+-- Precondition: pos is in Astring'Range.
+-- Output: The substrings Astring(Astring'First..Pos-1) and
+--                        Astring(Pos..Astring'Last).
+--
+-- Begun by: Dr. Adams, for CS 214 at Calvin College.
+-- Completed by:Joshua MAguire
+-- Date:3/6/14
+--------------------------------------------------------------
+
+with Ada.Text_IO, Ada.Integer_Text_IO,Ada.Strings.Fixed;
+use  Ada.Text_IO, Ada.Integer_Text_IO,Ada.Strings.Fixed;
+
+procedure split is
+
+   EMPTY_STRING : String := "                                        ";
+
+   Astring, Part1, Part2 : String  := EMPTY_STRING;
+   Pos, Chars_read       : Natural;
+ 
+   ------------------------------------------------
+   --  computeSplit() splits a string in two.           
+   -- Receive: The_String, the string to be split,
+   --          Position, the split index.        
+   -- PRE: 0 < Position <= The_String.length(). 
+   --     (Ada arrays are 1-relative by default)
+   -- Passback: First_Part - the first substring,
+   --           Last_Part - the second substring.
+   ------------------------------------------------
+procedure computeSplit( Astring : in String; Pos : in Natural; Part1, Part2 : in out String) is
+begin
+	move(Astring(Astring'First .. Pos), Part1);--copy Astring from start to Pos into Part1 string
+	move(Astring(Pos+1 .. Astring'Last), Part2);--similarly ^^
+end computeSplit;--don't return anything, this is a procedure. Our work here is done.
+
+begin                                           -- Prompt for input
+   Put("To split a string, enter the string: ");
+   Get_Line(Astring, Chars_Read);
+   Put("Enter the split position: ");
+   Get(Pos);
+
+   computeSplit(Astring, Pos, Part1, Part2);
+
+   Put("The first part is ");
+   Put_Line(Part1);
+   Put(" and the second part is ");
+   Put_Line(Part2);
+
+end split;
+
+jlm54@backus-naur:~/214/labs/05/ada$ cat split.adbscript adascript[9P./split[K[K[K[K[K[K[Ka[Kgnatmake split.adb
+gcc-4.6 -c split.adb
+gnatbind -x split.ali
+gnatlink split.ali
+jlm54@backus-naur:~/214/labs/05/ada$ ./ad[K[Ksplit
+To split a string, enter the string: hello
+Enter the split position: 0
+The first part is                                         
+ and the second part is hello                                   
+jlm54@backus-naur:~/214/labs/05/ada$ ./split
+To split a string, enter the string: hello
+Enter the split position: 3
+The first part is hel                                     
+ and the second part is lo                                      
+jlm54@backus-naur:~/214/labs/05/ada$ ./split
+To split a string, enter the string: hello
+Enter the split position: 5
+The first part is hello                                   
+ and the second part is                                         
+jlm54@backus-naur:~/214/labs/05/ada$ exit
+
+Script done on Fri 07 Mar 2014 09:30:01 AM EST
+------------------------------------------------------
+------------------------------------------------------
+------------------------------------------------------
+;;; split.el splits a string into two substrings.
+;;;
+;;; Input: aString, the string to be split,
+;;;        pos, the split position.
+;;; Output: the substring of aString before pos, and
+;;;         the substring of aString from pos onwards.
+;;;
+;;; Begun by: Dr. Adams, for CS 214 at Calvin College.
+;;; Completed by:Joshua Maguire
+;;; Date:3/9/14
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:;
+;;; split() splits a string into its two substrings.  
+;;; Receive: aString, the string to be split,         
+;;;        pos, the split position.                   
+;;; PRE: 0 <= pos < the length of aString.
+;;; Return: the substring of aString before pos, and  
+;;;         the substring of aString from pos onwards.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun split(theString position)
+"split theString into substrings parta,b, passed theString and a spliting position"
+ (setq part1 (substring theString 0 position)) ;set part1 to (create substring from theString)
+ (setq part2 (substring theString position));^^
+ (list part1 part2);creaete a list of the 2 substrings and return
+)
+split
+
+
+(defun main (aString pos)
+  (interactive "sEnter the string to be split: \nnEnter the split position")
+  (setq result (split aString pos))
+  (setq part1 (elt result 0))
+  (setq part2 (elt result 1))
+  (message "The first part is %s and the second part is %s" part1 part2))
+main
+
+
+(main "hello" 0)
+"The first part is  and the second part is hello"
+
+
+(main "hello" 3)
+"The first part is hel and the second part is lo"
+
+
+(main "hello" 5)
+"The first part is hello and the second part is "
+
+
+
+
+;;; split.el splits a string into two substrings.
+;;;
+;;; Input: aString, the string to be split,
+;;;        pos, the split position.
+;;; Output: the substring of aString before pos, and
+;;;         the substring of aString from pos onwards.
+;;;
+;;; Begun by: Dr. Adams, for CS 214 at Calvin College.
+;;; Completed by:Joshua Maguire
+;;; Date:3/9/14
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:;
+;;; split() splits a string into its two substrings.  
+;;; Receive: aString, the string to be split,         
+;;;        pos, the split position.                   
+;;; PRE: 0 <= pos < the length of aString.
+;;; Return: the substring of aString before pos, and  
+;;;         the substring of aString from pos onwards.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun split(theString position)
+"split theString into substrings parta,b, passed theString and a spliting position"
+ (setq part1 (substring theString 0 position)) ;set part1 to (create substring from theString)
+ (setq part2 (substring theString position));^^
+ (list part1 part2);creaete a list of the 2 substrings and return
+)
+
+
+(defun main (aString pos)
+  (interactive "sEnter the string to be split: \nnEnter the split position")
+  (setq result (split aString pos))
+  (setq part1 (elt result 0))
+  (setq part2 (elt result 1))
+  (message "The first part is %s and the second part is %s" part1 part2))
+
+
+(main "hello" 0)
+
+(main "hello" 3)
+
+(main "hello" 5)
+-----------------------------------------------------------
+-----------------------------------------------------------
+-----------------------------------------------------------
+Script started on Fri 07 Mar 2014 09:51:38 AM EST
+jlm54@backus-naur:~/214/labs/05/ruby$ cat split.rb
+# split.rb splits a string into two substrings.
+#
+# Input: A string and an integer string position to split the string by.
+# Precondition: The position integer is within the range of the string size.
+# Output: The substrings aString(0, position - 1) and
+#   aString(pos, length() - 1).
+#
+# Begun by: Prof. Adams, for CS 214 at Calvin College.
+# Completed by:Joshua Maguire
+# Date:3/7/14
+#################################################################
+
+
+# computeSplit() splits a string into its two substrings.
+# Receive: aString, the string to be split,       
+#        pos, the split position.                  
+# PRE: 0 <= pos < the length of aString.
+# Return: the substring of aString before pos, and  
+#         the substring of aString from pos onwards.
+######################################################
+
+def computeSplit(aString, pos)
+#Lots in one line, just puting Astring from pos to pos into strings part1 and part2, then putting those two strings into splitArray string.
+	splitArray = [part1=aString[0,pos], part2=aString[pos,aString.size]];
+end
+
+def main
+  print "To split a string, enter the string: "; 
+  the_string = gets
+  print "Enter the split position: "; 
+  position = gets.to_i
+  split_string = computeSplit(the_string, position)
+  puts "The first part is: " << split_string[0]
+  puts "and the second part is: " << split_string[1]
+end
+
+jlm54@backus-naur:~/214/labs/05/ruby$ ruby split.rb
+To split a string, enter the string: hello
+Enter the split position: 0
+The first part is: 
+and the second part is: hello
+jlm54@backus-naur:~/214/labs/05/ruby$ ruby split.rb
+To split a string, enter the string: hello
+Enter the split position: 3
+The first part is: hel
+and the second part is: lo
+jlm54@backus-naur:~/214/labs/05/ruby$ ruby split.rb
+To split a string, enter the string: hello
+Enter the split position: 5
+The first part is: hello
+and the second part is: 
+jlm54@backus-naur:~/214/labs/05/ruby$ exit
+
+Script done on Fri 07 Mar 2014 09:52:10 AM EST

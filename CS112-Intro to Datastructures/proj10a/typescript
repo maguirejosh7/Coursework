@@ -1,0 +1,735 @@
+Script started on Tue 07 May 2013 04:58:50 PM EDT
+jlm54@ritchie:~/cs112/proj10a$ ls
+Makefile    MatrixTester.cpp  results spreadsheet.gnumeric  tester	typescript
+Matrix.cpp  MatrixTester.h    runTimeTrials		    tester.cpp
+Matrix.h    MatrixTester.o    runTimeTrials.cpp		    tester.o
+Matrix.o    MatrixTimer.h     runTimeTrials.o		    testFiles
+jlm54@ritchie:~/cs112/proj10a$ make all
+Compiling: MatrixTester.cpp
+g++ -c -Wall -fopenmp MatrixTester.cpp
+ 
+Linking target: tester
+g++ tester.o MatrixTester.o Matrix.o -o tester -fopenmp
+Finished building target: tester
+ 
+jlm54@ritchie:~/cs112/proj10a$ cat matri[K[K[K[K[KMatrix.cpp,[K MatrixTimer.h runTimeTrialsc.[K[K.cpp tester.cpp [K
+/* Matrix.cpp defines non-trivial Matrix operations.
+ * Author: Joel C. Adams, for CS 112 at Calvin College.
+ * Copyright 2009, Joel C. Adams.  All rights reserved.
+ * Edited by Joshua Maguire on 5/7/13
+ */
+
+#include "Matrix.h"
+
+/* --- copy constructor
+ * Parameters: original, a Matrix
+ * Postcondition: I am a distinct copy of original.
+ */
+Matrix::Matrix(const Matrix& original) {
+	makeCopyOf(original);
+}
+
+/* --- utility method refactored from copy constructor and operator=
+ * Parameters: original, a Matrix
+ * Postcondition: I am a distinct copy of original.
+ *                 by Joshua Maguire on 5/7/13
+ */
+void Matrix::makeCopyOf(const Matrix& original) {
+	myRows = myColumns = 0;
+	myMatrix = NULL;
+	if (original.getRows() != 0) {
+		unsigned r = original.getRows();
+		unsigned c = original.getColumns();
+		allocate(r, c );
+		unsigned size = r*c;
+#pragma omp parallel for
+		for (unsigned i = 0; i < size; i++) {
+			myMatrix[i] = original.myMatrix[i];
+		}
+		myRows = r;
+		myColumns = c;
+	}
+}
+
+/* --- utility to allocate space dynamically
+ * Parameters: rows and columns, two unsigned ints.
+ * Precondition: rows > 0 && columns > 0.
+ * Postcondition: myMatrix points to a rows x columns block of memory.
+ */
+void Matrix::allocate(unsigned rows, unsigned columns) {
+	// avoid memory leak
+	if (myMatrix != NULL) {
+		deallocate();
+	}
+	// allocate block of memory
+	myMatrix = new Item[rows*columns];
+}
+
+/* --- utility to deallocate my storage, refactored from
+ *      destructor, operator=, and other destructive methods.
+ * Postcondition: my storage has been returned to the heap &&
+ *                 myMatrix == NULL && myRows == 0 && myColumns == 0.
+ */
+void Matrix::deallocate() {
+	// delete the array of Items
+	delete [] myMatrix;
+	// clean up
+	myMatrix = NULL;
+	myRows = myColumns = 0;
+}
+
+/* --- initialize the Matrix's elements to a common value
+ * Parameter: value, an Item.
+ * Postcondition: all elements in myMatrix == value.
+ *                 by Joshua Maguire on 5/7/13
+ */
+
+void Matrix::initialize(Item value) {
+	unsigned size = myRows * myColumns;
+#pragma omp parallel for
+	for (unsigned i = 0; i < size; i++) {
+		myMatrix[i] = value;
+	}
+}
+
+
+/* assignment
+ * Parameters: original, another Matrix.
+ * Postcondition: I am a copy of original && 
+ *                 I have not leaked any memory.
+ */
+Matrix& Matrix::operator=(const Matrix& original) {
+	if (this != &original) {
+		if (myRows > 0) {
+			deallocate();
+		}
+		makeCopyOf(original);
+	}
+	return *this;
+}
+
+/* addition
+ * Parameters: mat2, another Matrix.
+ * Precondition: mat2.getRows() == myRows &&
+ *               mat2.getColumns() == myColumns.
+ * Return: result, a Matrix with my dimensions
+ *          containing the sum of myself and mat2.
+ *                 by Joshua Maguire on 5/7/13
+ */
+Matrix Matrix::operator+(const Matrix& mat2) const {
+	if (myRows != mat2.getRows() || myColumns != mat2.getColumns() ) {
+		throw invalid_argument("Matrix::operator+: matrix dimensions mismatch");
+	}
+	Matrix result(myRows, myColumns);
+#pragma omp parallel for schedule(dynamic)
+	for (unsigned row = 0; row < myRows; row++) {
+		for (unsigned col = 0; col < myColumns; col++) {
+			result[row][col] = (*this)[row][col] + mat2[row][col] ;
+		}
+	}
+	return result;
+}
+
+
+/* transpose
+ * Return: result, containing a myColumns-by-myRows Matrix,
+ *                whose column values are my row values
+ *                 by Joshua Maguire on 5/7/13
+ */
+Matrix Matrix::transpose() const {
+   Matrix result(myColumns, myRows);
+   #pragma omp parallel for schedule(dynamic, 2)
+   for (unsigned row = 0; row < myRows; row++) {
+      for (unsigned col = 0; col < myColumns; col++) {
+         result[col][row] = (*this)[row][col];
+      }
+   }
+   return result;
+}
+
+/* --- output using *this
+ * Parameter: out, an ostream.
+ * Precondition: out is an open ostream
+ * Postcondition: my values have been inserted into out,
+ *                 with tab chars between each value.
+ */
+void Matrix::print(ostream& out) const {
+	for (unsigned i = 0; i < myRows; i++) {
+		for (unsigned j = 0; j < myColumns; j++) {
+			out << (*this)[i][j] << '\t';
+		}
+		out << '\n';
+	}
+}
+
+/* --- input using *this
+ * Parameter: in, an ostream.
+ * Precondition: in is an open istream
+ *                containing myRows x myColumns values.
+ * Post condition: I now contain a copy of the values from in.
+ */
+void Matrix::read(istream& in) {
+	for (unsigned i = 0; i < myRows; i++) {
+		for (unsigned j = 0; j < myColumns; j++) {
+			in >> (*this)[i][j];
+		}
+	}
+}
+
+/* --- input from file
+ * Parameter: fileName, a string.
+ * Precondition: fileName is the name of (or path to) a file,
+ *                 the first line of file is #rows #columns,
+ *                 and the remainder of which is rows x columns values.
+ * Postcondition: myRows == rows && myColumns == columns &&
+ *                 I contain the other values from fileName.
+ */
+void Matrix::fill(const string& fileName) {
+	ifstream fin( fileName.c_str() );
+	assert ( fin.is_open() );
+	unsigned rows, columns;
+	fin >> rows >> columns;
+	assert (rows > 0 && columns > 0);
+	myRows = rows; myColumns = columns;
+	allocate(rows, columns);
+	Item value;
+	for (unsigned i = 0; i < rows; i++) {
+		for (unsigned j = 0; j < columns; j++) {
+			fin >> value;
+			assert( !fin.eof() );
+			(*this)[i][j] = value;
+		}
+	}
+	fin.close();
+}
+
+/* --- output to a file
+ * Parameter: fileName, a String.
+ * Postcondition: the file named fileName contains myRows and myColumns on the first line,
+ *                and each subsequent line contains one of my rows.
+ */
+void Matrix::dump(const string& fileName) {
+	ofstream fout( fileName.c_str() );
+	assert( fout.is_open() );
+	fout << myRows << ' ' << myColumns << '\n';
+	this->print(fout);
+	fout.close();
+}
+
+
+
+/* --- boolean equality
+ * Parameter: mat2, a Matrix.
+ * Postcondition: true is returned, if and only if
+ *                 myRows == mat2.rows() &&
+ *                 myColumns == mat2.columns() &&
+ *                 my values are the same as mat2's values.
+ *                 by Joshua Maguire on 5/7/13
+ */
+bool Matrix::operator ==(const Matrix& mat2) const {
+	if (myColumns != mat2.getColumns() || myRows != mat2.getRows() ) {
+		return false;
+	}
+	bool result = true;
+
+#pragma omp parallel for schedule (dynamic,2)
+	for (unsigned i = 0; i < mat2.getRows(); i++) {
+		for (unsigned j = 0; j < mat2.getColumns(); j++) {
+			if ( (*this)[i][j] != mat2[i][j] )  {
+				result= false;
+			}
+		}
+	}
+
+	return result;
+}
+
+
+/* --- multiplication
+ * Parameters: mat2, a Matrix.
+ * Precondition: myColumns == mat2.rows().
+ * Postcondition: a Matrix is returned containing the product of
+ *                 my values and those of mat2.
+ *                 by Joshua Maguire on 5/7/13
+ */
+Matrix Matrix::operator*(const Matrix& mat2) const
+{
+	if (myColumns != mat2.getRows()){               // check dimensions
+		throw invalid_argument("Matrix::operator*(): invalid dimensions");
+	}
+
+	Matrix mat3(myRows, mat2.getColumns());             // build result Matrix
+#pragma omp parallel for schedule(dynamic)
+	for (unsigned i = 0; i < myRows; i++)               // for each of my rows:
+		for (unsigned j = 0; j < mat2.getColumns(); j++)  //  for each col in mat2:
+		{
+			double sum = 0;
+			for (unsigned k = 0; k < myColumns; k++)       //   for each of my columns:
+				sum += (*this)[i][k] * mat2[k][j];          //     sum the products
+			mat3[i][j] = sum;                           //     put sum in result
+		}
+	return mat3;                                        // return result matrix
+}
+
+/* MatrixTimer.h declares a class to record Matrix operations' timing data.
+ * Joel Adams, for CS 112 at Calvin College.
+ * Copyright Joel C. Adams, 2009.  All Rights Reserved.
+ *
+ * edited by Joshua Maguire on 5/7/13
+ */
+
+#ifndef MATRIX_TIMER
+#define MATRIX_TIMER
+
+#include <string>
+#include <fstream>  // ifstream, ofstream
+#include <iostream> // cin, cout, <<, >>
+#include <iomanip>  // setw()
+#include "Matrix.h" // Matrix class
+#include "omp.h"    // OpenMP library
+using namespace std;
+
+class MatrixTimer {
+public:
+	MatrixTimer(unsigned numTrials, const string& logFile);
+	~MatrixTimer();
+	void run();
+	void timeAddition();
+	void timeTranspose();
+	void timeMakeCopyOf();
+	void timeInitialize();
+	void timeEquals();
+	void timeMultiply();
+protected:
+	double average() const;
+private:
+	unsigned myNumTrials;
+	double*  myTrialTimes;
+	ofstream myLogStream;
+	Matrix	 myMatrix, myMatrix2;
+};
+
+/* explicit-value constructor
+ * Parameters: numTrials, the number of time-trials for each operation
+ *             logFile, a file where time-trial data are logged.
+ * Postcondition: my instance variables have all been initialized.
+ */
+
+inline 
+MatrixTimer::MatrixTimer(unsigned numTrials, const string& logFile) {
+	myNumTrials = numTrials;
+	myTrialTimes = new double[numTrials];
+	if (logFile != "") {
+		myLogStream.open( logFile.c_str() );
+	} 
+	cout << "\nLoading matrices..." << flush;
+	//	myMatrix.fill("testFiles/4096x4096.txt");
+	//	myMatrix2.fill("testFiles/4096x4096.txt");
+	myMatrix.fill("testFiles/1024x1024.txt");
+	myMatrix2.fill("testFiles/1024x1024.txt");
+}
+
+/* destructor
+ * Postcondition: my dynamic array has been returned to the heap &&
+ *                 my log file has been closed.
+ */
+inline 
+MatrixTimer::~MatrixTimer() {
+	delete [] myTrialTimes;
+	if ( myLogStream.is_open() ) {
+		myLogStream.close();
+	}
+}
+
+/* method to run time-trials
+ * Postcondition: my time-trials have been run.
+ */
+inline 
+void MatrixTimer::run() {
+	cout << endl;
+	timeAddition();
+	timeTranspose();
+	timeMakeCopyOf();
+	timeInitialize();
+	timeEquals();
+	timeMultiply();
+
+	cout << endl;
+}
+
+
+/* time the addition operation
+ * Postcondition: the addition operation has been performed
+ *                      myNumTrials times, &&
+ *                 myLogStream contains the time-trial times and
+ *                      their average &&
+ *                 an asterisk has been display on the screen
+ *                      for each time-trial &&
+ *                 their average has been displayed on the screen.
+ */
+inline 
+void MatrixTimer::timeAddition() {
+	cout << "Timing Matrix addition: \t" << flush;
+	myLogStream << fixed << "\nTiming Matrix addition ...\n";
+	double start = 0, stop = 0;
+	for (unsigned i = 0; i < myNumTrials; i++) {
+		cout << " * " << flush;
+		start = omp_get_wtime();
+		myMatrix + myMatrix2;
+		stop = omp_get_wtime();
+		myTrialTimes[i] = stop - start;
+		myLogStream << "\nTrial " << i << ": " << myTrialTimes[i];
+	}
+	double avgTime = average();
+	cout << '\t' << fixed << setw(7) << setprecision(5) << avgTime << endl;
+	myLogStream << "\nAverage: " << fixed << setw(7)  << setprecision(5)
+                				<< avgTime << endl;
+}
+
+/* utility method to average the time-trials in myTrialTimes.
+ * Precondition: myNumTrials > 0 &&
+ *                myTrialTimes contains that many trial-times
+ * Return: the average of the trial-times in myTrialTimes.
+ */
+inline 
+double MatrixTimer::average() const {
+	double sum = 0;
+	for (unsigned i = 0; i < myNumTrials; i++) {
+		sum += myTrialTimes[i];
+	}
+	return sum / myNumTrials;
+}
+
+/* time the transpose operation
+ * Postcondition: the transpose operation has been performed
+ *                      myNumTrials times, &&
+ *                 myLogStream contains the time-trial times and
+ *                      their average &&
+ *                 an asterisk has been display on the screen
+ *                      for each time-trial &&
+ *                 their average has been displayed on the screen.
+ */
+inline 
+void MatrixTimer::timeTranspose() {
+	cout << "Timing Matrix transpose: \t" << flush;
+	myLogStream << "\nTiming Matrix transpose ...\n";
+	double start = 0, stop = 0;
+	for (unsigned i = 0; i < myNumTrials; i++) {
+		cout << " * " << flush;
+		start = omp_get_wtime();
+		myMatrix.transpose();
+		stop = omp_get_wtime();
+		myTrialTimes[i] = stop - start;
+		myLogStream << "\nTrial " << i << ": " << myTrialTimes[i];
+	}
+	double avgTime = average();
+	cout << '\t' << fixed << setw(7) << setprecision(5) << avgTime << endl;
+	myLogStream << "\nAverage: "  << fixed << setw(7)  << setprecision(5)
+                    				<< avgTime << endl;
+}
+
+
+/* time the transpose operation
+ * Postcondition: the transpose operation has been performed
+ *                      myNumTrials times, &&
+ *                 myLogStream contains the time-trial times and
+ *                      their average &&
+ *                 an asterisk has been display on the screen
+ *                      for each time-trial &&
+ *                 their average has been displayed on the screen.
+ */
+inline
+void MatrixTimer::timeMakeCopyOf() {
+	cout << "Timing Matrix copy: \t\t" << flush;
+	myLogStream << fixed << "\nTiming Matrix makeCopyOf ...\n";
+	double start = 0, stop = 0;
+	for (unsigned i = 0; i < myNumTrials; i++) {
+		cout << " * " << flush;
+		start = omp_get_wtime();
+		Matrix myMatrix3;
+		myMatrix3=myMatrix;
+		stop = omp_get_wtime();
+		myTrialTimes[i] = stop - start;
+		myLogStream << "\nTrial " << i << ": " << myTrialTimes[i];
+	}
+	double avgTime = average();
+	cout << '\t' << fixed << setw(7) << setprecision(5) << avgTime << endl;
+	myLogStream << "\nAverage: " << fixed << setw(7)  << setprecision(5)
+                				<< avgTime << endl;
+}
+/* time the initialize operation
+ * Postcondition: the initialize operation has been performed
+ *                      myNumTrials times, &&
+ *                 myLogStream contains the time-trial times and
+ *                      their average &&
+ *                 an asterisk has been display on the screen
+ *                      for each time-trial &&
+ *                 their average has been displayed on the screen.
+ *                 by Joshua Maguire on 5/7/13
+ */
+inline
+void MatrixTimer:: timeInitialize() {
+	cout << "Timing Matrix initialize: \t" << flush;
+	myLogStream << "\nTiming Matrix initialize ...\n";
+	double start = 0, stop = 0;
+	for (unsigned i = 0; i < myNumTrials; i++) {
+		cout << " * " << flush;
+		Matrix myMatrix3;
+		myMatrix3=myMatrix;
+		start = omp_get_wtime();
+		myMatrix3.initialize(5);
+		stop = omp_get_wtime();
+		myTrialTimes[i] = stop - start;
+		myLogStream << "\nTrial " << i << ": " << myTrialTimes[i];
+	}
+	double avgTime = average();
+	cout << '\t' << fixed << setw(7) << setprecision(5) << avgTime << endl;
+	myLogStream << "\nAverage: "  << fixed << setw(7)  << setprecision(5)
+                    				<< avgTime << endl;
+}
+
+/* time the equals operator operation
+ * Postcondition: the == operation has been performed
+ *                      myNumTrials times, &&
+ *                 myLogStream contains the time-trial times and
+ *                      their average &&
+ *                 an asterisk has been display on the screen
+ *                      for each time-trial &&
+ *                 their average has been displayed on the screen.
+ *                 by Joshua Maguire on 5/7/13
+ */
+inline
+void MatrixTimer:: timeEquals() {
+	cout << "Timing Matrix Equals: \t\t" << flush;
+	myLogStream << "\nTiming Matrix Equals ...\n";
+	double start = 0, stop = 0;
+	for (unsigned i = 0; i < myNumTrials; i++) {
+		cout << " * " << flush;
+		start = omp_get_wtime();
+		myMatrix==myMatrix;
+		stop = omp_get_wtime();
+		myTrialTimes[i] = stop - start;
+		myLogStream << "\nTrial " << i << ": " << myTrialTimes[i];
+	}
+	double avgTime = average();
+	cout << '\t' << fixed << setw(7) << setprecision(5) << avgTime << endl;
+	myLogStream << "\nAverage: "  << fixed << setw(7)  << setprecision(5)
+                    				<< avgTime << endl;
+}
+
+
+/* time the operator*(multiply) operation
+ * Postcondition: the operator* operation has been performed
+ *                      myNumTrials times, &&
+ *                 myLogStream contains the time-trial times and
+ *                      their average &&
+ *                 an asterisk has been display on the screen
+ *                      for each time-trial &&
+ *                 their average has been displayed on the screen.
+ *                 by Joshua Maguire on 5/7/13
+ */
+inline
+void MatrixTimer:: timeMultiply() {
+	cout << "Timing Matrix Multiply: \t" << flush;
+	myLogStream << "\nTiming Matrix Multiply ...\n";
+	double start = 0, stop = 0;
+	for (unsigned i = 0; i < myNumTrials; i++) {
+		cout << " * " << flush;
+		start = omp_get_wtime();
+		myMatrix*myMatrix2;
+		stop = omp_get_wtime();
+		myTrialTimes[i] = stop - start;
+		myLogStream << "\nTrial " << i << ": " << myTrialTimes[i];
+	}
+	double avgTime = average();
+	cout << '\t' << fixed << setw(7) << setprecision(5) << avgTime << endl;
+	myLogStream << "\nAverage: "  << fixed << setw(7)  << setprecision(5)
+                    				<< avgTime << endl;
+}
+
+
+#endif
+
+
+/* runTimeTrials.cpp uses MatrixTimer to time different Matrix operations.
+ * Joel C. Adams, for CS 112 at Calvin College
+ * Copyright Joel C. Adams 2009.  All Rights Reserved.
+ */
+
+#include "MatrixTimer.h"
+#include "Matrix.h"
+#include <cstdlib>
+#include <fstream>
+using namespace std;
+
+string buildLogFileName(unsigned  numTrials);
+
+int main() {
+	unsigned numTrials = 10;	      // number of trials to average
+	string logFileName = buildLogFileName(numTrials);
+	omp_set_num_threads(16);
+	MatrixTimer matrixTimer(numTrials, logFileName);
+	matrixTimer.run();
+}
+
+/* utility method to build unique log-file names
+ * Parameter: numTrials, the number of trials to be performed
+ * Return: a unique file name incorporating numTrials
+ */
+string buildLogFileName(unsigned  numTrials) {
+	string emptyString = "";
+	char buf[16];
+	sprintf(buf, "%02d", numTrials);
+	string prefix = emptyString + "trials-" + buf;
+	string result = "";
+	ifstream fin;
+	unsigned count = 0;
+	while ( true ) {
+		count++;
+		sprintf(buf,"-%03d.txt", count);
+		result = prefix + buf;
+		fin.open(result.c_str());
+		if ( !fin.is_open() ) break;
+		fin.close();
+	}
+	fin.close();
+	return result;
+}
+
+/* tester.cpp runs the tests in this project
+ * ...
+ */
+
+#include "MatrixTester.h"
+
+void generateTestFile(unsigned SIZE);
+
+int main(int argc, char** argv) {
+//	const unsigned MAX = 4096;
+//	const unsigned MAX = 1024;
+//	generateTestFile(MAX);
+	MatrixTester mt;
+	mt.runTests();
+}
+
+
+/* function to generate a large Matrix datafile for testing
+ * Parameter: SIZE, the number of rows and columns
+ *              the test-matrix should have.
+ * Postcondition: a SIZExSIZE matrix has been created
+ *                 in a file named 'testFiles/SIZExSIZE.txt'.
+ */
+
+void generateTestFile(unsigned SIZE) {
+        char buf[32];
+        sprintf(buf, "testFiles/%dx%d.txt", SIZE, SIZE);
+	ofstream fout(buf);
+	assert( fout.is_open() );
+	fout << SIZE << " " << SIZE << endl;
+	for (unsigned i = 0; i < SIZE; i++) {
+		for (unsigned j = 0; j < SIZE; j++) {
+			fout << i*SIZE+j << '\t';
+		}
+		fout << '\n';
+	}
+	fout.close();
+}
+jlm54@ritchie:~/cs112/proj10a$ ./[K[Kcat Matrix.cpp MatrixTimer.h runTimeTrials.cpp tester.cpp[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cmake all[Kls[K./testermake allcat tester.cpp runTimeTrials.cpp Matrix.cpp MatrixTimer.h trials-100-055.txt[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./testerrunTests[2Pmake all[3Pcd ..make allcd Debugebug[1Pmake all[3Pcd ..make allls[Kcd Debugat trials-10-055.txtMatrix.cpp runTimeTrials.cpp MatrixTimer.h Trials-10-055.txt[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[K./runTimeTrials[7Pmake all./runTimeTrials
+
+Loading matrices...
+Timing Matrix addition: 	 *  *  *  *  *  *  *  *  *  * 	0.00379
+Timing Matrix transpose: 	 *  *  *  *  *  *  *  *  *  * 	0.00326
+Timing Matrix copy: 		 *  *  *  *  *  *  *  *  *  * 	0.00132
+Timing Matrix initialize: 	 *  *  *  *  *  *  *  *  *  * 	0.00076
+Timing Matrix Equals: 		 *  *  *  *  *  *  *  *  *  * 	0.00238
+Timing Matrix Multiply: 	 *  *  *  *  *  *  *  *  *  * 	4.07860
+
+jlm54@ritchie:~/cs112/proj10a$ cat trials-10-001.txt
+
+Timing Matrix addition ...
+
+Trial 0: 0.005075
+Trial 1: 0.003407
+Trial 2: 0.003469
+Trial 3: 0.003414
+Trial 4: 0.003291
+Trial 5: 0.003443
+Trial 6: 0.003260
+Trial 7: 0.005772
+Trial 8: 0.003476
+Trial 9: 0.003285
+Average: 0.00379
+
+Timing Matrix transpose ...
+
+Trial 0: 0.00320
+Trial 1: 0.00322
+Trial 2: 0.00330
+Trial 3: 0.00312
+Trial 4: 0.00316
+Trial 5: 0.00300
+Trial 6: 0.00366
+Trial 7: 0.00353
+Trial 8: 0.00332
+Trial 9: 0.00313
+Average: 0.00326
+
+Timing Matrix makeCopyOf ...
+
+Trial 0: 0.00140
+Trial 1: 0.00129
+Trial 2: 0.00139
+Trial 3: 0.00134
+Trial 4: 0.00123
+Trial 5: 0.00123
+Trial 6: 0.00135
+Trial 7: 0.00140
+Trial 8: 0.00128
+Trial 9: 0.00127
+Average: 0.00132
+
+Timing Matrix initialize ...
+
+Trial 0: 0.00074
+Trial 1: 0.00129
+Trial 2: 0.00092
+Trial 3: 0.00072
+Trial 4: 0.00067
+Trial 5: 0.00071
+Trial 6: 0.00071
+Trial 7: 0.00063
+Trial 8: 0.00063
+Trial 9: 0.00059
+Average: 0.00076
+
+Timing Matrix Equals ...
+
+Trial 0: 0.00234
+Trial 1: 0.00225
+Trial 2: 0.00242
+Trial 3: 0.00227
+Trial 4: 0.00227
+Trial 5: 0.00245
+Trial 6: 0.00252
+Trial 7: 0.00252
+Trial 8: 0.00249
+Trial 9: 0.00233
+Average: 0.00238
+
+Timing Matrix Multiply ...
+
+Trial 0: 3.64448
+Trial 1: 4.05635
+Trial 2: 4.19568
+Trial 3: 4.08855
+Trial 4: 3.99614
+Trial 5: 3.85368
+Trial 6: 3.89119
+Trial 7: 4.54351
+Trial 8: 4.42457
+Trial 9: 4.09184
+Average: 4.07860
+jlm54@ritchie:~/cs112/proj10a$ exit
+
+Script done on Tue 07 May 2013 05:03:30 PM EDT

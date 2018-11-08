@@ -1,0 +1,57 @@
+Script started on Mon 10 Feb 2014 05:34:40 PM EST
+jlm54@turing:~/214/projects/01/c++$ cat rectangle[K[K[K[K[K[K[K[K[K[K rectangle_area.cpp
+/* rectangle_area.cpp computes the area of a circle.
+ *
+ * Input: length and width of rectangle
+ * Precondition: The length and width are positive numbers.
+ * Output: The area of the rectangle.
+ *
+ * Begun by: Dr. Nelesen, for CS 214, at Calvin College.
+ * Completed by:Joshua Maguire
+ * Date:2/10/14
+ **********************************************************/
+
+#include <iostream>             // cin, cout, >>, <<
+using namespace std;
+
+/* function rectangleArea() computes a rectangle's area, given its length and width.
+ * Parameter: l,w  doubles
+ * Precondition: l,w are not negative.
+ * Returns: the area of the rectangle.
+ */
+double rectangleArea(double l,double w) {
+  return l*w;               // return the area
+}
+
+int main() {
+  cout << "To compute the area of a rectangle,\n enter its length... : ";
+  double w,l;                   // declare variables
+  cin >> l;                   // read length from the keyboard
+  cout << "\n now enter its width... : ";
+  cin >> w;                    // read length from the keyboard               
+  double area = rectangleArea(l,w);// call method to compute area
+                                   
+  cout << "The area is " << area << endl;// output area
+}
+jlm54@turing:~/214/projects/01/c++$ g++ rectangle_area.cpp -Wall -o cpp_rectangl e_area
+jlm54@turing:~/214/projects/01/c++$ ./cpp_rectangle_area [K
+To compute the area of a rectangle,
+ enter its length... : 1
+
+ now enter its width... : 2
+The area is 2
+jlm54@turing:~/214/projects/01/c++$ ./cpp_rectangle_area
+To compute the area of a rectangle,
+ enter its length... : .5
+
+ now enter its width... : 10
+The area is 5
+jlm54@turing:~/214/projects/01/c++$ ./cpp_rectangle_area
+To compute the area of a rectangle,
+ enter its length... : 100
+
+ now enter its width... : 200   7
+The area is 700
+jlm54@turing:~/214/projects/01/c++$ exit
+
+Script done on Mon 10 Feb 2014 05:36:13 PM EST

@@ -1,0 +1,55 @@
+Script started on Wed 05 Mar 2014 06:30:00 PM EST
+jlm54@babbage:~/214/projects/04/ruby$ cat fact.rb
+# fact.cpp displays the factorial of a positive number n.
+# Input: unsigned n
+# PRE: positive integer
+# Output: factorial of the number
+# Begun by Professor Adams? for CS 214 at Calvin COllege
+# Edited by Joshua Maguire
+#*******************************************************/
+
+
+# computeFact computes the factorial of a positive number n.
+# Input: unsigned n
+# PRE: positive integer
+# Output: factorial of the number
+def computeFact(n) #declare..
+	result=1 #set result to default 1
+	for i in 2..n #for loop
+		result=result*i
+	end 
+	puts result #print result
+end
+
+
+#main
+if __FILE__ == $0
+	print "\nTo compute n!, enter n: "
+	n = gets.chomp.to_i
+	print n
+	print "! = "
+	computeFact(n)
+end
+jlm54@babbage:~/214/projects/04/ruby$ ruby fact.rb
+
+To compute n!, enter n: 2
+2! = 2
+jlm54@babbage:~/214/projects/04/ruby$ ruby fact.rb
+
+To compute n!, enter n: 3
+3! = 6
+jlm54@babbage:~/214/projects/04/ruby$ ruby fact.rb
+
+To compute n!, enter n: 4
+4! = 24
+jlm54@babbage:~/214/projects/04/ruby$ ruby fact.rb
+
+To compute n!, enter n: 5
+5! = 120
+jlm54@babbage:~/214/projects/04/ruby$ ruby fact.rb
+
+To compute n!, enter n: 6
+6! = 720
+jlm54@babbage:~/214/projects/04/ruby$ exit
+
+Script done on Wed 05 Mar 2014 06:30:26 PM EST

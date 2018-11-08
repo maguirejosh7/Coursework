@@ -1,0 +1,5 @@
+c:\users\joshua\documents\visual studio 2012\Projects\LogLog Program\LogLog Program\bin\Debug\LogLog Program.exe.config
+c:\users\joshua\documents\visual studio 2012\Projects\LogLog Program\LogLog Program\bin\Debug\LogLog Program.exe
+c:\users\joshua\documents\visual studio 2012\Projects\LogLog Program\LogLog Program\bin\Debug\LogLog Program.pdb
+c:\users\joshua\documents\visual studio 2012\Projects\LogLog Program\LogLog Program\obj\Debug\LogLog Program.exe
+c:\users\joshua\documents\visual studio 2012\Projects\LogLog Program\LogLog Program\obj\Debug\LogLog Program.pdb

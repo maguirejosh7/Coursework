@@ -1,0 +1,5 @@
+c:\users\joshua\documents\visual studio 2012\Projects\CS Program 1\CS Program 1\bin\Debug\CS Program 1.exe.config
+c:\users\joshua\documents\visual studio 2012\Projects\CS Program 1\CS Program 1\bin\Debug\CS Program 1.exe
+c:\users\joshua\documents\visual studio 2012\Projects\CS Program 1\CS Program 1\bin\Debug\CS Program 1.pdb
+c:\users\joshua\documents\visual studio 2012\Projects\CS Program 1\CS Program 1\obj\Debug\CS Program 1.exe
+c:\users\joshua\documents\visual studio 2012\Projects\CS Program 1\CS Program 1\obj\Debug\CS Program 1.pdb

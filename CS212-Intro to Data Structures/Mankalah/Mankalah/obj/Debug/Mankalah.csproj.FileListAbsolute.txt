@@ -1,0 +1,12 @@
+c:\users\magui_000\documents\visual studio 2013\Projects\Mankalah\Mankalah\bin\Debug\Mankalah.exe.config
+c:\users\magui_000\documents\visual studio 2013\Projects\Mankalah\Mankalah\bin\Debug\Mankalah.exe
+c:\users\magui_000\documents\visual studio 2013\Projects\Mankalah\Mankalah\bin\Debug\Mankalah.pdb
+c:\users\magui_000\documents\visual studio 2013\Projects\Mankalah\Mankalah\obj\Debug\Mankalah.csprojResolveAssemblyReference.cache
+c:\users\magui_000\documents\visual studio 2013\Projects\Mankalah\Mankalah\obj\Debug\Mankalah.exe
+c:\users\magui_000\documents\visual studio 2013\Projects\Mankalah\Mankalah\obj\Debug\Mankalah.pdb
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\Mankalah\Mankalah\bin\Debug\Mankalah.exe.config
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\Mankalah\Mankalah\obj\Debug\Mankalah.exe
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\Mankalah\Mankalah\obj\Debug\Mankalah.pdb
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\Mankalah\Mankalah\bin\Debug\Mankalah.exe
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\Mankalah\Mankalah\bin\Debug\Mankalah.pdb
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\Mankalah\Mankalah\obj\Debug\Mankalah.csprojResolveAssemblyReference.cache

@@ -1,0 +1,15 @@
+c++
+-build:    g++ SourceFileName.cpp -Wall -o BinaryFileName
+
+ada
+-gnatmake circle_area
+
+elisp
+-xemacs &
+	-Ctrl-x b for scratch buffer
+	-Ctrl-j to test function
+	-M-x [program/funct name]
+	-Ctrl-x Ctrl-w saves
+	-Ctrl-h f for help, then type name of function to documentation
+	-M-x lisp-interaction-mode
+
